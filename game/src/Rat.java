@@ -6,16 +6,18 @@ public class Rat extends Piece {
 
     @Override
     public boolean canMove(Board board, Spot start, Spot end){
-        boolean canMove = false;
         if((start.getX() == end.getX() && Math.abs(start.getY()-end.getY()) == 1) || (start.getY() == end.getY() && Math.abs(start.getX()-end.getX()) == 1)){
             if(end.getPiece() == null){
-                canMove = true;
+                return true;
             }
             else if((end.getPiece().getName() == "ELEPHANT" || end.getPiece().getName() == "RAT") && end.getPiece().getColor() != start.getPiece().getColor() && start.getSpotType() != Spot.SpotType.WATER){
-                canMove = true;
+                return true;
+            }
+            else if((start.getPiece().getColor() == Color.RED && end.getSpotType() == Spot.SpotType.BASERED) ||(start.getPiece().getColor() == Color.YELLOW && end.getSpotType() == Spot.SpotType.BASEYELLOW) ){
+                return false;
             }
         }
-        return canMove;
+        return false;
     }
 
 }
