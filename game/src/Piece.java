@@ -5,10 +5,12 @@ public abstract class Piece {
     }
     private Color color;
     private String name;
+    private int animalPower;
 
-    public Piece(Color color, String name){
+    public Piece(Color color, String name, int animalPower){
         this.color = color;
         this.name = name;
+        this.animalPower = animalPower;
     }
 
     public Piece(Color color2){
