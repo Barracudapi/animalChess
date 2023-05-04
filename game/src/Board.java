@@ -33,12 +33,12 @@ public class Board {
 
     public static void main(String[] args) {
         for(int i = 0; i < ROW_SIZE; i++){
-            for(int j = 0; i < COLUMN_SIZE; j++){
-                if(Spots[i][j] == null){
+            for(int j = 0; j < COLUMN_SIZE; j++){
+                if(INITIAL_SPOTS[i][j] == null){
                     System.out.print("_");
                 }
                 else{
-                    System.out.print(Spots[i][j]);
+                    System.out.print(INITIAL_SPOTS[i][j]);
                 }
             }
             System.out.print("\n");

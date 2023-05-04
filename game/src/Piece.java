@@ -13,6 +13,12 @@ public abstract class Piece {
         this.animalPower = animalPower;
     }
 
+    @Override
+    public String toString(){
+        String string = this.name;
+        return string;
+    }
+
     public Color getColor(){
         return color;
     }
