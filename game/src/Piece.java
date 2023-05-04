@@ -26,6 +26,7 @@ public abstract class Piece {
 
     public abstract boolean canMove(Board board, Spot start, Spot end);
 
+
     public boolean isValidMove(Move move, Board board){
         return canMove(board, move.getStartPosition(), move.getEndPosition());
     }

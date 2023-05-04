@@ -7,11 +7,13 @@ public class Spot {
     private int x;
     private int y;
     private Piece piece;
+    private SpotType type;
 
     public Spot(int x, int y){
         this.x = x;
         this.y = y;
         this.piece = null;
+        this.type = type;
     }
 
     public int getX(){
@@ -28,5 +30,9 @@ public class Spot {
 
     public void setPiece(Piece piece){
         this.piece = piece;
+    }
+
+    public SpotType getSpotType(){
+        return type;
     }
 }
