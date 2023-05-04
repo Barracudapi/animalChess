@@ -13,15 +13,15 @@ public abstract class Piece {
         this.animalPower = animalPower;
     }
 
-    public Piece(Color color2){
-    }
-
     public Color getColor(){
         return color;
     }
 
     public String getName(){
         return name;
+    }
+    public int getAnimalPower() {
+        return animalPower;
     }
 
     public abstract boolean canMove(Board board, Spot start, Spot end);
