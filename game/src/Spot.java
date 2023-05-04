@@ -1,4 +1,9 @@
 public class Spot {
+
+    public enum SpotType{
+        LAND, WATER, TRAPRED, TRAPYELLOW, BASERED, BASEYELLOW
+    }
+
     private int x;
     private int y;
     private Piece piece;
