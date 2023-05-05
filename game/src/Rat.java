@@ -10,10 +10,10 @@ public class Rat extends Piece {
             if(end.getPiece() == null){
                 return true;
             }
-            else if((end.getPiece().getName() == "ELEPHANT" || end.getPiece().getName() == "RAT") && end.getPiece().getColor() != start.getPiece().getColor() && start.getSpotType() != Spot.SpotType.WATER){
+            else if((end.getPiece().getName() == "ELEPHANT" || end.getPiece().getName() == "RAT") && end.getPiece().getColor() != start.getPiece().getColor() && start.getSpotType() != Spot.Type.WATER){
                 return true;
             }
-            else if((start.getPiece().getColor() == Color.RED && end.getSpotType() == Spot.SpotType.BASERED) ||(start.getPiece().getColor() == Color.YELLOW && end.getSpotType() == Spot.SpotType.BASEYELLOW) ){
+            else if((start.getPiece().getColor() == Color.RED && end.getSpotType() == Spot.Type.BASERED) ||(start.getPiece().getColor() == Color.YELLOW && end.getSpotType() == Spot.Type.BASEYELLOW) ){
                 return false;
             }
         }

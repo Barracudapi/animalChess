@@ -9,6 +9,13 @@ public class Move {
         this.end = end;
     }
 
+    public boolean isCapture(){
+        if(end.getPiece() == null){
+            return false;
+        }
+        return true;
+    }
+
     public Player getPlayer() {
         return player;
     }
@@ -19,13 +26,5 @@ public class Move {
 
     public Spot getEnd() {
         return end;
-    }
-
-    public Spot getStartPosition(){
-        return null;
-    }
-
-    public Spot getEndPosition() {
-        return null;
     }
 }

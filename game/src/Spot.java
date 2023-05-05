@@ -1,19 +1,31 @@
 public class Spot {
 
-    public enum SpotType{
+    public enum Type{
         LAND, WATER, TRAPRED, TRAPYELLOW, BASERED, BASEYELLOW
     }
 
     private int x;
     private int y;
     private Piece piece;
-    private SpotType type;
+    private Type type;
 
-    public Spot(int x, int y){
-        this.x = x;
-        this.y = y;
-        this.piece = null;
+    public Spot(int row, int column, Piece piece, Type type){
+        this.x = row - 1;
+        this.y = column - 1;
+        this.piece = piece;
         this.type = type;
+    }
+
+    @Override
+    public String toString(){
+        String string;
+        if(this.piece == null){
+            return "0";
+        }
+        else{
+            string = this.piece.getName();
+        }
+        return string;
     }
 
     public int getX(){
@@ -32,7 +44,7 @@ public class Spot {
         this.piece = piece;
     }
 
-    public SpotType getSpotType(){
+    public Type getSpotType(){
         return type;
     }
 }

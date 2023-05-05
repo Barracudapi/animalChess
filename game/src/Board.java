@@ -6,42 +6,68 @@ public class Board {
     private static final String[] COLUMN_LABEL = {"1", "2", "3", "4", "5", "6", "7"};
     private static final String[] ROW_LABEL = {"9", "8", "7", "6", "5", "4", "3", "2", "1"};
 
-    private static final Piece[][] INITIAL_SPOTS = {
-            {null, null, null, null, null, null, null},
-            {null, new Dog(Piece.Color.RED, "DOG", 3), null, null, null, new Cat(Piece.Color.RED, "CAT", 2), null},
-            {new Rat(Piece.Color.RED, "RAT", 1), null, new Leopard(Piece.Color.RED, "LEOPARD", 5), null, new Wolf(Piece.Color.RED, "WOLF", 4), null, null},
-            {null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null},
-            {null, null, null, null, null, null, null},
-            {null, null, new Wolf(Piece.Color.YELLOW, "WOLF", 4), null, new Leopard(Piece.Color.YELLOW, "LEOPARD", 5), null, new Rat(Piece.Color.YELLOW, "RAT", 1)},
-            {null, new Cat(Piece.Color.YELLOW, "CAT", 2), null, null, null, new Dog(Piece.Color.YELLOW, "DOG", 3), null},
-            {null, null, null, null, null, null, null}
+    public static final Spot[][] INITIAL_SPOTS = {
+            {new Spot(1,1, null, Spot.Type.LAND), new Spot(1,2, null, Spot.Type.LAND), new Spot(1,3, null, Spot.Type.TRAPRED), new Spot(1,4, null, Spot.Type.BASERED), new Spot(1,5, null, Spot.Type.TRAPRED), new Spot(1,6, null, Spot.Type.LAND), new Spot(1,7, null, Spot.Type.LAND)},
+            {new Spot(2,1, null, Spot.Type.LAND), new Spot(2,2, new Dog(Piece.Color.RED, "DOG", 3), Spot.Type.LAND), new Spot(2,3, null, Spot.Type.LAND), new Spot(2,4, null, Spot.Type.TRAPRED), new Spot(2,5, null, Spot.Type.LAND), new Spot(2,6, new Cat(Piece.Color.RED, "CAT", 2), Spot.Type.LAND), new Spot(2,7, null, Spot.Type.LAND)},
+            {new Spot(3,1, new Rat(Piece.Color.RED, "RAT", 1), Spot.Type.LAND), new Spot(3,2, null, Spot.Type.LAND), new Spot(3,3, new Leopard(Piece.Color.YELLOW, "LEOPARD",5 ), Spot.Type.LAND), new Spot(3,4, null, Spot.Type.LAND), new Spot(3,5, new Wolf(Piece.Color.RED, "WOLF", 4), Spot.Type.LAND), new Spot(3,6, null, Spot.Type.LAND), new Spot(3,7, null, Spot.Type.LAND)},
+            {new Spot(4,1, null, Spot.Type.LAND), new Spot(4,2, null, Spot.Type.WATER), new Spot(4,3, null, Spot.Type.WATER), new Spot(4,4, null, Spot.Type.LAND), new Spot(4,5, null, Spot.Type.WATER), new Spot(4,6, null, Spot.Type.WATER), new Spot(4,7, null, Spot.Type.LAND)},
+            {new Spot(5,1, null, Spot.Type.LAND), new Spot(5,2, null, Spot.Type.WATER), new Spot(5,3, null, Spot.Type.WATER), new Spot(5,4, null, Spot.Type.LAND), new Spot(5,5, null, Spot.Type.WATER), new Spot(5,6, null, Spot.Type.WATER), new Spot(5,7, null, Spot.Type.LAND)},
+            {new Spot(6,1, null, Spot.Type.LAND), new Spot(6,2, null, Spot.Type.WATER), new Spot(6,3, null, Spot.Type.WATER), new Spot(6,4, null, Spot.Type.LAND), new Spot(6,5, null, Spot.Type.WATER), new Spot(6,6, null, Spot.Type.WATER), new Spot(6,7, null, Spot.Type.LAND)},
+            {new Spot(7,1, null, Spot.Type.LAND), new Spot(7,2, null, Spot.Type.LAND), new Spot(7,3, new Wolf(Piece.Color.YELLOW, "WOLF",4 ), Spot.Type.LAND), new Spot(7,4, null, Spot.Type.LAND), new Spot(7,5, new Leopard(Piece.Color.YELLOW, "LEOPARD", 5), Spot.Type.LAND), new Spot(7,6, null, Spot.Type.LAND), new Spot(7,7, new Rat(Piece.Color.YELLOW, "RAT", 1), Spot.Type.LAND)},
+            {new Spot(8,1, null, Spot.Type.LAND), new Spot(8,2, new Cat(Piece.Color.YELLOW, "CAT", 2), Spot.Type.LAND), new Spot(8,3, null, Spot.Type.LAND), new Spot(8,4, null, Spot.Type.TRAPYELLOW), new Spot(8,5, null, Spot.Type.LAND), new Spot(8,6, new Dog(Piece.Color.YELLOW, "DOG", 3), Spot.Type.LAND), new Spot(8,7, null, Spot.Type.LAND)},
+            {new Spot(9,1, null, Spot.Type.LAND), new Spot(9,2, null, Spot.Type.LAND), new Spot(9,3, null, Spot.Type.TRAPYELLOW), new Spot(9,4, null, Spot.Type.BASEYELLOW), new Spot(9,5, null, Spot.Type.TRAPYELLOW), new Spot(9,6, null, Spot.Type.LAND), new Spot(9,7, null, Spot.Type.LAND)},
     };
 
-    private static Piece[][] Spots;
+    private static Spot[][] Spots;
     private List<Piece> capturedPieces;
 
     public Board() {
-        Spots = new Piece[ROW_SIZE][COLUMN_SIZE];
+        Spots = new Spot[ROW_SIZE][COLUMN_SIZE];
         for(int i = 0; i < ROW_SIZE; i++){
-            for(int j = 0; i < COLUMN_SIZE; j++){
+            for(int j = 0; j < COLUMN_SIZE; j++){
                 Spots[i][j] = INITIAL_SPOTS[i][j];
             }
         }
         capturedPieces = new ArrayList<>();
     }
 
-    public static void main(String[] args) {
+    public void printBoard() {
         for(int i = 0; i < ROW_SIZE; i++){
             for(int j = 0; j < COLUMN_SIZE; j++){
-                if(INITIAL_SPOTS[i][j] == null){
+                if(Spots[i][j] == null){
                     System.out.print("_");
                 }
                 else{
-                    System.out.print(INITIAL_SPOTS[i][j]);
+                    System.out.print(Spots[i][j]);
                 }
             }
             System.out.print("\n");
         }
     }
+
+    public void movePiece(Move move){
+        Spot piece = getPieceAtSpot(move.getStart());
+        if(move.isCapture()){
+            capturedPieces.add(getPieceAtSpot(move.getEnd()).getPiece());
+        }
+        setPieceAtSpot(move.getStart(), null);
+        setPieceAtSpot(move.getEnd(), piece);
+    }
+
+    public void printCapturedPieces(){
+        for(Piece p: capturedPieces){
+            System.out.print(p);
+        }
+        System.out.print("\n");
+    }
+
+
+
+    public Spot getPieceAtSpot(Spot spot){
+        return Spots[spot.getX()][spot.getY()];
+    }
+
+     public void setPieceAtSpot(Spot spot, Spot piece){
+        Spots[spot.getX()][spot.getY()] = piece;
+     }
 }
