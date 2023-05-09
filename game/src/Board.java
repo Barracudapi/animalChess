@@ -34,7 +34,7 @@ public class Board {
     public void printBoard() {
         for(int i = 0; i < ROW_SIZE; i++){
             for(int j = 0; j < COLUMN_SIZE; j++){
-                if(Spots[i][j] == null){
+                if(Spots[i][j].getPiece() == null){
                     System.out.print("0  ");
                 }
                 else{
@@ -46,13 +46,13 @@ public class Board {
     }
 
     public void movePiece(Move move){
-        Spot piece = getPieceAtSpot(move.getStart());
+        Spot piece = getSpot(move.getStart());
         if(piece.getPiece().isValidMove(move, Spots)){
             if(move.isCapture()){
-                capturedPieces.add(getPieceAtSpot(move.getEnd()).getPiece());
+                capturedPieces.add(getSpot(move.getEnd()).getPiece());
             }
-            setPieceAtSpot(move.getStart(), null);
-            setPieceAtSpot(move.getEnd(), piece);
+            move.getEnd().setPiece(piece.getPiece());
+            move.getStart().setPiece(null);
         }
     }
 
@@ -65,13 +65,13 @@ public class Board {
 
 
 
-    public Spot getPieceAtSpot(Spot spot){
+    public Spot getSpot(Spot spot){
         return Spots[spot.getX()][spot.getY()];
     }
 
-     public void setPieceAtSpot(Spot spot, Spot piece){
+    public void setPieceAtSpot(Spot spot, Spot piece){
         Spots[spot.getX()][spot.getY()] = piece;
-     }
+    }
     public Spot[][] getSpots() {
         return Spots;
     }
