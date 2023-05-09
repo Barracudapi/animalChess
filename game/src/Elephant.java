@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Elephant extends Piece{
 
         public Elephant(Color color, String name, int animalPower){
@@ -14,12 +16,22 @@ public class Elephant extends Piece{
             else if(end.getSpotType() == Spot.Type.WATER){
                 return false;
             }
+            if(end.getPiece() != null){
+                if(start.getPiece().getColor() == end.getPiece().getColor()){
+                    return false;
+                }
+            }
             if((start.getX() == end.getX() && Math.abs(start.getY()-end.getY()) == 1) || (start.getY() == end.getY() && Math.abs(start.getX()-end.getX()) == 1)){
                 if(end.getPiece() == null){
                     return true;
                 }
                 else if(end.getPiece().getAnimalPower()<= start.getPiece().getAnimalPower()){
-                    return true;
+                    if(end.getPiece().getName() == "RAT"){
+                        return false;
+                    }
+                    else{
+                     return true;
+                    }
                 }
             }
             return false;

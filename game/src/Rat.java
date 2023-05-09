@@ -1,3 +1,5 @@
+import java.util.Objects;
+
 public class Rat extends Piece {
 
     public Rat(Color color, String name, int animalPower){
@@ -5,16 +7,27 @@ public class Rat extends Piece {
     }
 
     @Override
-    public boolean canMove(Spot[][] board, Spot start, Spot end){
+    public boolean canMove(Spot[][] board, Spot start, Spot end) {
+        if(end.getSpotType() == Spot.Type.BASERED && start.getPiece().getColor() == Color.RED){
+            return false;
+        }
+        else if(end.getSpotType() == Spot.Type.BASEYELLOW && start.getPiece().getColor() == Color.YELLOW){
+            return false;
+        }
+        else if(end.getSpotType() == Spot.Type.WATER){
+            return false;
+        }
+        if(end.getPiece() != null){
+            if(start.getPiece().getColor() == end.getPiece().getColor()){
+                return false;
+            }
+        }
         if((start.getX() == end.getX() && Math.abs(start.getY()-end.getY()) == 1) || (start.getY() == end.getY() && Math.abs(start.getX()-end.getX()) == 1)){
             if(end.getPiece() == null){
                 return true;
             }
-            else if((end.getPiece().getName() == "ELEPHANT" || end.getPiece().getName() == "RAT") && end.getPiece().getColor() != start.getPiece().getColor() && start.getSpotType() == end.getSpotType()){
+            else if(end.getPiece().getAnimalPower()<= start.getPiece().getAnimalPower() || end.getPiece().getName() == "ELEPHANT"){
                 return true;
-            }
-            else if((start.getPiece().getColor() == Color.RED && end.getSpotType() == Spot.Type.BASERED) ||(start.getPiece().getColor() == Color.YELLOW && end.getSpotType() == Spot.Type.BASEYELLOW) ){
-                return false;
             }
         }
         return false;

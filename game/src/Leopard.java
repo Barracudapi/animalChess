@@ -14,6 +14,11 @@ public class Leopard extends Piece{
         else if(end.getSpotType() == Spot.Type.WATER){
             return false;
         }
+        if(end.getPiece() != null){
+         if(start.getPiece().getColor() == end.getPiece().getColor()){
+                return false;
+        }
+        }
         if((start.getX() == end.getX() && Math.abs(start.getY()-end.getY()) == 1) || (start.getY() == end.getY() && Math.abs(start.getX()-end.getX()) == 1)){
             if(end.getPiece() == null){
                 return true;
