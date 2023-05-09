@@ -12,12 +12,13 @@ public class GameFrame extends JFrame {
         super("Jungle Chess");
         this.game = game;
         setTitle("Jungle Chess Game");
-        setSize(1200, 800);
+        setSize(800, 600);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        boardPanel = new BoardPanel(this.game.getBoard());
+        boardPanel = new BoardPanel(this.game);
         sidePanel = new SidePanel(this.game);
         setLayout(new BorderLayout());
+        boardPanel.setPreferredSize(boardPanel.getPreferredSize());
 
         add(boardPanel, BorderLayout.CENTER);
         add(sidePanel, BorderLayout.LINE_END);
