@@ -1,5 +1,7 @@
 public class Spot {
 
+    public boolean canMove;
+
     public enum Type{
         LAND, WATER, TRAPRED, TRAPYELLOW, BASERED, BASEYELLOW
     }
@@ -9,9 +11,9 @@ public class Spot {
     private Piece piece;
     private Type type;
 
-    public Spot(int row, int column, Piece piece, Type type){
-        this.x = row - 1;
-        this.y = column - 1;
+    public Spot(int x, int y, Piece piece, Type type){
+        this.x = x - 1;
+        this.y = y - 1;
         this.piece = piece;
         this.type = type;
     }
@@ -19,11 +21,20 @@ public class Spot {
     @Override
     public String toString(){
         String string;
-        if(this.piece == null){
-            return "0";
+        if(this.piece == null && this.getSpotType() == Type.LAND){
+            return "L  ";
+        }
+        else if(this.piece == null && this.getSpotType() == Type.WATER){
+            return "W  ";
+        }
+        else if(this.piece == null && (this.getSpotType() == Type.BASERED || this.getSpotType() == Type.BASEYELLOW)){
+            return "B  ";
+        }
+        else if(this.piece == null && (this.getSpotType() == Type.TRAPRED || this.getSpotType() == Type.TRAPYELLOW)){
+            return "T  ";
         }
         else{
-            string = this.piece.getName();
+            string = this.piece.getName() + "  ";
         }
         return string;
     }

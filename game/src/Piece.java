@@ -30,10 +30,10 @@ public abstract class Piece {
         return animalPower;
     }
 
-    public abstract boolean canMove(Board board, Spot start, Spot end);
+    public abstract boolean canMove(Spot[][] board, Spot start, Spot end);
 
 
-    public boolean isValidMove(Move move, Board board){
+    public boolean isValidMove(Move move, Spot[][] board){
         return canMove(board, move.getStart(), move.getEnd());
     }
 
