@@ -47,12 +47,14 @@ public class Board {
 
     public void movePiece(Move move){
         Spot piece = getSpot(move.getStart());
-        if(piece.getPiece().isValidMove(move, Spots)){
-            if(move.isCapture()){
-                capturedPieces.add(getSpot(move.getEnd()).getPiece());
+        if(piece.getPiece() != null){
+            if(piece.getPiece().isValidMove(move, Spots)){
+                if(move.isCapture()){
+                    capturedPieces.add(getSpot(move.getEnd()).getPiece());
+                }
+                setPieceAtSpot(move.getEnd(), piece.getPiece());
+                setPieceAtSpot(move.getStart(), null);
             }
-            setPieceAtSpot(move.getEnd(), piece.getPiece());
-            setPieceAtSpot(move.getStart(), null);
         }
     }
 
