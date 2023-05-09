@@ -32,6 +32,9 @@ public class BoardPanel extends JPanel {
                 else {
                     squares[row][col].setBackground(Color.BLUE);
                 }
+                if(this.spots[row][col].getPiece() != null){
+                    squares[row][col].add(new JLabel(this.spots[row][col].getPiece().getName()));
+                }
                 this.add(squares[row][col]);
             }
         }

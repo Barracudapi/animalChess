@@ -11,6 +11,7 @@ public class Game extends JFrame implements ActionListener {
     private Player player2;
     private Player currentPlayer;
     private boolean gameOver;
+    private int turn;
 
     public Game() {
         board = new Board();
@@ -18,6 +19,7 @@ public class Game extends JFrame implements ActionListener {
         player2 = new Player("Player 2", Piece.Color.RED);
         currentPlayer = player1;
         gameOver = false;
+        turn = 0;
     }
 
     public void setVisible(boolean b) {
@@ -49,5 +51,11 @@ public class Game extends JFrame implements ActionListener {
     }
     public void setGameOver(boolean gameOver) {
         this.gameOver = gameOver;
+    }
+    public int getTurn() {
+        return turn;
+    }
+    public void setTurn(int turn) {
+        this.turn = turn;
     }
 }
