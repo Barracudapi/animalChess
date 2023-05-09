@@ -72,4 +72,7 @@ public class Board {
      public void setPieceAtSpot(Spot spot, Spot piece){
         Spots[spot.getX()][spot.getY()] = piece;
      }
+    public Spot[][] getSpots() {
+        return Spots;
+    }
 }

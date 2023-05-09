@@ -6,6 +6,7 @@ public class StartingPage extends JFrame implements ActionListener {
 
     private JButton startButton;
     private JButton exitButton;
+    private BoardPanel boardPanel;
 
     public StartingPage() {
         setTitle("Jungle Chess Game");
@@ -13,8 +14,9 @@ public class StartingPage extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
+        
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(3, 1));
+        panel.setLayout(new GridLayout(3, 2));
         panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
         
         JLabel label = new JLabel("Welcome to Jungle Chess Game!");
@@ -38,7 +40,9 @@ public class StartingPage extends JFrame implements ActionListener {
         if (e.getSource() == startButton) {
             // Open the chess game window
             Game game = new Game();
-            game.setVisible(true);
+            GameFrame gamePanel = new GameFrame(game);
+            
+            gamePanel.setVisible(true);
             dispose(); // close the starting page window
         } else if (e.getSource() == exitButton) {
             // Exit the game
