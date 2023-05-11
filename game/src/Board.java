@@ -18,7 +18,7 @@ public class Board {
             {new Spot(9,1, new Tiger(Piece.Color.YELLOW, "TIGER", 7), Spot.Type.LAND), new Spot(9,2, null, Spot.Type.LAND), new Spot(9,3, null, Spot.Type.TRAPYELLOW), new Spot(9,4, null, Spot.Type.BASEYELLOW), new Spot(9,5, null, Spot.Type.TRAPYELLOW), new Spot(9,6, null, Spot.Type.LAND), new Spot(9,7, new Lion(Piece.Color.YELLOW, "LION", 8), Spot.Type.LAND)},
     };
 
-    private static Spot[][] Spots;
+    public static Spot[][] Spots;
     private List<Piece> capturedPieces;
 
     public Board() {

@@ -31,7 +31,7 @@ public class Elephant extends Piece{
                 if(end.getSpotType() == Spot.Type.TRAPYELLOW && end.getPiece().getColor() == Color.RED) {
                     return true;
                 }
-                else if(end.getPiece().getAnimalPower()<= start.getPiece().getAnimalPower()){
+                if(end.getPiece().getAnimalPower()<= start.getPiece().getAnimalPower()){
                     if(end.getPiece().getName() == "RAT"){
                         return false;
                     }

@@ -29,10 +29,10 @@ public class Rat extends Piece {
             if(end.getSpotType() == Spot.Type.TRAPYELLOW && end.getPiece().getColor() == Color.RED) {
                 return true;
             }
-            else if(end.getPiece().getAnimalPower()<= start.getPiece().getAnimalPower() || end.getPiece().getName() == "ELEPHANT" && start.getSpotType() != Spot.Type.WATER){
+            if((end.getPiece().getAnimalPower()<= start.getPiece().getAnimalPower() || end.getPiece().getName() == "ELEPHANT") && (start.getSpotType() != Spot.Type.WATER && end.getSpotType() == Spot.Type.LAND)){
                 return true;
             }
-            else if(end.getSpotType() == Spot.Type.WATER){
+            if(start.getSpotType() == Spot.Type.WATER && end.getSpotType() == Spot.Type.WATER){
                 return true;
             }
         }
