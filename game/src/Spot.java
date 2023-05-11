@@ -46,8 +46,8 @@ public class Spot {
         Spot[][] spots = Board.Spots;
         Player player = new Player("t", Piece.Color.YELLOW);
         Spot start = new Spot(x + 1, y + 1, piece, type);
-        for(int i = 0; i < 8; i++){
-            for(int j = 0; j < 6; j++){
+        for(int i = 0; i < 9; i++){
+            for(int j = 0; j < 7; j++){
                 Move move = new Move(player, start, spots[i][j]);
                 if(start.getPiece() != null){
                     if(start.getPiece().isValidMove(move, spots)){

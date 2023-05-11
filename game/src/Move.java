@@ -12,7 +12,7 @@ public class Move {
     }
     @Override
     public String toString(){
-        String string = String.format("%d %d   ", end.getX(), end.getY());
+        String string = String.format("[%d %d]\t", end.getX(), end.getY());
         return string;
     }
 
