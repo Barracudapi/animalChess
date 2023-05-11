@@ -13,6 +13,12 @@ public class Dog extends Piece {
         else if(end.getSpotType() == Spot.Type.WATER){
             return false;
         }
+        if(end.getSpotType() == Spot.Type.TRAPRED && end.getPiece().getColor() == Color.YELLOW){
+            return true;
+        }
+        if(end.getSpotType() == Spot.Type.TRAPYELLOW && end.getPiece().getColor() == Color.RED){
+            return true;
+        }
         if(end.getPiece() != null){
             if(start.getPiece().getColor() == end.getPiece().getColor()){
                 return false;
