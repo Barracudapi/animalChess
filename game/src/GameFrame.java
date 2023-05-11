@@ -3,7 +3,8 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-public class GameFrame extends JFrame {
+
+public class GameFrame extends JFrame implements BoardPanel.BoardChangeListener {
     private BoardPanel boardPanel;
     private SidePanel sidePanel;
     private Game game;
@@ -19,8 +20,18 @@ public class GameFrame extends JFrame {
         sidePanel = new SidePanel(this.game);
         setLayout(new BorderLayout());
         boardPanel.setPreferredSize(boardPanel.getPreferredSize());
+        boardPanel.addBoardChangeListener(this);
 
         add(boardPanel, BorderLayout.CENTER);
         add(sidePanel, BorderLayout.LINE_END);
+    }
+    public void updateGame(){
+        sidePanel.updateTurn();
+        revalidate();
+        repaint();
+    }
+    @Override
+    public void onBoardChanged(BoardChangeEvent event) {
+        updateGame();
     }
 }

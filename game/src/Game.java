@@ -27,8 +27,7 @@ public class Game extends JFrame implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actionPerformed'");
+        System.out.println(e);
     }
 
     public Board getBoard() {
@@ -57,5 +56,9 @@ public class Game extends JFrame implements ActionListener {
     }
     public void setTurn(int turn) {
         this.turn = turn;
+    }
+    public void incrementTurn(){
+        turn = turn + 1;
+        System.out.println(turn);
     }
 }

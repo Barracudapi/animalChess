@@ -2,6 +2,7 @@ import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.*;
 
 public class BoardPanel extends JPanel implements MouseListener, MouseMotionListener {
     private JPanel[][] squares;
@@ -18,6 +19,7 @@ public class BoardPanel extends JPanel implements MouseListener, MouseMotionList
     private int offsetX;
     private int offsetY;
     private Spot selectedSpot = null;
+    private ArrayList<BoardChangeListener> boardChangeListeners = new ArrayList<>();
     
     public BoardPanel(Game game) {
         this.game = game;
@@ -118,13 +120,11 @@ public class BoardPanel extends JPanel implements MouseListener, MouseMotionList
             if (this.spots[row][col].getPiece() != null) {
                 // select the piece
                 selectedSpot = spots[row][col];
-                System.out.println(selectedSpot.getPiece().getName());
                 selectedRow = row;
                 selectedCol = col;
                 offsetX = e.getX() - col * SQUARE_SIZE_COL;
                 offsetY = e.getY() - row * SQUARE_SIZE_ROW;
                 squares[row][col].setBackground(Color.yellow);
-                System.out.printf("selectedRow: %d, selectedCol: %d\n", selectedRow,selectedCol);
 
 
             }
@@ -132,12 +132,11 @@ public class BoardPanel extends JPanel implements MouseListener, MouseMotionList
             // drop the selected piece onto the new square
             int row = e.getY() / SQUARE_SIZE_ROW;
             int col = e.getX() / SQUARE_SIZE_COL;
-            System.out.println(selectedSpot.getPiece().getName());
-            System.out.printf("selectedRow: %d, selectedCol: %d\n", selectedRow,selectedCol);
             Move move = new Move(game.getCurrentPlayer(), spots[selectedRow][selectedCol], spots[row][col]);
             board.movePiece(move);
-            board.printBoard();
+            game.incrementTurn();
             selectedSpot = null;
+            fireBoardChangeEvent(null);
             updateBoardPanel();
         }
     }
@@ -145,5 +144,19 @@ public class BoardPanel extends JPanel implements MouseListener, MouseMotionList
     public Dimension getPreferredSize() {
         return new Dimension(BOARD_SIZE, BOARD_SIZE);
     }
+    public interface BoardChangeListener {
+        void onBoardChanged(BoardChangeEvent event);
+    }
+    public void addBoardChangeListener(BoardChangeListener listener) {
+        boardChangeListeners.add(listener);
+        System.out.println(listener);
+    }
+
+    private void fireBoardChangeEvent(BoardChangeEvent event) {
+        for (BoardChangeListener listener : boardChangeListeners) {
+            listener.onBoardChanged(event);
+        }
+    }
+    
 }
 

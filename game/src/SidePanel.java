@@ -23,13 +23,13 @@ public class SidePanel extends JPanel {
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         // Create turn number label
-        turnNumberLabel = new JLabel("Turn Number: 0");
+        turnNumberLabel = new JLabel("Turn Number: 1");
         turnNumberLabel.setFont(new Font("Arial", Font.PLAIN, 18));
         turnNumberLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         add(turnNumberLabel, BorderLayout.NORTH);
 
         // Create turn label
-        turnLabel = new JLabel("Turn: Player 1");
+        turnLabel = new JLabel("Player 1 Yellow's Turn");
         turnLabel.setFont(new Font("Arial", Font.PLAIN, 18));
         turnLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         add(turnLabel, BorderLayout.CENTER);
@@ -45,13 +45,14 @@ public class SidePanel extends JPanel {
         capturedPiecesPanel.setLayout(new GridLayout(0, 2));
         add(capturedPiecesPanel, BorderLayout.SOUTH);
     }
-
-    public void updateTurnNumber() {
-        turnNumberLabel.setText("Turn Number: " + this.game.getTurn());
-    }
-
-    public void updateTurn(String player) {
-        turnLabel.setText("Turn: " + player);
+    public void updateTurn() {
+        int turn = (game.getTurn()+1)/2;
+        turnNumberLabel.setText("Turn Number: " + turn);
+        if(game.getTurn()%2 ==1){
+            turnLabel.setText("Player 1 Yellow's Turn");
+        } else{
+            turnLabel.setText("Player 2 Red's Turn ");
+        }
     }
 
     public void updateCapturedPieces(List<Piece> pieces) {
