@@ -1,6 +1,7 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.util.List;
@@ -13,32 +14,34 @@ public class SidePanel extends JPanel {
     private JLabel turnNumberLabel;
     private JLabel turnLabel;
     private JLabel capturedPiecesLabel;
+    private JLabel gameOverLabel;
     private JPanel capturedPiecesPanel;
     private Game game;
 
     public SidePanel(Game game) {
         this.game = game;
         setPreferredSize(new Dimension(200, 600));
-        setLayout(new BorderLayout());
+        setLayout(new BorderLayout(10, 10));
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         // Create turn number label
-        turnNumberLabel = new JLabel("Turn Number: 1");
-        turnNumberLabel.setFont(new Font("Arial", Font.PLAIN, 18));
-        turnNumberLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        add(turnNumberLabel, BorderLayout.NORTH);
-
-        // Create turn label
-        turnLabel = new JLabel("Player 1 Yellow's Turn");
+        turnLabel = new JLabel("Turn Number: 1 (yellow's turn)");
         turnLabel.setFont(new Font("Arial", Font.PLAIN, 18));
         turnLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        add(turnLabel, BorderLayout.CENTER);
+        add(turnLabel, BorderLayout.PAGE_START);
+
+        //Create gameover label
+        gameOverLabel = new JLabel("GameOVER");
+        gameOverLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+        gameOverLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        add(gameOverLabel, BorderLayout.NORTH);
+        gameOverLabel.setVisible(false);
 
         // Create captured pieces label
         capturedPiecesLabel = new JLabel("Captured Pieces:");
         capturedPiecesLabel.setFont(new Font("Arial", Font.PLAIN, 18));
         capturedPiecesLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        add(capturedPiecesLabel, BorderLayout.SOUTH);
+        add(capturedPiecesLabel, BorderLayout.CENTER);
 
         // Create captured pieces panel
         capturedPiecesPanel = new JPanel();
@@ -47,11 +50,10 @@ public class SidePanel extends JPanel {
     }
     public void updateTurn() {
         int turn = (game.getTurn()+1)/2;
-        turnNumberLabel.setText("Turn Number: " + turn);
         if(game.getTurn()%2 ==1){
-            turnLabel.setText("Player 1 Yellow's Turn");
+            turnLabel.setText("Turn Number: " + turn + " (yellow's turn)");
         } else{
-            turnLabel.setText("Player 2 Red's Turn ");
+            turnLabel.setText("Turn Number: " + turn + "(red's turn)");
         }
     }
 
@@ -65,6 +67,11 @@ public class SidePanel extends JPanel {
         }
         capturedPiecesPanel.revalidate();
         capturedPiecesPanel.repaint();
+    }
+
+    public void setGameOver(boolean isOver){
+        System.out.println(isOver);
+        gameOverLabel.setVisible(isOver);
     }
 }
 

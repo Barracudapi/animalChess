@@ -40,9 +40,9 @@ public class StartingPage extends JFrame implements ActionListener {
         if (e.getSource() == startButton) {
             // Open the chess game window
             Game game = new Game();
-            GameFrame gamePanel = new GameFrame(game);
-            
-            gamePanel.setVisible(true);
+            GameFrame gameFrame = new GameFrame(game);
+            game.setGameFrame(gameFrame);
+            gameFrame.setVisible(true);
             dispose(); // close the starting page window
         } else if (e.getSource() == exitButton) {
             // Exit the game

@@ -12,6 +12,7 @@ public class BoardPanel extends JPanel implements MouseListener, MouseMotionList
     private Game game;
     private Board board;
     private Spot[][] spots;
+    private Piece selectedPiece;
     private static final int SQUARE_SIZE_ROW = BOARD_SIZE/ROWS;
     private static final int SQUARE_SIZE_COL = BOARD_SIZE/COLS;
     private ArrayList<BoardChangeListener> boardChangeListeners = new ArrayList<>();
@@ -82,12 +83,21 @@ public class BoardPanel extends JPanel implements MouseListener, MouseMotionList
     public void mouseClicked(MouseEvent e) {
         int row = e.getY()/SQUARE_SIZE_ROW;
         int col = e.getX()/SQUARE_SIZE_COL;
-        boolean hasPiece = (spots[row][col].getPiece()!=null);
         fireBoardChangeEvent(spots[row][col]);
         updateBoardPanel();
-        if(hasPiece){
-            highlightAvailableMoves(spots[row][col]);
+        Piece tempPiece = spots[row][col].getPiece();
+        if(tempPiece != null){
+            if(selectedPiece == null){
+                highlightAvailableMoves(spots[row][col]);
+                selectedPiece = tempPiece;
+            } else if (selectedPiece!= tempPiece){
+                highlightAvailableMoves(spots[row][col]);
+                selectedPiece = tempPiece;
+            } else{
+                selectedPiece = null;
+            }
         }
+        System.out.println("selectedPiece: " + selectedPiece);
         // if(selectedSpot == null){
         //     int row = e.getY() / SQUARE_SIZE_ROW;
         //     int col = e.getX() / SQUARE_SIZE_COL;

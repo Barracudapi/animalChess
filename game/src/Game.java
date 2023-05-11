@@ -8,7 +8,7 @@ import javax.swing.*;
 
 public class Game extends JFrame implements ActionListener, BoardPanel.BoardChangeListener {
     private Board board;
-    private BoardPanel boardPanel;
+    private GameFrame gameFrame;
     private Player player1;
     private Player player2;
     private Player currentPlayer;
@@ -28,6 +28,9 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
         gameOver = false;
         turn = 0;
 
+    }
+    public void setGameFrame(GameFrame gameFrame){
+        this.gameFrame = gameFrame;
     }
 
     public void setVisible(boolean b) {
@@ -77,11 +80,16 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
                     selectedSpot = e;
                 }
             } else{
-                Move move = new Move(getCurrentPlayer(), selectedSpot, board.getSpots()[e.getX()][e.getY()]);
-                board.movePiece(move);
-                incrementTurn();
-                selectedSpot = null;
+                if(selectedSpot.getPiece() == e.getPiece()){
+                    selectedSpot = null;
+                }else {
+                    Move move = new Move(getCurrentPlayer(), selectedSpot, board.getSpots()[e.getX()][e.getY()]);
+                    board.movePiece(move);
+                    if(board.getSpots()[selectedSpot.getX()][selectedSpot.getY()].getPiece()==null) incrementTurn();
+                    selectedSpot = null;
+                }
             }
+            System.out.println("selectedSpot " + selectedSpot);
         }
         updateGame();
     }
@@ -89,6 +97,8 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
         if(board.getSpots()[0][3].getPiece() != null || board.getSpots()[8][3].getPiece() !=null){
             gameOver = true;
             System.out.println("GAMEOVER!");
+            gameFrame.gameover();
+            gameFrame.getSidePanel().setGameOver(true);
         }
     }
 

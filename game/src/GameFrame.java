@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 public class GameFrame extends JFrame implements BoardPanel.BoardChangeListener {
     private BoardPanel boardPanel;
     private SidePanel sidePanel;
+    private GameOverPopup gameOverPopup;
     private Game game;
 
     public GameFrame(Game game) {
@@ -18,6 +19,7 @@ public class GameFrame extends JFrame implements BoardPanel.BoardChangeListener 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         boardPanel = new BoardPanel(this.game);
         sidePanel = new SidePanel(this.game);
+        gameOverPopup = new GameOverPopup();
         setLayout(new BorderLayout());
         boardPanel.setPreferredSize(boardPanel.getPreferredSize());
         boardPanel.addBoardChangeListener(this);
@@ -25,6 +27,7 @@ public class GameFrame extends JFrame implements BoardPanel.BoardChangeListener 
 
         add(boardPanel, BorderLayout.CENTER);
         add(sidePanel, BorderLayout.LINE_END);
+        // add(gameOverPopup, BorderLayout.CENTER);
     }
     public void updateGame(){
         sidePanel.updateTurn();
@@ -35,4 +38,15 @@ public class GameFrame extends JFrame implements BoardPanel.BoardChangeListener 
     public void onBoardChanged(Spot event) {
         updateGame();
     }
+    public BoardPanel getBoardPanel() {
+        return boardPanel;
+    }
+    public SidePanel getSidePanel() {
+        return sidePanel;
+    }
+    public void gameover(){
+        gameOverPopup.setVisible(true);
+        dispose();
+    }
+
 }

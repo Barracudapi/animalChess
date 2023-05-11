@@ -25,7 +25,7 @@ public class Board {
         Spots = new Spot[ROW_SIZE][COLUMN_SIZE];
         for(int i = 0; i < ROW_SIZE; i++){
             for(int j = 0; j < COLUMN_SIZE; j++){
-                Spots[i][j] = INITIAL_SPOTS[i][j];
+                Spots[i][j] = new Spot(INITIAL_SPOTS[i][j]);
             }
         }
         capturedPieces = new ArrayList<>();

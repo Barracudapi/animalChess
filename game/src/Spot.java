@@ -19,6 +19,12 @@ public class Spot {
         this.piece = piece;
         this.type = type;
     }
+    public Spot(Spot other) {
+        this.x = other.x;
+        this.y = other.y;
+        this.piece = other.piece;
+        this.type = other.type;
+    }
 
     @Override
     public String toString(){
@@ -77,4 +83,5 @@ public class Spot {
     public Type getSpotType(){
         return type;
     }
+    
 }
