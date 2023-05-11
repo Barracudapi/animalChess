@@ -32,7 +32,7 @@ public class GameFrame extends JFrame implements BoardPanel.BoardChangeListener 
         repaint();
     }
     @Override
-    public void onBoardChanged(BoardChangeEvent event) {
+    public void onBoardChanged(Spot event) {
         updateGame();
     }
 }

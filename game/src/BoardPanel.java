@@ -52,6 +52,7 @@ public class BoardPanel extends JPanel implements MouseListener, MouseMotionList
                 this.add(squares[row][col]);
             }
         }
+        
         revalidate(); // Revalidate the panel to update its components
         repaint();
     }
@@ -81,9 +82,12 @@ public class BoardPanel extends JPanel implements MouseListener, MouseMotionList
     public void mouseClicked(MouseEvent e) {
         int row = e.getY()/SQUARE_SIZE_ROW;
         int col = e.getX()/SQUARE_SIZE_COL;
-        BoardChangeEvent b = new BoardChangeEvent(row, col);
-        fireBoardChangeEvent(b);
+        boolean hasPiece = (spots[row][col].getPiece()!=null);
+        fireBoardChangeEvent(spots[row][col]);
         updateBoardPanel();
+        if(hasPiece){
+            highlightAvailableMoves(spots[row][col]);
+        }
         // if(selectedSpot == null){
         //     int row = e.getY() / SQUARE_SIZE_ROW;
         //     int col = e.getX() / SQUARE_SIZE_COL;
@@ -116,16 +120,24 @@ public class BoardPanel extends JPanel implements MouseListener, MouseMotionList
         return new Dimension(BOARD_SIZE, BOARD_SIZE);
     }
     public interface BoardChangeListener {
-        void onBoardChanged(BoardChangeEvent event);
+        void onBoardChanged(Spot event);
     }
     public void addBoardChangeListener(BoardChangeListener listener) {
         boardChangeListeners.add(listener);
         //System.out.println(listener);
     }
 
-    private void fireBoardChangeEvent(BoardChangeEvent event) {
+    private void fireBoardChangeEvent(Spot event) {
         for (BoardChangeListener listener : boardChangeListeners) {
             listener.onBoardChanged(event);
+        }
+    }
+    private void highlightAvailableMoves(Spot selectedspot){
+        squares[selectedspot.getX()][selectedspot.getY()].setBackground(Color.pink);
+        for(Move move: selectedspot.availableMoves()){
+            int row = move.getEnd().getX();
+            int col = move.getEnd().getY();
+            squares[row][col].setBackground(Color.PINK);
         }
     }
     

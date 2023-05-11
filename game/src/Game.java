@@ -8,6 +8,7 @@ import javax.swing.*;
 
 public class Game extends JFrame implements ActionListener, BoardPanel.BoardChangeListener {
     private Board board;
+    private BoardPanel boardPanel;
     private Player player1;
     private Player player2;
     private Player currentPlayer;
@@ -15,10 +16,9 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
     private int turn;
     private int row;
     private int col;
-    private int selectedRow;
-    private int selectedCol;
     private Spot selectedSpot = null;
     private Move[] moves;
+
 
     public Game() {
         board = new Board();
@@ -70,24 +70,14 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
         System.out.println(turn);
     }
     @Override
-    public void onBoardChanged(BoardChangeEvent e) {
-        System.out.println("row: " + e.getRow() + " col: " + e.getCol());
-        this.row = e.getRow();
-        this.col = e.getCol();
+    public void onBoardChanged(Spot e) {
         if(!gameOver){
             if(selectedSpot == null){
-                // check if there is a piece on the square
-                if (board.getSpots()[row][col].getPiece() != null) {
-                    // select the piece
-                    selectedSpot = board.getSpots()[row][col];
-                    selectedRow = row;
-                    selectedCol = col;
-                    //squares[row][col].setBackground(Color.yellow);
-    
-    
+                if (e.getPiece() != null) {
+                    selectedSpot = e;
                 }
             } else{
-                Move move = new Move(getCurrentPlayer(), board.getSpots()[selectedRow][selectedCol], board.getSpots()[row][col]);
+                Move move = new Move(getCurrentPlayer(), selectedSpot, board.getSpots()[e.getX()][e.getY()]);
                 board.movePiece(move);
                 incrementTurn();
                 selectedSpot = null;
