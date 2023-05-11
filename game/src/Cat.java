@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Cat extends Piece {
     public Cat(Color color, String name, int animalPower){
         super(color, name, animalPower);
