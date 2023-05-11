@@ -14,15 +14,6 @@ public class Rat extends Piece {
         else if(end.getSpotType() == Spot.Type.BASEYELLOW && start.getPiece().getColor() == Color.YELLOW){
             return false;
         }
-        else if(end.getSpotType() == Spot.Type.WATER){
-            return false;
-        }
-        if(end.getSpotType() == Spot.Type.TRAPRED && end.getPiece().getColor() == Color.YELLOW){
-            return true;
-        }
-        if(end.getSpotType() == Spot.Type.TRAPYELLOW && end.getPiece().getColor() == Color.RED){
-            return true;
-        }
         if(end.getPiece() != null){
             if(start.getPiece().getColor() == end.getPiece().getColor()){
                 return false;
@@ -32,7 +23,16 @@ public class Rat extends Piece {
             if(end.getPiece() == null){
                 return true;
             }
-            else if(end.getPiece().getAnimalPower()<= start.getPiece().getAnimalPower() || end.getPiece().getName() == "ELEPHANT"){
+            if(end.getSpotType() == Spot.Type.TRAPRED && end.getPiece().getColor() == Color.YELLOW){
+                return true;
+            }
+            if(end.getSpotType() == Spot.Type.TRAPYELLOW && end.getPiece().getColor() == Color.RED) {
+                return true;
+            }
+            else if(end.getPiece().getAnimalPower()<= start.getPiece().getAnimalPower() || end.getPiece().getName() == "ELEPHANT" && start.getSpotType() != Spot.Type.WATER){
+                return true;
+            }
+            else if(end.getSpotType() == Spot.Type.WATER){
                 return true;
             }
         }
