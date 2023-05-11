@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Move {
     private Player player;
     private Spot start;
@@ -20,6 +22,7 @@ public class Move {
         }
         return true;
     }
+
 
 
     public Player getPlayer() {
