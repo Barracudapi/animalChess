@@ -14,11 +14,6 @@ public class BoardPanel extends JPanel implements MouseListener, MouseMotionList
     private Spot[][] spots;
     private static final int SQUARE_SIZE_ROW = BOARD_SIZE/ROWS;
     private static final int SQUARE_SIZE_COL = BOARD_SIZE/COLS;
-    private int selectedRow;
-    private int selectedCol;
-    private int offsetX;
-    private int offsetY;
-    private Spot selectedSpot = null;
     private ArrayList<BoardChangeListener> boardChangeListeners = new ArrayList<>();
     
     public BoardPanel(Game game) {
@@ -60,85 +55,61 @@ public class BoardPanel extends JPanel implements MouseListener, MouseMotionList
         revalidate(); // Revalidate the panel to update its components
         repaint();
     }
+    public JPanel[][] getSquares() {
+        return squares;
+    }
     @Override
     public void mouseDragged(MouseEvent e) {
-        // if (selectedRow != -1 && selectedCol != -1) {
-        //     // move the selected piece
-        //     int x = e.getX() - offsetX;
-        //     int y = e.getY() - offsetY;
-        //     Piece piece = spots[selectedRow][selectedCol].getPiece();
-        //     //piece.setLocation(x, y);
-        //     repaint();
-        // }
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        // if (selectedRow != -1 && selectedCol != -1) {
+    }
+    @Override
+    public void mouseMoved(MouseEvent e) {
+    }
+    @Override
+    public void mousePressed(MouseEvent e) {
+    }
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+    @Override
+    public void mouseExited(MouseEvent e) {
+    }
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        int row = e.getY()/SQUARE_SIZE_ROW;
+        int col = e.getX()/SQUARE_SIZE_COL;
+        BoardChangeEvent b = new BoardChangeEvent(row, col);
+        fireBoardChangeEvent(b);
+        updateBoardPanel();
+        // if(selectedSpot == null){
+        //     int row = e.getY() / SQUARE_SIZE_ROW;
+        //     int col = e.getX() / SQUARE_SIZE_COL;
+        //     // check if there is a piece on the square
+        //     if (this.spots[row][col].getPiece() != null) {
+        //         // select the piece
+        //         selectedSpot = spots[row][col];
+        //         selectedRow = row;
+        //         selectedCol = col;
+        //         offsetX = e.getX() - col * SQUARE_SIZE_COL;
+        //         offsetY = e.getY() - row * SQUARE_SIZE_ROW;
+        //         squares[row][col].setBackground(Color.yellow);
+
+
+        //     }
+        // } else{
         //     // drop the selected piece onto the new square
         //     int row = e.getY() / SQUARE_SIZE_ROW;
         //     int col = e.getX() / SQUARE_SIZE_COL;
         //     Move move = new Move(game.getCurrentPlayer(), spots[selectedRow][selectedCol], spots[row][col]);
-        //     this.board.movePiece(move);
-        //     selectedRow = -1;
-        //     selectedCol = -1;
+        //     board.movePiece(move);
+        //     game.incrementTurn();
+        //     selectedSpot = null;
+        //     fireBoardChangeEvent(null);
+        //     updateBoardPanel();
         // }
-    }
-    @Override
-    public void mouseMoved(MouseEvent e) {
-        // System.out.printf("x: %d, y: %d", e.getX(), e.getY());
-    }
-    @Override
-    public void mousePressed(MouseEvent e) {
-        // int row = e.getY() / SQUARE_SIZE_ROW;
-        // int col = e.getX() / SQUARE_SIZE_COL;
-        // // check if there is a piece on the square
-        // if (this.spots[row][col] != null) {
-        //     // select the piece
-        //     selectedRow = row;
-        //     selectedCol = col;
-        //     offsetX = e.getX() - col * SQUARE_SIZE_COL;
-        //     offsetY = e.getY() - row * SQUARE_SIZE_ROW;
-        // }
-        // System.out.printf("x: %d, y: %d", e.getX(), e.getY());
-    }
-    @Override
-    public void mouseEntered(MouseEvent e) {
-        // System.out.printf("x: %d, y: %d", e.getX(), e.getY());
-    }
-    @Override
-    public void mouseExited(MouseEvent e) {
-        
-        // System.out.printf("x: %d, y: %d", e.getX(), e.getY());
-    }
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        if(selectedSpot == null){
-            int row = e.getY() / SQUARE_SIZE_ROW;
-            int col = e.getX() / SQUARE_SIZE_COL;
-            // check if there is a piece on the square
-            if (this.spots[row][col].getPiece() != null) {
-                // select the piece
-                selectedSpot = spots[row][col];
-                selectedRow = row;
-                selectedCol = col;
-                offsetX = e.getX() - col * SQUARE_SIZE_COL;
-                offsetY = e.getY() - row * SQUARE_SIZE_ROW;
-                squares[row][col].setBackground(Color.yellow);
-
-
-            }
-        } else{
-            // drop the selected piece onto the new square
-            int row = e.getY() / SQUARE_SIZE_ROW;
-            int col = e.getX() / SQUARE_SIZE_COL;
-            Move move = new Move(game.getCurrentPlayer(), spots[selectedRow][selectedCol], spots[row][col]);
-            board.movePiece(move);
-            game.incrementTurn();
-            selectedSpot = null;
-            fireBoardChangeEvent(null);
-            updateBoardPanel();
-        }
     }
     @Override
     public Dimension getPreferredSize() {
@@ -149,7 +120,7 @@ public class BoardPanel extends JPanel implements MouseListener, MouseMotionList
     }
     public void addBoardChangeListener(BoardChangeListener listener) {
         boardChangeListeners.add(listener);
-        System.out.println(listener);
+        //System.out.println(listener);
     }
 
     private void fireBoardChangeEvent(BoardChangeEvent event) {
@@ -159,4 +130,3 @@ public class BoardPanel extends JPanel implements MouseListener, MouseMotionList
     }
     
 }
-

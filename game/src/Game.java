@@ -5,13 +5,20 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class Game extends JFrame implements ActionListener {
+
+public class Game extends JFrame implements ActionListener, BoardPanel.BoardChangeListener {
     private Board board;
     private Player player1;
     private Player player2;
     private Player currentPlayer;
     private boolean gameOver;
     private int turn;
+    private int row;
+    private int col;
+    private int selectedRow;
+    private int selectedCol;
+    private Spot selectedSpot = null;
+    private Move[] moves;
 
     public Game() {
         board = new Board();
@@ -20,6 +27,7 @@ public class Game extends JFrame implements ActionListener {
         currentPlayer = player1;
         gameOver = false;
         turn = 0;
+
     }
 
     public void setVisible(boolean b) {
@@ -61,4 +69,37 @@ public class Game extends JFrame implements ActionListener {
         turn = turn + 1;
         System.out.println(turn);
     }
+    @Override
+    public void onBoardChanged(BoardChangeEvent e) {
+        System.out.println("row: " + e.getRow() + " col: " + e.getCol());
+        this.row = e.getRow();
+        this.col = e.getCol();
+        if(!gameOver){
+            if(selectedSpot == null){
+                // check if there is a piece on the square
+                if (board.getSpots()[row][col].getPiece() != null) {
+                    // select the piece
+                    selectedSpot = board.getSpots()[row][col];
+                    selectedRow = row;
+                    selectedCol = col;
+                    //squares[row][col].setBackground(Color.yellow);
+    
+    
+                }
+            } else{
+                Move move = new Move(getCurrentPlayer(), board.getSpots()[selectedRow][selectedCol], board.getSpots()[row][col]);
+                board.movePiece(move);
+                incrementTurn();
+                selectedSpot = null;
+            }
+        }
+        updateGame();
+    }
+    public void updateGame(){
+        if(board.getSpots()[0][3].getPiece() != null || board.getSpots()[8][3].getPiece() !=null){
+            gameOver = true;
+            System.out.println("GAMEOVER!");
+        }
+    }
+
 }

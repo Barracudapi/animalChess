@@ -21,6 +21,7 @@ public class GameFrame extends JFrame implements BoardPanel.BoardChangeListener 
         setLayout(new BorderLayout());
         boardPanel.setPreferredSize(boardPanel.getPreferredSize());
         boardPanel.addBoardChangeListener(this);
+        boardPanel.addBoardChangeListener(game);
 
         add(boardPanel, BorderLayout.CENTER);
         add(sidePanel, BorderLayout.LINE_END);
