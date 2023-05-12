@@ -6,13 +6,16 @@ public abstract class Piece {
     private Color color;
     private String name;
     private int animalPower;
+    private int value;
     private String imagePath;
+    
 
-    public Piece(Color color, String name, int animalPower, String imagePath){
+    public Piece(Color color, String name, int animalPower, int value, String imagePath){
         this.color = color;
         this.name = name;
         this.animalPower = animalPower;
         this.imagePath = imagePath;
+        this.value = value;
     }
 
     @Override

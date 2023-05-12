@@ -1,9 +1,10 @@
-import java.util.ArrayList;
-
 public class Cat extends Piece {
     private static final String imagePath = "game/resources/cat.png";
-    public Cat(Color color, String name, int animalPower){
-        super(color, name, animalPower, imagePath);
+    private static final int value = 2;
+    private static final int animalPower = 2;
+    private static final String name = "CAT";
+    public Cat(Color color){
+        super(color, name, animalPower, value, imagePath);
     }
     @Override
     public boolean canMove(Spot[][] board, Spot start, Spot end) {

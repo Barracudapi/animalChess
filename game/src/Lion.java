@@ -1,7 +1,10 @@
 public class Lion extends Piece{
     private static final String imagePath = "game/resources/lion.jfif";
-    public Lion(Color color, String name, int animalPower){
-        super(color, name, animalPower, imagePath);
+    private static final int value = 9;
+    private static final int animalPower = 7;
+    private static final String name = "LION";
+    public Lion(Color color){
+        super(color, name, animalPower, value, imagePath);
     }
     @Override
     public boolean canMove(Spot[][] board, Spot start, Spot end) {

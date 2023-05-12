@@ -6,7 +6,7 @@ public class StartingPage extends JFrame implements ActionListener {
 
     private JButton startButton;
     private JButton exitButton;
-    private BoardPanel boardPanel;
+    private JButton aiButton;
 
     public StartingPage() {
         setTitle("Jungle Chess Game");
@@ -27,6 +27,10 @@ public class StartingPage extends JFrame implements ActionListener {
         startButton = new JButton("Start Game");
         startButton.addActionListener(this);
         panel.add(startButton);
+
+        aiButton = new JButton("Play Against AI");
+        aiButton.addActionListener(this);
+        panel.add(aiButton);
         
         exitButton = new JButton("Exit");
         exitButton.addActionListener(this);
@@ -47,6 +51,8 @@ public class StartingPage extends JFrame implements ActionListener {
         } else if (e.getSource() == exitButton) {
             // Exit the game
             dispose();
+        } else if (e.getSource() == aiButton){
+            
         }
     }
 

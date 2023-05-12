@@ -7,15 +7,15 @@ public class Board {
     private static final String[] ROW_LABEL = {"9", "8", "7", "6", "5", "4", "3", "2", "1"};
 
     public static final Spot[][] INITIAL_SPOTS = {
-            {new Spot(1,1, new Lion(Piece.Color.RED, "LION", 8), Spot.Type.LAND), new Spot(1,2, null, Spot.Type.LAND), new Spot(1,3, null, Spot.Type.TRAPRED), new Spot(1,4, null, Spot.Type.BASERED), new Spot(1,5, null, Spot.Type.TRAPRED), new Spot(1,6, null, Spot.Type.LAND), new Spot(1,7, new Tiger(Piece.Color.RED, "TIGER", 7), Spot.Type.LAND)},
-            {new Spot(2,1, null, Spot.Type.LAND), new Spot(2,2, new Dog(Piece.Color.RED, "DOG", 3), Spot.Type.LAND), new Spot(2,3, null, Spot.Type.LAND), new Spot(2,4, null, Spot.Type.TRAPRED), new Spot(2,5, null, Spot.Type.LAND), new Spot(2,6, new Cat(Piece.Color.RED, "CAT", 2), Spot.Type.LAND), new Spot(2,7, null, Spot.Type.LAND)},
-            {new Spot(3,1, new Rat(Piece.Color.RED, "RAT", 1), Spot.Type.LAND), new Spot(3,2, null, Spot.Type.LAND), new Spot(3,3, new Leopard(Piece.Color.RED, "LEOPARD",5 ), Spot.Type.LAND), new Spot(3,4, null, Spot.Type.LAND), new Spot(3,5, new Wolf(Piece.Color.RED, "WOLF", 4), Spot.Type.LAND), new Spot(3,6, null, Spot.Type.LAND), new Spot(3,7, new Elephant(Piece.Color.RED, "ELEPHANT", 9), Spot.Type.LAND)},
+            {new Spot(1,1, new Lion(Piece.Color.RED), Spot.Type.LAND), new Spot(1,2, null, Spot.Type.LAND), new Spot(1,3, null, Spot.Type.TRAPRED), new Spot(1,4, null, Spot.Type.BASERED), new Spot(1,5, null, Spot.Type.TRAPRED), new Spot(1,6, null, Spot.Type.LAND), new Spot(1,7, new Tiger(Piece.Color.RED), Spot.Type.LAND)},
+            {new Spot(2,1, null, Spot.Type.LAND), new Spot(2,2, new Dog(Piece.Color.RED), Spot.Type.LAND), new Spot(2,3, null, Spot.Type.LAND), new Spot(2,4, null, Spot.Type.TRAPRED), new Spot(2,5, null, Spot.Type.LAND), new Spot(2,6, new Cat(Piece.Color.RED), Spot.Type.LAND), new Spot(2,7, null, Spot.Type.LAND)},
+            {new Spot(3,1, new Rat(Piece.Color.RED), Spot.Type.LAND), new Spot(3,2, null, Spot.Type.LAND), new Spot(3,3, new Leopard(Piece.Color.RED), Spot.Type.LAND), new Spot(3,4, null, Spot.Type.LAND), new Spot(3,5, new Wolf(Piece.Color.RED), Spot.Type.LAND), new Spot(3,6, null, Spot.Type.LAND), new Spot(3,7, new Elephant(Piece.Color.RED), Spot.Type.LAND)},
             {new Spot(4,1, null, Spot.Type.LAND), new Spot(4,2, null, Spot.Type.WATER), new Spot(4,3, null, Spot.Type.WATER), new Spot(4,4, null, Spot.Type.LAND), new Spot(4,5, null, Spot.Type.WATER), new Spot(4,6, null, Spot.Type.WATER), new Spot(4,7, null, Spot.Type.LAND)},
             {new Spot(5,1, null, Spot.Type.LAND), new Spot(5,2, null, Spot.Type.WATER), new Spot(5,3, null, Spot.Type.WATER), new Spot(5,4, null, Spot.Type.LAND), new Spot(5,5, null, Spot.Type.WATER), new Spot(5,6, null, Spot.Type.WATER), new Spot(5,7, null, Spot.Type.LAND)},
             {new Spot(6,1, null, Spot.Type.LAND), new Spot(6,2, null, Spot.Type.WATER), new Spot(6,3, null, Spot.Type.WATER), new Spot(6,4, null, Spot.Type.LAND), new Spot(6,5, null, Spot.Type.WATER), new Spot(6,6, null, Spot.Type.WATER), new Spot(6,7, null, Spot.Type.LAND)},
-            {new Spot(7,1, new Elephant(Piece.Color.YELLOW, "ELEPHANT", 9), Spot.Type.LAND), new Spot(7,2, null, Spot.Type.LAND), new Spot(7,3, new Wolf(Piece.Color.YELLOW, "WOLF",4 ), Spot.Type.LAND), new Spot(7,4, null, Spot.Type.LAND), new Spot(7,5, new Leopard(Piece.Color.YELLOW, "LEOPARD", 5), Spot.Type.LAND), new Spot(7,6, null, Spot.Type.LAND), new Spot(7,7, new Rat(Piece.Color.YELLOW, "RAT", 1), Spot.Type.LAND)},
-            {new Spot(8,1, null, Spot.Type.LAND), new Spot(8,2, new Cat(Piece.Color.YELLOW, "CAT", 2), Spot.Type.LAND), new Spot(8,3, null, Spot.Type.LAND), new Spot(8,4, null, Spot.Type.TRAPYELLOW), new Spot(8,5, null, Spot.Type.LAND), new Spot(8,6, new Dog(Piece.Color.YELLOW, "DOG", 3), Spot.Type.LAND), new Spot(8,7, null, Spot.Type.LAND)},
-            {new Spot(9,1, new Tiger(Piece.Color.YELLOW, "TIGER", 7), Spot.Type.LAND), new Spot(9,2, null, Spot.Type.LAND), new Spot(9,3, null, Spot.Type.TRAPYELLOW), new Spot(9,4, null, Spot.Type.BASEYELLOW), new Spot(9,5, null, Spot.Type.TRAPYELLOW), new Spot(9,6, null, Spot.Type.LAND), new Spot(9,7, new Lion(Piece.Color.YELLOW, "LION", 8), Spot.Type.LAND)},
+            {new Spot(7,1, new Elephant(Piece.Color.YELLOW), Spot.Type.LAND), new Spot(7,2, null, Spot.Type.LAND), new Spot(7,3, new Wolf(Piece.Color.YELLOW), Spot.Type.LAND), new Spot(7,4, null, Spot.Type.LAND), new Spot(7,5, new Leopard(Piece.Color.YELLOW), Spot.Type.LAND), new Spot(7,6, null, Spot.Type.LAND), new Spot(7,7, new Rat(Piece.Color.YELLOW), Spot.Type.LAND)},
+            {new Spot(8,1, null, Spot.Type.LAND), new Spot(8,2, new Cat(Piece.Color.YELLOW), Spot.Type.LAND), new Spot(8,3, null, Spot.Type.LAND), new Spot(8,4, null, Spot.Type.TRAPYELLOW), new Spot(8,5, null, Spot.Type.LAND), new Spot(8,6, new Dog(Piece.Color.YELLOW), Spot.Type.LAND), new Spot(8,7, null, Spot.Type.LAND)},
+            {new Spot(9,1, new Tiger(Piece.Color.YELLOW), Spot.Type.LAND), new Spot(9,2, null, Spot.Type.LAND), new Spot(9,3, null, Spot.Type.TRAPYELLOW), new Spot(9,4, null, Spot.Type.BASEYELLOW), new Spot(9,5, null, Spot.Type.TRAPYELLOW), new Spot(9,6, null, Spot.Type.LAND), new Spot(9,7, new Lion(Piece.Color.YELLOW), Spot.Type.LAND)},
     };
 
     public static Spot[][] Spots;
@@ -102,31 +102,31 @@ public class Board {
             } else{
                 pieceColor = Piece.Color.RED;
             }
-            piece = new Elephant(pieceColor, "ELEPHANT", 0);
+            piece = new Elephant(pieceColor);
             switch(pgn.get(i).charAt(0)){
                 case 'R':
-                    piece = new Rat(pieceColor, "RAT", 1);
+                    piece = new Rat(pieceColor);
                     break;
                 case 'C': 
-                    piece = new Cat(pieceColor, "CAT", 2);
+                    piece = new Cat(pieceColor);
                     break;
                 case 'D':
-                    piece = new Dog(pieceColor, "DOG", 3);
+                    piece = new Dog(pieceColor);
                     break;
                 case 'W': 
-                    piece = new Wolf(pieceColor, "WOLF", 4);
+                    piece = new Wolf(pieceColor);
                     break;
                 case 'P':
-                    piece = new Leopard(pieceColor, "LEOPARD", 5);
+                    piece = new Leopard(pieceColor);
                     break;
                 case 'T': 
-                    piece = new Tiger(pieceColor, "TIGER", 6);
+                    piece = new Tiger(pieceColor);
                     break;
                 case 'L':
-                    piece = new Lion(pieceColor, "LION", 7);
+                    piece = new Lion(pieceColor);
                     break;
                 case 'E': 
-                    piece = new Elephant(pieceColor, "ELEPHANT", 8);
+                    piece = new Elephant(pieceColor);
                     break;
         }
             move.getStart().setPiece(piece);
@@ -148,5 +148,37 @@ public class Board {
         for(String pgn: pgn){
             System.out.println(pgn);
         }
+    }
+    public ArrayList<Move> getAllAvailableMoves(){
+        ArrayList<Move> allAvailableMoves = new ArrayList<Move>();
+        for(Spot[] spots: Spots){
+            for(Spot spot: spots){
+                for(Move move: spot.availableMoves()){
+                    allAvailableMoves.add(move);
+                }
+            }
+        }
+        return allAvailableMoves;
+    }
+    public Board clone(){
+        Board board = new Board();
+        return board;
+    }
+    public boolean isGameOver(){
+        if(Spots[0][3].getPiece() != null || Spots[8][3].getPiece() !=null){
+            return true;
+        }
+        return false;
+    }
+    public ArrayList<Piece> getAllPieces(){
+        ArrayList<Piece> allPieces = new ArrayList<Piece>();
+        for(Spot[] spots: Spots){
+            for(Spot spot: spots){
+                if(spot.getPiece()!=null){
+                    allPieces.add(spot.getPiece());
+                }
+            }
+        }
+        return allPieces;
     }
 }

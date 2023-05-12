@@ -1,7 +1,10 @@
 public class Tiger extends Piece {
     private static final String imagePath = "game/resources/tiger.jfif";
-    public Tiger(Piece.Color color, String name, int animalPower){
-        super(color, name, animalPower, imagePath);
+    private static final int value = 7;
+    private static final int animalPower = 6;
+    private static final String name = "TIGER";
+    public Tiger(Piece.Color color){
+        super(color, name, animalPower, value, imagePath);
     }
     @Override
     public boolean canMove(Spot[][] board, Spot start, Spot end) {

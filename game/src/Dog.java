@@ -1,7 +1,10 @@
 public class Dog extends Piece {
     private static final String imagePath = "game/resources/dog.jfif";
-    public Dog(Color color, String name, int animalPower){
-        super(color, name, animalPower, imagePath);
+    private static final int value = 3;
+    private static final int animalPower = 3;
+    private static final String name = "DOG";
+    public Dog(Color color){
+        super(color, name, animalPower, value, imagePath);
     }
     @Override
     public boolean canMove(Spot[][] board, Spot start, Spot end) {

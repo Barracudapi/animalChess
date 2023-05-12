@@ -2,8 +2,11 @@ import java.util.Objects;
 
 public class Elephant extends Piece{
         private static final String imagePath = "game/resources/elephant.jfif";
-        public Elephant(Color color, String name, int animalPower){
-            super(color, name, animalPower, imagePath);
+        private static final int value = 9;
+        private static final int animalPower = 8;
+        private static final String name = "ELEPHANT";
+        public Elephant(Color color){
+            super(color, name, animalPower, value, imagePath);
         }
         @Override
         public boolean canMove(Spot[][] board, Spot start, Spot end) {
