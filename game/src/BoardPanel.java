@@ -71,15 +71,6 @@ public class BoardPanel extends JPanel implements MouseListener, MouseMotionList
     }
     @Override
     public void mousePressed(MouseEvent e) {
-    }
-    @Override
-    public void mouseEntered(MouseEvent e) {
-    }
-    @Override
-    public void mouseExited(MouseEvent e) {
-    }
-    @Override
-    public void mouseClicked(MouseEvent e) {
         int row = e.getY()/SQUARE_SIZE_ROW;
         int col = e.getX()/SQUARE_SIZE_COL;
         fireBoardChangeEvent(spots[row][col]);
@@ -90,6 +81,15 @@ public class BoardPanel extends JPanel implements MouseListener, MouseMotionList
                 highlightAvailableMoves(game.getSelectedSpot());
             }
         }
+    }
+    @Override
+    public void mouseEntered(MouseEvent e) {
+    }
+    @Override
+    public void mouseExited(MouseEvent e) {
+    }
+    @Override
+    public void mouseClicked(MouseEvent e) {
         // if(tempPiece != null){
         //     if(selectedPiece == null){
         //         highlightAvailableMoves(spots[row][col]);
