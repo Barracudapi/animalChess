@@ -1,7 +1,7 @@
 import java.util.Objects;
 
 public class Rat extends Piece {
-    private static final String imagePath = "game/resources/LION.jfif";
+    private static final String imagePath = "game/resources/rat.jpg";
     public Rat(Color color, String name, int animalPower){
         super(color, name, animalPower, imagePath);
     }

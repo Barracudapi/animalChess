@@ -1,5 +1,5 @@
 public class Dog extends Piece {
-    private static final String imagePath = "game/resources/LION.jfif";
+    private static final String imagePath = "game/resources/dog.jfif";
     public Dog(Color color, String name, int animalPower){
         super(color, name, animalPower, imagePath);
     }

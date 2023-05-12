@@ -1,5 +1,5 @@
 public class Tiger extends Piece {
-    private static final String imagePath = "game/resources/LION.jfif";
+    private static final String imagePath = "game/resources/tiger.jfif";
     public Tiger(Piece.Color color, String name, int animalPower){
         super(color, name, animalPower, imagePath);
     }

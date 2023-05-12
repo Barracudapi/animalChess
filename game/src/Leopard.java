@@ -1,5 +1,5 @@
 public class Leopard extends Piece{
-    private static final String imagePath = "game/resources/LION.jfif";
+    private static final String imagePath = "game/resources/leopard.jfif";
     public Leopard(Color color, String name, int animalPower){
         super(color, name, animalPower, imagePath);
     }

@@ -19,7 +19,7 @@ public class PiecePanel extends JPanel {
         // create a new JLabel with the ImageIcon and add it to the center of the panel
         ImageIcon Lion = new ImageIcon(piece.getImagePath());
         JLabel lionLabel = new JLabel(Lion);
-        ImageIcon imageIcon = new ImageIcon(new ImageIcon(piece.getImagePath()).getImage().getScaledInstance(50, 50, Image.SCALE_DEFAULT));
+        ImageIcon imageIcon = new ImageIcon(new ImageIcon(piece.getImagePath()).getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
         lionLabel.setIcon(imageIcon);
         if(piece.getColor()==Piece.Color.RED){
             // label.setForeground(Color.RED);
