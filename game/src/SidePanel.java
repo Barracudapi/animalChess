@@ -25,7 +25,7 @@ public class SidePanel extends JPanel {
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         // Create turn number label
-        turnLabel = new JLabel("Turn Number: 1 (yellow's turn)");
+        turnLabel = new JLabel("1 " + game.getCurrentPlayer().getPieceColor());
         turnLabel.setFont(new Font("Arial", Font.PLAIN, 18));
         turnLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         add(turnLabel, BorderLayout.PAGE_START);
@@ -51,9 +51,9 @@ public class SidePanel extends JPanel {
     public void updateTurn() {
         int turn = (game.getTurn()+1)/2;
         if(game.getTurn()%2 ==1){
-            turnLabel.setText("Turn Number: " + turn + " (yellow's turn)");
+            turnLabel.setText(turn + ": " + game.getCurrentPlayer().getPieceColor());
         } else{
-            turnLabel.setText("Turn Number: " + turn + "(red's turn)");
+            turnLabel.setText(turn + ": " + game.getCurrentPlayer().getPieceColor());
         }
     }
 

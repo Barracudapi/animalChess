@@ -2,6 +2,9 @@ import java.util.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.RandomAccessFile;
 
 import javax.swing.*;
 
@@ -17,7 +20,8 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
     private int row;
     private int col;
     private Spot selectedSpot = null;
-    private Move[] moves;
+    private ArrayList<Move> moves;
+    private String pgn;
 
 
     public Game() {
@@ -26,7 +30,8 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
         player2 = new Player("Player 2", Piece.Color.RED);
         currentPlayer = player1;
         gameOver = false;
-        turn = 0;
+        turn = 1;
+        moves = new ArrayList<Move>();
 
     }
     public void setGameFrame(GameFrame gameFrame){
@@ -79,33 +84,68 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
     public void onBoardChanged(Spot e) {
         if(!gameOver){
             if(selectedSpot == null){
-                if (e.getPiece() != null) {
-                    selectedSpot = e;
+                if(e.getPiece()!=null){
+                    if(e.getPiece().getColor() == currentPlayer.getPieceColor()){
+                        selectedSpot = e;
+                    }
                 }
             } else{
                 if(selectedSpot.getPiece() == e.getPiece()){
                     selectedSpot = null;
                 }else {
-                    Move move = new Move(getCurrentPlayer(), selectedSpot, board.getSpots()[e.getX()][e.getY()]);
-                    if(board.movePiece(move)){
-                        if(board.getSpots()[selectedSpot.getX()][selectedSpot.getY()].getPiece()==null) incrementTurn();
-                        selectedSpot = null;
-                    } else{
-                        selectedSpot = e;
+
+                    Move move = new Move(currentPlayer, selectedSpot, board.getSpots()[e.getX()][e.getY()]);
+                    if(selectedSpot.getPiece().getColor() == currentPlayer.getPieceColor()){
+                        if(board.movePiece(move)){
+                            moves.add(move);
+                            if(board.getSpots()[selectedSpot.getX()][selectedSpot.getY()].getPiece()==null) incrementTurn();
+                            switchPlayer();
+                            System.out.println("Turn: " + turn);
+                            selectedSpot = null;
+                        } else{
+                            selectedSpot = e;
+                        }
                     }
                 }
             }
-            System.out.println("selectedSpot " + selectedSpot);
         }
+        gameFrame.updateGame();
         updateGame();
     }
     public void updateGame(){
         if(board.getSpots()[0][3].getPiece() != null || board.getSpots()[8][3].getPiece() !=null){
             gameOver = true;
             System.out.println("GAMEOVER!");
+            saveGame("default", moves);
             gameFrame.gameover();
             gameFrame.getSidePanel().setGameOver(true);
         }
     }
+    public void saveGame(String filename, ArrayList<Move> moves){
+        String s = "game/saved-games/" + filename + ".txt";
+        try {
+            writeToPosition(s, board.getPgn(), 0);
+        } catch (IOException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+    private void writeToPosition(String filename, String pgn, long position) 
+        throws IOException {
+            // RandomAccessFile writer = new RandomAccessFile(filename, "rw");
+            // writer.seek(position);
+            // writer.writeUTF(pgn);
+            // writer.close();
+            FileWriter fileWriter = new FileWriter(filename, false);
+            fileWriter.write(pgn);
+            fileWriter.close();
+    }
 
+    public void switchPlayer(){
+        if(currentPlayer == player1){
+            currentPlayer = player2;
+        } else{
+            currentPlayer = player1;
+        }
+    }
 }

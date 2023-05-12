@@ -20,6 +20,7 @@ public class Board {
 
     public static Spot[][] Spots;
     private List<Piece> capturedPieces;
+    private String pgn;
 
     public Board() {
         Spots = new Spot[ROW_SIZE][COLUMN_SIZE];
@@ -29,6 +30,7 @@ public class Board {
             }
         }
         capturedPieces = new ArrayList<>();
+        pgn = "";
     }
 
     public void printBoard() {
@@ -53,6 +55,7 @@ public class Board {
                     capturedPieces.add(getSpot(move.getEnd()).getPiece());
                 }
                 System.out.println(move.toString());
+                pgn += move.toString();
                 setPieceAtSpot(move.getEnd(), piece);
                 setPieceAtSpot(move.getStart(), null);
                 return true;
@@ -77,5 +80,8 @@ public class Board {
     }
     public Spot[][] getSpots() {
         return Spots;
+    }
+    public String getPgn() {
+        return pgn;
     }
 }

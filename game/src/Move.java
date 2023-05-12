@@ -12,7 +12,35 @@ public class Move {
     }
     @Override
     public String toString(){
-        return String.format("[%s%d%d]\t", start.getPiece().getName(), end.getX(), end.getY());
+        char c = '_';
+        switch(start.getPiece().getName()){
+            case "RAT":
+                c = 'R';
+                break;
+            case "CAT": 
+                c = 'C';
+                break;
+            case "DOG":
+                c = 'D';
+                break;
+            case "WOLF": 
+                c = 'W';
+                break;
+            case "LEOPARD":
+                c = 'P';
+                break;
+            case "TIGER": 
+                c = 'T';
+                break;
+            case "LION":
+                c = 'L';
+                break;
+            case "ELEPHANT": 
+                c = 'E';
+                break;
+
+        }
+        return String.format("%s%d%d ", c, end.getX(), end.getY());
     }
 
     public boolean isCapture(){

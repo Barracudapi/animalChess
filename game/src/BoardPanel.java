@@ -90,43 +90,6 @@ public class BoardPanel extends JPanel implements MouseListener, MouseMotionList
     }
     @Override
     public void mouseClicked(MouseEvent e) {
-        // if(tempPiece != null){
-        //     if(selectedPiece == null){
-        //         highlightAvailableMoves(spots[row][col]);
-        //         selectedPiece = tempPiece;
-        //     } else if (selectedPiece!= tempPiece){
-        //         highlightAvailableMoves(spots[row][col]);
-        //         selectedPiece = tempPiece;
-        //     } else{
-        //         selectedPiece = null;
-        //     }
-        // }
-        // if(selectedSpot == null){
-        //     int row = e.getY() / SQUARE_SIZE_ROW;
-        //     int col = e.getX() / SQUARE_SIZE_COL;
-        //     // check if there is a piece on the square
-        //     if (this.spots[row][col].getPiece() != null) {
-        //         // select the piece
-        //         selectedSpot = spots[row][col];
-        //         selectedRow = row;
-        //         selectedCol = col;
-        //         offsetX = e.getX() - col * SQUARE_SIZE_COL;
-        //         offsetY = e.getY() - row * SQUARE_SIZE_ROW;
-        //         squares[row][col].setBackground(Color.yellow);
-
-
-        //     }
-        // } else{
-        //     // drop the selected piece onto the new square
-        //     int row = e.getY() / SQUARE_SIZE_ROW;
-        //     int col = e.getX() / SQUARE_SIZE_COL;
-        //     Move move = new Move(game.getCurrentPlayer(), spots[selectedRow][selectedCol], spots[row][col]);
-        //     board.movePiece(move);
-        //     game.incrementTurn();
-        //     selectedSpot = null;
-        //     fireBoardChangeEvent(null);
-        //     updateBoardPanel();
-        // }
     }
     @Override
     public Dimension getPreferredSize() {
