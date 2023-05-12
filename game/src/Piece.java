@@ -6,11 +6,13 @@ public abstract class Piece {
     private Color color;
     private String name;
     private int animalPower;
+    private String imagePath;
 
-    public Piece(Color color, String name, int animalPower){
+    public Piece(Color color, String name, int animalPower, String imagePath){
         this.color = color;
         this.name = name;
         this.animalPower = animalPower;
+        this.imagePath = imagePath;
     }
 
     @Override
@@ -38,4 +40,8 @@ public abstract class Piece {
     }
 
     public void move(Move move) {};
+
+    public String getImagePath(){
+        return imagePath;
+    }
 }
