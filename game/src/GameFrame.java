@@ -31,6 +31,7 @@ public class GameFrame extends JFrame implements BoardPanel.BoardChangeListener 
     }
     public void updateGame(){
         sidePanel.updateTurn();
+        boardPanel.updateBoardPanel();
         revalidate();
         repaint();
     }

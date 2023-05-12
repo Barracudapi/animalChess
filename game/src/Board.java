@@ -20,17 +20,12 @@ public class Board {
 
     public static Spot[][] Spots;
     private List<Piece> capturedPieces;
-    private String pgn;
+    private ArrayList<String> pgn;
 
     public Board() {
         Spots = new Spot[ROW_SIZE][COLUMN_SIZE];
-        for(int i = 0; i < ROW_SIZE; i++){
-            for(int j = 0; j < COLUMN_SIZE; j++){
-                Spots[i][j] = new Spot(INITIAL_SPOTS[i][j]);
-            }
-        }
+        reinitialize();
         capturedPieces = new ArrayList<>();
-        pgn = "";
     }
 
     public void printBoard() {
@@ -54,12 +49,16 @@ public class Board {
                 if(move.isCapture()){
                     capturedPieces.add(getSpot(move.getEnd()).getPiece());
                 }
-                System.out.println(move.toString());
-                pgn += move.toString();
+                pgn.add(move.toString());
+                
                 setPieceAtSpot(move.getEnd(), piece);
                 setPieceAtSpot(move.getStart(), null);
                 return true;
+            } else{
+                System.out.println("INVALIDT MOVE: " + move.toString() + move.getStart().getPiece());
             }
+        } else{
+            System.out.println("INVALID MOVE: " + move.toString());
         }
         return false;
     }
@@ -81,7 +80,73 @@ public class Board {
     public Spot[][] getSpots() {
         return Spots;
     }
-    public String getPgn() {
+    public ArrayList<String> getPgn() {
         return pgn;
+    }
+    public void reinitialize(){
+        for(int i = 0; i < ROW_SIZE; i++){
+            for(int j = 0; j < COLUMN_SIZE; j++){
+                Spots[i][j] = new Spot(INITIAL_SPOTS[i][j]);
+            }
+        }
+        pgn = new ArrayList<String>();
+    }
+    public ArrayList<Move> pgnToMoves(ArrayList<String> pgn){
+        ArrayList<Move> moves = new ArrayList<Move>();
+        Piece.Color pieceColor;
+        Piece piece;
+        for(int i = 0; i<pgn.size(); i++){
+            Move move = new Move(new Spot(Spots[Character.getNumericValue(pgn.get(i).charAt(2))][Character.getNumericValue(pgn.get(i).charAt((3)))]),  new Spot(Spots[Character.getNumericValue(pgn.get(i).charAt(5))][Character.getNumericValue(pgn.get(i).charAt((6)))]));
+            if(i%2==0){
+                pieceColor = Piece.Color.YELLOW;
+            } else{
+                pieceColor = Piece.Color.RED;
+            }
+            piece = new Elephant(pieceColor, "ELEPHANT", 0);
+            switch(pgn.get(i).charAt(0)){
+                case 'R':
+                    piece = new Rat(pieceColor, "RAT", 1);
+                    break;
+                case 'C': 
+                    piece = new Cat(pieceColor, "CAT", 2);
+                    break;
+                case 'D':
+                    piece = new Dog(pieceColor, "DOG", 3);
+                    break;
+                case 'W': 
+                    piece = new Wolf(pieceColor, "WOLF", 4);
+                    break;
+                case 'P':
+                    piece = new Leopard(pieceColor, "LEOPARD", 5);
+                    break;
+                case 'T': 
+                    piece = new Tiger(pieceColor, "TIGER", 6);
+                    break;
+                case 'L':
+                    piece = new Lion(pieceColor, "LION", 7);
+                    break;
+                case 'E': 
+                    piece = new Elephant(pieceColor, "ELEPHANT", 8);
+                    break;
+        }
+            move.getStart().setPiece(piece);
+            move.getEnd().setPiece(null);
+            moves.add(move);
+        }
+        return moves;
+    }
+    public void reducePgn(){
+        printPgn();
+        
+        if(pgn.size()-1>=0){
+            pgn.remove(pgn.size()-1);
+        }
+
+    }
+    public void printPgn(){
+        System.out.println("Pgn contents");
+        for(String pgn: pgn){
+            System.out.println(pgn);
+        }
     }
 }

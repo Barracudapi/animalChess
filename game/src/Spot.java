@@ -30,7 +30,7 @@ public class Spot {
     public String toString(){
         String string;
         if(this.piece == null && this.getSpotType() == Type.LAND){
-            return "L  ";
+            return "L" + x + y;
         }
         else if(this.piece == null && this.getSpotType() == Type.WATER){
             return "W  ";
@@ -54,7 +54,7 @@ public class Spot {
         Spot start = new Spot(x + 1, y + 1, piece, type);
         for(int i = 0; i < 9; i++){
             for(int j = 0; j < 7; j++){
-                Move move = new Move(player, start, spots[i][j]);
+                Move move = new Move(start, spots[i][j]);
                 if(start.getPiece() != null){
                     if(start.getPiece().isValidMove(move, spots)){
                         array.add(move);

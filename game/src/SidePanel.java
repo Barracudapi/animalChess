@@ -4,9 +4,12 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -15,6 +18,7 @@ public class SidePanel extends JPanel {
     private JLabel turnLabel;
     private JLabel capturedPiecesLabel;
     private JLabel gameOverLabel;
+    private JButton actionButton;
     private JPanel capturedPiecesPanel;
     private Game game;
 
@@ -25,7 +29,7 @@ public class SidePanel extends JPanel {
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
         // Create turn number label
-        turnLabel = new JLabel("1 " + game.getCurrentPlayer().getPieceColor());
+        turnLabel = new JLabel("1: " + game.getCurrentPlayer().getPieceColor());
         turnLabel.setFont(new Font("Arial", Font.PLAIN, 18));
         turnLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         add(turnLabel, BorderLayout.PAGE_START);
@@ -37,16 +41,27 @@ public class SidePanel extends JPanel {
         add(gameOverLabel, BorderLayout.NORTH);
         gameOverLabel.setVisible(false);
 
-        // Create captured pieces label
-        capturedPiecesLabel = new JLabel("Captured Pieces:");
-        capturedPiecesLabel.setFont(new Font("Arial", Font.PLAIN, 18));
-        capturedPiecesLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        add(capturedPiecesLabel, BorderLayout.CENTER);
+        // // Create captured pieces label
+        // capturedPiecesLabel = new JLabel("Captured Pieces:");
+        // capturedPiecesLabel.setFont(new Font("Arial", Font.PLAIN, 18));
+        // capturedPiecesLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        // add(capturedPiecesLabel, BorderLayout.CENTER);
 
-        // Create captured pieces panel
-        capturedPiecesPanel = new JPanel();
-        capturedPiecesPanel.setLayout(new GridLayout(0, 2));
-        add(capturedPiecesPanel, BorderLayout.SOUTH);
+        // // Create captured pieces panel
+        // capturedPiecesPanel = new JPanel();
+        // capturedPiecesPanel.setLayout(new GridLayout(0, 2));
+        // add(capturedPiecesPanel, BorderLayout.SOUTH);
+
+        // Create action button
+        actionButton = new JButton("Reverse Move");
+        actionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                game.reverseMove();
+            }
+        });
+        add(actionButton, BorderLayout.CENTER);
+
     }
     public void updateTurn() {
         int turn = (game.getTurn()+1)/2;

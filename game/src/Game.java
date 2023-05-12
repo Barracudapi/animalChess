@@ -78,7 +78,9 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
     }
     public void incrementTurn(){
         turn = turn + 1;
-        System.out.println(turn);
+    }
+    public void addToMoves(Move move) {
+        moves.add(move);
     }
     @Override
     public void onBoardChanged(Spot e) {
@@ -94,14 +96,15 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
                     selectedSpot = null;
                 }else {
 
-                    Move move = new Move(currentPlayer, selectedSpot, board.getSpots()[e.getX()][e.getY()]);
+                    Move move = new Move(selectedSpot, board.getSpots()[e.getX()][e.getY()]);
                     if(selectedSpot.getPiece().getColor() == currentPlayer.getPieceColor()){
                         if(board.movePiece(move)){
-                            moves.add(move);
-                            if(board.getSpots()[selectedSpot.getX()][selectedSpot.getY()].getPiece()==null) incrementTurn();
-                            switchPlayer();
-                            System.out.println("Turn: " + turn);
-                            selectedSpot = null;
+                            if(board.getSpots()[selectedSpot.getX()][selectedSpot.getY()].getPiece()==null) {
+                                printMoves();
+                                incrementTurn();
+                                switchPlayer();
+                                selectedSpot = null;
+                            }
                         } else{
                             selectedSpot = e;
                         }
@@ -115,7 +118,7 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
     public void updateGame(){
         if(board.getSpots()[0][3].getPiece() != null || board.getSpots()[8][3].getPiece() !=null){
             gameOver = true;
-            System.out.println("GAMEOVER!");
+            printMoves();
             saveGame("default", moves);
             gameFrame.gameover();
             gameFrame.getSidePanel().setGameOver(true);
@@ -123,19 +126,18 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
     }
     public void saveGame(String filename, ArrayList<Move> moves){
         String s = "game/saved-games/" + filename + ".txt";
+        String pgnString = "";
+        for(String pgnFrag: board.getPgn()){
+            pgnString += pgnFrag + " ";
+        }
         try {
-            writeToPosition(s, board.getPgn(), 0);
+            writeToPosition(s, pgnString, 0);
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
     private void writeToPosition(String filename, String pgn, long position) 
         throws IOException {
-            // RandomAccessFile writer = new RandomAccessFile(filename, "rw");
-            // writer.seek(position);
-            // writer.writeUTF(pgn);
-            // writer.close();
             FileWriter fileWriter = new FileWriter(filename, false);
             fileWriter.write(pgn);
             fileWriter.close();
@@ -147,5 +149,24 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
         } else{
             currentPlayer = player1;
         }
+    }
+    public void printMoves(){
+        for(Move move: moves){
+            if(move.getStart().getPiece()!=null){
+                System.out.println(move.toString());
+            }
+        }
+    }
+    public void reverseMove(){
+        moves = board.pgnToMoves(board.getPgn());
+        board.reinitialize();
+        for(int i = 0; i<moves.size()-1; i++){
+            board.movePiece(moves.get(i));
+        }
+        if(moves.size()>0){
+            setTurn(turn-1);
+            switchPlayer();
+        }
+        gameFrame.updateGame();
     }
 }
