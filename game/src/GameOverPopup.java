@@ -39,6 +39,14 @@ public class GameOverPopup extends JDialog {
     }
 
     private void restartGame() {
+        Game game = new Game();
+        GameFrame gameFrame = new GameFrame(game);
+        game.setGameFrame(gameFrame);
+        gameFrame.setVisible(true);
+
+    }
+    private void goMainMenu() {
         StartingPage page = new StartingPage();
+
     }
 }

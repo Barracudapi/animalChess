@@ -68,6 +68,9 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
     public void setTurn(int turn) {
         this.turn = turn;
     }
+    public Spot getSelectedSpot() {
+        return selectedSpot;
+    }
     public void incrementTurn(){
         turn = turn + 1;
         System.out.println(turn);
@@ -84,9 +87,12 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
                     selectedSpot = null;
                 }else {
                     Move move = new Move(getCurrentPlayer(), selectedSpot, board.getSpots()[e.getX()][e.getY()]);
-                    board.movePiece(move);
-                    if(board.getSpots()[selectedSpot.getX()][selectedSpot.getY()].getPiece()==null) incrementTurn();
-                    selectedSpot = null;
+                    if(board.movePiece(move)){
+                        if(board.getSpots()[selectedSpot.getX()][selectedSpot.getY()].getPiece()==null) incrementTurn();
+                        selectedSpot = null;
+                    } else{
+                        selectedSpot = e;
+                    }
                 }
             }
             System.out.println("selectedSpot " + selectedSpot);

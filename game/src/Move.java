@@ -12,8 +12,7 @@ public class Move {
     }
     @Override
     public String toString(){
-        String string = String.format("[%d %d]\t", end.getX(), end.getY());
-        return string;
+        return String.format("[%s%d%d]\t", start.getPiece().getName(), end.getX(), end.getY());
     }
 
     public boolean isCapture(){

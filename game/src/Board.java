@@ -45,17 +45,20 @@ public class Board {
         }
     }
 
-    public void movePiece(Move move){
-        Spot piece = getSpot(move.getStart());
-        if(piece.getPiece() != null){
-            if(piece.getPiece().isValidMove(move, Spots)){
+    public boolean movePiece(Move move){
+        Piece piece = getSpot(move.getStart()).getPiece();
+        if(piece != null){
+            if(piece.isValidMove(move, Spots)){
                 if(move.isCapture()){
                     capturedPieces.add(getSpot(move.getEnd()).getPiece());
                 }
-                setPieceAtSpot(move.getEnd(), piece.getPiece());
+                System.out.println(move.toString());
+                setPieceAtSpot(move.getEnd(), piece);
                 setPieceAtSpot(move.getStart(), null);
+                return true;
             }
         }
+        return false;
     }
 
     public void printCapturedPieces(){
