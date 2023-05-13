@@ -19,7 +19,7 @@ public class Board {
     };
 
     public static Spot[][] Spots;
-    private List<Piece> capturedPieces;
+    public static List<Piece> capturedPieces;
     private ArrayList<String> pgn;
 
     public Board() {

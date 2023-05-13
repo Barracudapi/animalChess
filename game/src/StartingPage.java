@@ -1,6 +1,10 @@
+
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.RoundRectangle2D;
+import java.io.IOException;
 
 public class StartingPage extends JFrame implements ActionListener {
 
@@ -13,17 +17,20 @@ public class StartingPage extends JFrame implements ActionListener {
         setSize(600, 400);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-        
+
+
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(3, 2));
-        panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
-        
-        JLabel label = new JLabel("Welcome to Jungle Chess Game!");
+        panel.setLayout(new GridLayout(0, 1));
+        panel.setSize(50, 50);
+        panel.setBorder(BorderFactory.createEmptyBorder(50, 150, 50, 150));
+        panel.setBackground(Color.PINK);
+
+        JLabel label = new JLabel("Jungle!");
         label.setFont(new Font("Serif", Font.PLAIN, 30));
         label.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(label);
-        
+
+
         startButton = new JButton("Start Game");
         startButton.addActionListener(this);
         panel.add(startButton);
@@ -31,11 +38,12 @@ public class StartingPage extends JFrame implements ActionListener {
         aiButton = new JButton("Play Against AI");
         aiButton.addActionListener(this);
         panel.add(aiButton);
-        
+
         exitButton = new JButton("Exit");
         exitButton.addActionListener(this);
         panel.add(exitButton);
-        
+
+
         add(panel);
         setVisible(true);
     }
@@ -52,7 +60,7 @@ public class StartingPage extends JFrame implements ActionListener {
             // Exit the game
             dispose();
         } else if (e.getSource() == aiButton){
-            
+
         }
     }
 

@@ -22,10 +22,10 @@ public class PiecePanel extends JPanel {
         ImageIcon imageIcon = new ImageIcon(new ImageIcon(piece.getImagePath()).getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
         lionLabel.setIcon(imageIcon);
         if(piece.getColor()==Piece.Color.RED){
-            // label.setForeground(Color.RED);
+            lionLabel.setForeground(Color.RED);
             setBorder(BorderFactory.createLineBorder(Color.RED, 5));
         } else{
-            // label.setForeground(Color.YELLOW);
+            lionLabel.setForeground(Color.YELLOW);
             setBorder(BorderFactory.createLineBorder(Color.cyan, 5));
         }
         lionLabel.setHorizontalAlignment(JLabel.CENTER);

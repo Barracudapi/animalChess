@@ -1,4 +1,6 @@
 import javax.swing.*;
+import javax.swing.border.AbstractBorder;
+import javax.swing.border.LineBorder;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -24,7 +26,7 @@ public class BoardPanel extends JPanel implements MouseListener, MouseMotionList
         squares = new JPanel[ROWS][COLS];
         addMouseListener(this);
         addMouseMotionListener(this);
-        updateBoardPanel(); 
+        updateBoardPanel();
     }
     public void updateBoardPanel(){
         removeAll();
@@ -32,22 +34,53 @@ public class BoardPanel extends JPanel implements MouseListener, MouseMotionList
             for (int col = 0; col < COLS; col++) {
                 squares[row][col] = new JPanel();
                 if(this.spots[row][col].getSpotType()==Spot.Type.LAND) {
-                    squares[row][col].setBackground(Color.GREEN);
+                    JLabel label = new JLabel();
+
+                    LineBorder line = new LineBorder(Color.LIGHT_GRAY, 1, true);
+
+                    squares[row][col].setBorder(line);
+
+                    squares[row][col].setBackground(new Color(48, 128, 20));
                 }
                 else if(this.spots[row][col].getSpotType()== Spot.Type.TRAPRED){
-                    squares[row][col].setBackground(Color.RED);
+                    JLabel label = new JLabel();
+
+                    LineBorder line = new LineBorder(Color.LIGHT_GRAY, 1, true);
+
+                    squares[row][col].setBorder(line);
+
+                    squares[row][col].setBackground(new Color(100, 0, 0));
                 }
                 else if(this.spots[row][col].getSpotType() == Spot.Type.TRAPYELLOW){
-                    squares[row][col].setBackground(Color.yellow);
+                    JLabel label = new JLabel();
+
+                    LineBorder line = new LineBorder(Color.LIGHT_GRAY, 1, true);
+
+                    squares[row][col].setBorder(line);
+
+                    squares[row][col].setBackground(new Color(0, 0, 100));
                 }
                 else if(this.spots[row][col].getSpotType() == Spot.Type.BASERED || this.spots[row][col].getSpotType() == Spot.Type.BASEYELLOW){
-                    squares[row][col].setBackground(Color.BLACK);
+                    JLabel label = new JLabel();
+
+                    LineBorder line = new LineBorder(Color.LIGHT_GRAY, 1, true);
+
+                    squares[row][col].setBorder(line);
+
+                    squares[row][col].setBackground(new Color(0, 0, 0));
                 }
                 else {
-                    squares[row][col].setBackground(Color.BLUE);
+                    JLabel label = new JLabel();
+
+                    LineBorder line = new LineBorder(Color.LIGHT_GRAY, 1, true);
+
+                    squares[row][col].setBorder(line);
+
+                    squares[row][col].setBackground(new Color(51, 161, 200));
                 }
                 if(this.spots[row][col].getPiece() != null){
                     squares[row][col].add(new PiecePanel(this.spots[row][col].getPiece()));
+                    squares[row][col].setBackground(new Color(12, 110, 30));
                 }
                 this.add(squares[row][col]);
             }
