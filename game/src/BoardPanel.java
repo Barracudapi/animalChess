@@ -143,7 +143,7 @@ public class BoardPanel extends JPanel implements MouseListener, MouseMotionList
     }
     private void highlightAvailableMoves(Spot selectedspot){
         squares[selectedspot.getX()][selectedspot.getY()].setBackground(Color.pink);
-        for(Move move: selectedspot.availableMoves()){
+        for(Move move: selectedspot.availableMoves(board)){
             int row = move.getEnd().getX();
             int col = move.getEnd().getY();
             squares[row][col].setBackground(Color.PINK);

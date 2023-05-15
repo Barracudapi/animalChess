@@ -6,47 +6,64 @@ public class AIAlgorithm {
     }
 
     public Move getBestMove(Board board) {
-        int bestScore = Integer.MIN_VALUE;
+        float bestScore = Integer.MIN_VALUE;
         Move bestMove = null;
 
         for (Move move : board.getAllAvailableMoves()) {
-            Board newBoard = board.clone();
-            newBoard.movePiece(move);
-            int score = minimax(newBoard, maxDepth, false);
-
-            if (score > bestScore) {
-                bestScore = score;
-                bestMove = move;
+            if (move.getStart().getPiece().getColor() == Piece.Color.RED) {
+                Board newBoard = new Board(board);
+                newBoard.movePiece(move);
+                float score = minimax(newBoard, maxDepth, Integer.MIN_VALUE, Integer.MAX_VALUE, false);
+                if (score > bestScore || (Math.random()>0.9 && score == bestScore)) {
+                    System.out.println("THE AI IS HIGHLY CONSIDERING " + move.toString() + "because score = " + score);
+                    bestMove = move;
+                    bestScore = score;
+                }
+                if(score == bestScore){
+                    
+                }
             }
         }
 
         return bestMove;
     }
 
-    private int minimax(Board board, int depth, boolean isMaximizingPlayer) {
+    private float minimax(Board board, int depth, float alpha, float beta, boolean isMaximizingPlayer) {
         if (depth == 0 || board.isGameOver()) {
             return evaluateBoard(board);
         }
 
         if (isMaximizingPlayer) {
-            int maxScore = Integer.MIN_VALUE;
+            float maxScore = Integer.MIN_VALUE;
 
             for (Move move : board.getAllAvailableMoves()) {
-                Board newBoard = board.clone();
-                newBoard.movePiece(move);
-                int score = minimax(newBoard, depth - 1, false);
-                maxScore = Math.max(maxScore, score);
+                if (move.getStart().getPiece().getColor() == Piece.Color.RED) {
+                    Board newBoard = new Board(board);
+                    newBoard.movePiece(move);
+                    float score = minimax(newBoard, depth - 1, alpha, beta, false);
+                    maxScore = Math.max(maxScore, score);
+                    alpha = Math.max(alpha, score);
+                    if (beta <= alpha) {
+                        break; // Beta cutoff
+                    }
+                }
             }
 
             return maxScore;
         } else {
-            int minScore = Integer.MAX_VALUE;
+            float minScore = Integer.MAX_VALUE;
 
             for (Move move : board.getAllAvailableMoves()) {
-                Board newBoard = board.clone();
-                newBoard.movePiece(move);
-                int score = minimax(newBoard, depth - 1, true);
-                minScore = Math.min(minScore, score);
+                if (move.getStart().getPiece().getColor() == Piece.Color.YELLOW) {
+                    Board newBoard = new Board(board);
+                    newBoard.movePiece(move);
+                    float score = minimax(newBoard, depth - 1, alpha, beta, true);
+                    minScore = Math.min(minScore, score);
+                    beta = Math.min(beta, score);
+                    if (beta <= alpha) {
+                        break; // Alpha cutoff
+                    }
+                }
             }
 
             return minScore;
@@ -55,14 +72,24 @@ public class AIAlgorithm {
 
     private int evaluateBoard(Board board) {
         int score = 0;
-        for (Piece piece : board.getAllPieces()) {
-            if (piece.getColor() == Piece.Color.RED) {
-                score += piece.getAnimalPower();
-            } else {
-                score -= piece.getAnimalPower();
+        for (Spot[] spots: board.getSpots()) {
+            for(Spot spot: spots){
+                if(spot.getPiece()!=null){
+                    if (spot.getPiece().getColor() == Piece.Color.RED) {
+                        score += spot.getPiece().getValue();
+                        score += spot.availableMoves(board).size()*spot.getPiece().getValue()*0.05;
+                        score += spot.getX()*(spot.getPiece().getValue()*3)*0.1;
+                    } else {
+                        score -= spot.getPiece().getValue();
+                        score -= spot.availableMoves(board).size()*spot.getPiece().getValue()*0.05;
+                        score -= (9-spot.getX())*(spot.getPiece().getValue()*3)*0.1;
+
+                    }
+                }
             }
         }
-
+        if(board.getSpots()[0][3].getPiece()!=null) score = Integer.MIN_VALUE;
+        if(board.getSpots()[8][3].getPiece()!=null) score = Integer.MAX_VALUE;
         // rat 5??
         // cat 1?
         // dog 2?
@@ -71,6 +98,8 @@ public class AIAlgorithm {
         // tiger 7?
         // lion 9?
         // elephant 9?
+
         return score;
     }
 }
+

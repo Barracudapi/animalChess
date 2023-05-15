@@ -8,7 +8,7 @@ public class Rat extends Piece {
     }
 
     @Override
-    public boolean canMove(Spot[][] board, Spot start, Spot end) {
+    public boolean canMove(Board board, Spot start, Spot end) {
         if(end.getSpotType() == Spot.Type.BASERED && start.getPiece().getColor() == Color.RED){
             return false;
         }

@@ -35,10 +35,10 @@ public abstract class Piece {
         return animalPower;
     }
 
-    public abstract boolean canMove(Spot[][] board, Spot start, Spot end);
+    public abstract boolean canMove(Board board, Spot start, Spot end);
 
 
-    public boolean isValidMove(Move move, Spot[][] board){
+    public boolean isValidMove(Move move, Board board){
         return canMove(board, move.getStart(), move.getEnd());
     }
 
@@ -46,5 +46,9 @@ public abstract class Piece {
 
     public String getImagePath(){
         return imagePath;
+    }
+
+    public int getValue() {
+        return value;
     }
 }

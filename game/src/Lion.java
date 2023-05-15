@@ -1,13 +1,13 @@
 public class Lion extends Piece{
     private static final String imagePath = "game/resources/lion.jfif";
-    private static final int value = 9;
+    private static final int value = 11;
     private static final int animalPower = 7;
     private static final String name = "LION";
     public Lion(Color color){
         super(color, name, animalPower, value, imagePath);
     }
     @Override
-    public boolean canMove(Spot[][] board, Spot start, Spot end) {
+    public boolean canMove(Board board, Spot start, Spot end) {
         if(end.getSpotType() == Spot.Type.BASERED && start.getPiece().getColor() == Color.RED){
             return false;
         }
@@ -41,7 +41,7 @@ public class Lion extends Piece{
                 return false;
             }
             for(int i = 3; i < 6; i++){
-                if(Board.Spots[i][start.getY()].getPiece() != null){
+                if(board.getSpots()[i][start.getY()].getPiece() != null){
                     return false;
                 }
             }
@@ -53,28 +53,28 @@ public class Lion extends Piece{
             }
             if(start.getY() == 0){
                 for(int i = 1; i < 3; i++){
-                    if(Board.Spots[start.getX()][i].getPiece() != null){
+                    if(board.getSpots()[start.getX()][i].getPiece() != null){
                         return false;
                     }
                 }
             }
             else if(start.getY() == 3 && end.getY() == 0){
                 for(int i = 1; i < 3; i++){
-                    if(Board.Spots[start.getX()][i].getPiece() != null){
+                    if(board.getSpots()[start.getX()][i].getPiece() != null){
                         return false;
                     }
                 }
             }
             else if(start.getY() == 3 && end.getY() == 6){
                 for(int i = 4; i < 6; i++){
-                    if(Board.Spots[start.getX()][i].getPiece() != null){
+                    if(board.getSpots()[start.getX()][i].getPiece() != null){
                         return false;
                     }
                 }
             }
             else if(start.getY() == 6){
                 for(int i = 4; i < 6; i++){
-                    if(Board.Spots[start.getX()][i].getPiece() != null){
+                    if(board.getSpots()[start.getX()][i].getPiece() != null){
                         return false;
                     }
                 }

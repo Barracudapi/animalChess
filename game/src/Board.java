@@ -6,7 +6,7 @@ public class Board {
     private static final String[] COLUMN_LABEL = {"1", "2", "3", "4", "5", "6", "7"};
     private static final String[] ROW_LABEL = {"9", "8", "7", "6", "5", "4", "3", "2", "1"};
 
-    public static final Spot[][] INITIAL_SPOTS = {
+    private static final Spot[][] INITIAL_SPOTS = {
             {new Spot(1,1, new Lion(Piece.Color.RED), Spot.Type.LAND), new Spot(1,2, null, Spot.Type.LAND), new Spot(1,3, null, Spot.Type.TRAPRED), new Spot(1,4, null, Spot.Type.BASERED), new Spot(1,5, null, Spot.Type.TRAPRED), new Spot(1,6, null, Spot.Type.LAND), new Spot(1,7, new Tiger(Piece.Color.RED), Spot.Type.LAND)},
             {new Spot(2,1, null, Spot.Type.LAND), new Spot(2,2, new Dog(Piece.Color.RED), Spot.Type.LAND), new Spot(2,3, null, Spot.Type.LAND), new Spot(2,4, null, Spot.Type.TRAPRED), new Spot(2,5, null, Spot.Type.LAND), new Spot(2,6, new Cat(Piece.Color.RED), Spot.Type.LAND), new Spot(2,7, null, Spot.Type.LAND)},
             {new Spot(3,1, new Rat(Piece.Color.RED), Spot.Type.LAND), new Spot(3,2, null, Spot.Type.LAND), new Spot(3,3, new Leopard(Piece.Color.RED), Spot.Type.LAND), new Spot(3,4, null, Spot.Type.LAND), new Spot(3,5, new Wolf(Piece.Color.RED), Spot.Type.LAND), new Spot(3,6, null, Spot.Type.LAND), new Spot(3,7, new Elephant(Piece.Color.RED), Spot.Type.LAND)},
@@ -18,14 +18,25 @@ public class Board {
             {new Spot(9,1, new Tiger(Piece.Color.YELLOW), Spot.Type.LAND), new Spot(9,2, null, Spot.Type.LAND), new Spot(9,3, null, Spot.Type.TRAPYELLOW), new Spot(9,4, null, Spot.Type.BASEYELLOW), new Spot(9,5, null, Spot.Type.TRAPYELLOW), new Spot(9,6, null, Spot.Type.LAND), new Spot(9,7, new Lion(Piece.Color.YELLOW), Spot.Type.LAND)},
     };
 
-    public static Spot[][] Spots;
-    public static List<Piece> capturedPieces;
+    private Spot[][] Spots;
+    private List<Piece> capturedPieces;
     private ArrayList<String> pgn;
 
     public Board() {
-        Spots = new Spot[ROW_SIZE][COLUMN_SIZE];
+        this.Spots = new Spot[ROW_SIZE][COLUMN_SIZE];
         reinitialize();
         capturedPieces = new ArrayList<>();
+    }
+    public Board(Board board){
+        this.Spots = new Spot[9][7];
+        this.pgn = new ArrayList<String>();
+        for(String s: board.getPgn()){
+            this.pgn.add(s);
+        }
+        reinitialize(board.getSpots());
+        capturedPieces = new ArrayList<>();
+        // System.out.print("NEW BOARD PGN: ");
+        // printPgn();
     }
 
     public void printBoard() {
@@ -43,22 +54,24 @@ public class Board {
     }
 
     public boolean movePiece(Move move){
-        Piece piece = getSpot(move.getStart()).getPiece();
+        Move newMove = new Move(getSpot(move.getStart()),getSpot(move.getEnd()));
+        // System.out.println(newMove);
+        Piece piece = newMove.getStart().getPiece();
         if(piece != null){
-            if(piece.isValidMove(move, Spots)){
-                if(move.isCapture()){
+            if(piece.isValidMove(newMove, this)){
+                if(newMove.isCapture()){
                     capturedPieces.add(getSpot(move.getEnd()).getPiece());
                 }
-                pgn.add(move.toString());
-                
-                setPieceAtSpot(move.getEnd(), piece);
-                setPieceAtSpot(move.getStart(), null);
+                this.pgn.add(newMove.toString());
+                // System.out.println("NEW PGN ADDED: " + newMove.toString());
+                setPieceAtSpot(newMove.getEnd(), piece);
+                setPieceAtSpot(newMove.getStart(), null);
                 return true;
             } else{
                 System.out.println("INVALIDT MOVE: " + move.toString() + move.getStart().getPiece());
             }
         } else{
-            System.out.println("INVALID MOVE: " + move.toString());
+            // System.out.println("INVALID MOVE: " + move.toString());
         }
         return false;
     }
@@ -71,14 +84,14 @@ public class Board {
     }
 
     public Spot getSpot(Spot spot){
-        return Spots[spot.getX()][spot.getY()];
+        return this.Spots[spot.getX()][spot.getY()];
     }
 
     public void setPieceAtSpot(Spot spot, Piece piece){
-        Spots[spot.getX()][spot.getY()].setPiece(piece);
+        this.Spots[spot.getX()][spot.getY()].setPiece(piece);
     }
     public Spot[][] getSpots() {
-        return Spots;
+        return this.Spots;
     }
     public ArrayList<String> getPgn() {
         return pgn;
@@ -90,6 +103,13 @@ public class Board {
             }
         }
         pgn = new ArrayList<String>();
+    }
+    public void reinitialize(Spot[][] Spots){
+        for(int i = 0; i < ROW_SIZE; i++){
+            for(int j = 0; j < COLUMN_SIZE; j++){
+                this.Spots[i][j] = new Spot(Spots[i][j]);
+            }
+        }
     }
     public ArrayList<Move> pgnToMoves(ArrayList<String> pgn){
         ArrayList<Move> moves = new ArrayList<Move>();
@@ -144,16 +164,16 @@ public class Board {
 
     }
     public void printPgn(){
-        System.out.println("Pgn contents");
+        System.out.print("Pgn contents: ");
         for(String pgn: pgn){
-            System.out.println(pgn);
+            System.out.print(pgn+'\t');
         }
     }
     public ArrayList<Move> getAllAvailableMoves(){
         ArrayList<Move> allAvailableMoves = new ArrayList<Move>();
         for(Spot[] spots: Spots){
             for(Spot spot: spots){
-                for(Move move: spot.availableMoves()){
+                for(Move move: spot.availableMoves(this)){
                     allAvailableMoves.add(move);
                 }
             }
@@ -161,8 +181,7 @@ public class Board {
         return allAvailableMoves;
     }
     public Board clone(){
-        Board board = new Board();
-        return board;
+        return new Board(this);
     }
     public boolean isGameOver(){
         if(Spots[0][3].getPiece() != null || Spots[8][3].getPiece() !=null){
@@ -180,5 +199,8 @@ public class Board {
             }
         }
         return allPieces;
+    }
+    public Move convertMove(Move other){
+        return new Move(Spots[other.getStart().getX()][other.getStart().getY()],Spots[other.getEnd().getX()][other.getEnd().getY()]);
     }
 }

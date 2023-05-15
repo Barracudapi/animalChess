@@ -14,7 +14,9 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
     private GameFrame gameFrame;
     private Player player1;
     private Player player2;
+    private AIPlayer aiPlayer;
     private Player currentPlayer;
+    private boolean isAI;
     private boolean gameOver;
     private int turn;
     private int row;
@@ -24,10 +26,17 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
     private String pgn;
 
 
-    public Game() {
+    public Game(boolean isAI) {
+        this.isAI = isAI;
+        System.out.println(isAI);
         board = new Board();
         player1 = new Player("Player 1", Piece.Color.YELLOW);
-        player2 = new Player("Player 2", Piece.Color.RED);
+        if(isAI){
+            aiPlayer = new AIPlayer("AI Player", Piece.Color.RED, 5);
+            System.out.println(aiPlayer.getName());
+        } else{
+            player2 = new Player("Player 2", Piece.Color.RED);
+        }
         currentPlayer = player1;
         gameOver = false;
         turn = 1;
@@ -36,6 +45,34 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
     }
     public void setGameFrame(GameFrame gameFrame){
         this.gameFrame = gameFrame;
+    }
+    public void aiTurn() {
+        // Display the current board state
+        if(currentPlayer == aiPlayer){
+    
+            // Get the next move from the current player
+            System.out.println("AI'S TURN IS LOADING");
+            board.printBoard();
+            Move moveTemp = aiPlayer.getMove(board);
+            Move move = board.convertMove(moveTemp);
+            // Perform the move on the board
+            if(board.movePiece(move)){
+                System.out.println("AI HAS MADE A MOVE");
+                System.out.println("THE AI HAS DECIDED TO MOVE THE " + board.getSpot(move.getEnd()).getPiece() + " : --- " + move.toString());
+            } else{
+                System.out.println("THE AI IS UNABLE TO MOVE");
+                gameOver = true;
+                printMoves();
+                saveGame("default", moves);
+                gameFrame.gameover();
+                gameFrame.getSidePanel().setGameOver(true);
+            }
+            // Check for game-over conditions
+            board.printPgn();
+            switchPlayer();
+            updateGame();
+
+        }
     }
 
     public void setVisible(boolean b) {
@@ -94,16 +131,19 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
             } else{
                 if(selectedSpot.getPiece() == e.getPiece()){
                     selectedSpot = null;
-                }else {
+                }else if(selectedSpot.getPiece()!=null) {
 
                     Move move = new Move(selectedSpot, board.getSpots()[e.getX()][e.getY()]);
                     if(selectedSpot.getPiece().getColor() == currentPlayer.getPieceColor()){
                         if(board.movePiece(move)){
+                            board.printBoard();
                             if(board.getSpots()[selectedSpot.getX()][selectedSpot.getY()].getPiece()==null) {
+                                System.out.println("player 1 has moved!");
                                 printMoves();
                                 incrementTurn();
                                 switchPlayer();
                                 selectedSpot = null;
+                                updateGame();
                             }
                         } else{
                             selectedSpot = e;
@@ -112,16 +152,20 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
                 }
             }
         }
-        gameFrame.updateGame();
-        updateGame();
     }
     public void updateGame(){
+        gameFrame.updateGame();
         if(board.getSpots()[0][3].getPiece() != null || board.getSpots()[8][3].getPiece() !=null){
             gameOver = true;
             printMoves();
             saveGame("default", moves);
             gameFrame.gameover();
             gameFrame.getSidePanel().setGameOver(true);
+        }
+        System.out.println(currentPlayer.getName());
+        if(currentPlayer==aiPlayer){
+            System.out.println("It is the AI's turn");
+            aiTurn();
         }
     }
     public void saveGame(String filename, ArrayList<Move> moves){
@@ -145,7 +189,11 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
 
     public void switchPlayer(){
         if(currentPlayer == player1){
-            currentPlayer = player2;
+            if(isAI){
+                currentPlayer = aiPlayer;
+            } else{
+                currentPlayer = player2;
+            }
         } else{
             currentPlayer = player1;
         }

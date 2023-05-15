@@ -39,7 +39,7 @@ public class GameOverPopup extends JDialog {
     }
 
     private void restartGame() {
-        Game game = new Game();
+        Game game = new Game(true);
         GameFrame gameFrame = new GameFrame(game);
         game.setGameFrame(gameFrame);
         gameFrame.setVisible(true);
