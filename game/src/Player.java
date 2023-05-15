@@ -14,10 +14,6 @@ public class Player {
     public Piece.Color getPieceColor() {
         return pieceColor;
     }
-
-    public Move getMove(){
-        return null;
-    }
 }
 
 

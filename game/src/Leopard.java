@@ -2,12 +2,12 @@ public class Leopard extends Piece{
     private static final String imagePath = "game/resources/leopard.jfif";
     private static final int value = 5;
     private static final int animalPower = 5;
-    private static final String name = "Leopard";
+    private static final String name = "LEOPARD";
     public Leopard(Color color){
         super(color, name, animalPower, value, imagePath);
     }
     @Override
-    public boolean canMove(Spot[][] board, Spot start, Spot end) {
+    public boolean canMove(Board board, Spot start, Spot end) {
         if(end.getSpotType() == Spot.Type.BASERED && start.getPiece().getColor() == Color.RED){
             return false;
         }
