@@ -203,4 +203,8 @@ public class Board {
     public Move convertMove(Move other){
         return new Move(Spots[other.getStart().getX()][other.getStart().getY()],Spots[other.getEnd().getX()][other.getEnd().getY()]);
     }
+
+    public List<Piece> getCapturedPieces(){
+        return capturedPieces;
+    }
 }
