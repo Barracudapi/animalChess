@@ -110,6 +110,8 @@ public class Board {
                 this.Spots[i][j] = new Spot(Spots[i][j]);
             }
         }
+        capturedPieces = new ArrayList<Piece>();
+        System.out.println(capturedPieces.size());
     }
     public ArrayList<Move> pgnToMoves(ArrayList<String> pgn){
         ArrayList<Move> moves = new ArrayList<Move>();

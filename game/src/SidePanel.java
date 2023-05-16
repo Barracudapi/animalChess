@@ -1,9 +1,11 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.security.KeyPair;
 import java.util.List;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 public class SidePanel extends JPanel {
     private JLabel turnNumberLabel;
@@ -14,6 +16,8 @@ public class SidePanel extends JPanel {
     private JButton saveButton;
     private JButton loadButton;
     private JPanel capturedPiecesPanel;
+    private JPanel redCapturedPiecesPanel;
+    private JPanel yellowCapturedPiecesPanel;
     private Game game;
 
     public SidePanel(Game game) {
@@ -35,24 +39,13 @@ public class SidePanel extends JPanel {
         add(gameOverLabel, BorderLayout.NORTH);
         gameOverLabel.setVisible(false);
 
-        // // Create captured pieces label
-        capturedPiecesLabel = new JLabel("Captured Pieces:");
-        capturedPiecesLabel.setFont(new Font("Arial", Font.PLAIN, 18));
-        capturedPiecesLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
-        capturedPiecesLabel.setLocation(10, 300);
-        add(capturedPiecesLabel, BorderLayout.CENTER);
-
-        // // Create captured pieces panel
-        capturedPiecesPanel = new JPanel();
-        capturedPiecesPanel.setLayout(new GridLayout(0, 1));
-        add(capturedPiecesPanel, BorderLayout.SOUTH);
-
         // Create action button
         actionButton = new JButton("Reverse Move");
-        actionButton.setBounds(10, 100, 180, 25);
+        actionButton.setBounds(10, 400, 180, 25);
         actionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                game.getBoard().getCapturedPieces().clear();
                 game.reverseMove();
             }
         });
@@ -60,7 +53,7 @@ public class SidePanel extends JPanel {
 
         // Create save button
         actionButton = new JButton("Save Game");
-        actionButton.setBounds(10, 150, 180, 25);
+        actionButton.setBounds(10, 450, 180, 25);
         //save game action
         //actionButton.addActionListener(new ActionListener() {
         //});
@@ -68,41 +61,67 @@ public class SidePanel extends JPanel {
 
         // Create load button
         actionButton = new JButton("Load Game");
-        actionButton.setBounds(10, 200, 180, 25);
+        actionButton.setBounds(10, 500, 180, 25);
         //load game action
         //actionButton.addActionListener(new ActionListener() {
         //});
         add(actionButton, BorderLayout.NORTH);
 
+        // // Create captured pieces label
+        capturedPiecesPanel = new JPanel();
+        capturedPiecesLabel = new JLabel("Captured Pieces:");
+        JLabel redCapturedPiecesLabel = new JLabel("RED:");
+        JLabel yellowCapturedPiecesLabel = new JLabel("YELLOW:");
+        capturedPiecesLabel.setFont(new Font("Arial", Font.PLAIN, 23));
+
+
+        // // Create captured pieces panel
+        redCapturedPiecesPanel = new JPanel();
+        yellowCapturedPiecesPanel = new JPanel();
+        capturedPiecesPanel.setSize(400, 200);
+        add(capturedPiecesPanel, BorderLayout.CENTER);
+        capturedPiecesPanel.add(capturedPiecesLabel, BorderLayout.CENTER);
+        capturedPiecesPanel.add(capturedPiecesLabel, BorderLayout.CENTER);
+
+        redCapturedPiecesPanel.setLayout(new GridLayout(0, 1));
+        yellowCapturedPiecesPanel.setLayout(new GridLayout(0, 1));
+        redCapturedPiecesPanel.setBorder(new EmptyBorder(0,0,0,25));
+        yellowCapturedPiecesLabel.setBorder(new EmptyBorder(0,25,0,0));
+        capturedPiecesPanel.add(redCapturedPiecesPanel, BorderLayout.WEST);
+        capturedPiecesPanel.add(yellowCapturedPiecesPanel, BorderLayout.EAST);
     }
+
     public void updateTurn() {
-        int turn = (game.getTurn()+1)/2;
-        if(game.getTurn()%2 ==1){
+        int turn = (game.getTurn() + 1) / 2;
+        if (game.getTurn() % 2 == 1) {
             turnLabel.setText(turn + ": " + game.getCurrentPlayer().getPieceColor());
-        } else{
+        } else {
             turnLabel.setText(turn + ": " + game.getCurrentPlayer().getPieceColor());
         }
     }
 
     public void updateCapturedPieces(List<Piece> pieces) {
-        capturedPiecesPanel.removeAll();
+        redCapturedPiecesPanel.removeAll();
+        yellowCapturedPiecesPanel.removeAll();
         for (Piece piece : pieces) {
-            ImageIcon imageIcon = new ImageIcon(new ImageIcon(piece.getImagePath()).getImage().getScaledInstance(40, 40, Image.SCALE_FAST));
+            ImageIcon imageIcon = new ImageIcon(new ImageIcon(piece.getImagePath()).getImage().getScaledInstance(37, 37, Image.SCALE_DEFAULT));
             JLabel label = new JLabel(imageIcon);
-            label.setFont(new Font("Arial", Font.PLAIN, 5));
-            label.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
-            if(piece.getColor() == Piece.Color.RED){
-                capturedPiecesPanel.add(label, BorderLayout.EAST);
-            }
-            else if(piece.getColor() == Piece.Color.YELLOW){
-                capturedPiecesPanel.add(label, BorderLayout.WEST);
+            label.setFont(new Font("Arial", Font.PLAIN, 3));
+            if (piece.getColor() == Piece.Color.RED) {
+                label.setBorder(BorderFactory.createLineBorder(Color.RED));
+                redCapturedPiecesPanel.add(label);
+            } else if (piece.getColor() == Piece.Color.YELLOW) {
+                label.setBorder(BorderFactory.createLineBorder(Color.CYAN));
+                yellowCapturedPiecesPanel.add(label);
             }
         }
-        capturedPiecesPanel.revalidate();
-        capturedPiecesPanel.repaint();
+        redCapturedPiecesPanel.revalidate();
+        yellowCapturedPiecesPanel.revalidate();
+        redCapturedPiecesPanel.repaint();
+        yellowCapturedPiecesPanel.repaint();
     }
 
-    public void setGameOver(boolean isOver){
+    public void setGameOver(boolean isOver) {
         System.out.println(isOver);
         gameOverLabel.setVisible(isOver);
     }

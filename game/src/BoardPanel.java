@@ -1,5 +1,4 @@
 import javax.swing.*;
-import javax.swing.border.AbstractBorder;
 import javax.swing.border.LineBorder;
 
 import java.awt.*;
@@ -17,7 +16,7 @@ public class BoardPanel extends JPanel implements MouseListener, MouseMotionList
     private static final int SQUARE_SIZE_ROW = BOARD_SIZE/ROWS;
     private static final int SQUARE_SIZE_COL = BOARD_SIZE/COLS;
     private ArrayList<BoardChangeListener> boardChangeListeners = new ArrayList<>();
-    
+
     public BoardPanel(Game game) {
         this.game = game;
         this.board = game.getBoard();
@@ -41,6 +40,7 @@ public class BoardPanel extends JPanel implements MouseListener, MouseMotionList
                     squares[row][col].setBorder(line);
 
                     squares[row][col].setBackground(new Color(48, 128, 20));
+
                 }
                 else if(this.spots[row][col].getSpotType()== Spot.Type.TRAPRED){
                     JLabel label = new JLabel();
@@ -80,12 +80,11 @@ public class BoardPanel extends JPanel implements MouseListener, MouseMotionList
                 }
                 if(this.spots[row][col].getPiece() != null){
                     squares[row][col].add(new PiecePanel(this.spots[row][col].getPiece()));
-                    squares[row][col].setBackground(new Color(12, 110, 30));
                 }
                 this.add(squares[row][col]);
             }
         }
-        
+
         revalidate(); // Revalidate the panel to update its components
         repaint();
     }
@@ -142,12 +141,13 @@ public class BoardPanel extends JPanel implements MouseListener, MouseMotionList
         }
     }
     private void highlightAvailableMoves(Spot selectedspot){
-        squares[selectedspot.getX()][selectedspot.getY()].setBackground(Color.pink);
+        squares[selectedspot.getX()][selectedspot.getY()].setBackground(new Color(245, 248, 121, 255));
         for(Move move: selectedspot.availableMoves(board)){
             int row = move.getEnd().getX();
             int col = move.getEnd().getY();
-            squares[row][col].setBackground(Color.PINK);
+            squares[row][col].setBackground(new Color(245, 248, 121, 255));
         }
     }
-    
+
+
 }

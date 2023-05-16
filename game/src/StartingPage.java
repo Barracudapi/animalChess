@@ -1,41 +1,61 @@
+
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class StartingPage extends JFrame implements ActionListener {
 
     private JButton startButton;
     private JButton exitButton;
     private JButton aiButton;
+    private JFrame frame;
 
     public StartingPage() {
         setTitle("Jungle Chess Game");
-        setSize(600, 400);
+        setSize(1920, 1080);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
-        
+
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(3, 2));
-        panel.setBorder(BorderFactory.createEmptyBorder(30, 30, 30, 30));
-        
-        JLabel label = new JLabel("Welcome to Jungle Chess Game!");
+
+        JLabel label = new JLabel("Jungle!");
         label.setFont(new Font("Serif", Font.PLAIN, 30));
         label.setHorizontalAlignment(SwingConstants.CENTER);
         panel.add(label);
         
         startButton = new JButton("Start Game");
         startButton.addActionListener(this);
-        panel.add(startButton);
+        startButton.setSize(550, 50);
+        startButton.setLocation(480, 330);
+        add(startButton);
 
         aiButton = new JButton("Play Against AI");
         aiButton.addActionListener(this);
-        panel.add(aiButton);
+        aiButton.setSize(550, 50);
+        aiButton.setLocation(480, 430);
+        add(aiButton);
         
         exitButton = new JButton("Exit");
         exitButton.addActionListener(this);
-        panel.add(exitButton);
-        
+        exitButton.setSize(550, 50);
+        exitButton.setLocation(480, 530);
+        add(exitButton);
+
+        ImageIcon background = new ImageIcon("game/resources/startingpage.jpg");
+        JLabel backgroundLabel = new JLabel(background);
+        ImageIcon imageIcon = new ImageIcon(new ImageIcon(background.getImage()).getImage().getScaledInstance(1920, 1080, Image.SCALE_REPLICATE));
+        backgroundLabel.setIcon(imageIcon);
+        backgroundLabel.setHorizontalAlignment(JLabel.CENTER);
+        backgroundLabel.setVerticalAlignment(JLabel.CENTER);
+        add(backgroundLabel, BorderLayout.CENTER);
+        setVisible(true);
+
+
         add(panel);
         setVisible(true);
     }

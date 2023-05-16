@@ -45,8 +45,6 @@ public class GameOverPopup extends JDialog {
         gameFrame.setVisible(true);
 
     }
-    private void goMainMenu() {
         StartingPage page = new StartingPage();
 
-    }
 }
