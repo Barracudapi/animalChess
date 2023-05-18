@@ -1,9 +1,10 @@
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
 import java.security.KeyPair;
 import java.util.List;
-
+import java.awt.event.WindowFocusListener;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
@@ -54,9 +55,56 @@ public class SidePanel extends JPanel {
         // Create save button
         actionButton = new JButton("Save Game");
         actionButton.setBounds(10, 450, 180, 25);
-        //save game action
-        //actionButton.addActionListener(new ActionListener() {
-        //});
+        actionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame saveFrame = new JFrame("Save");
+                saveFrame.setLayout(new BorderLayout());
+                JPanel warning1 = new JPanel();
+                JPanel warning2 = new JPanel();
+                JLabel label = new JLabel("Save game?");
+                saveFrame.setLayout(new GridLayout(0, 1));
+
+                warning1.add(label);
+                saveFrame.add(warning1, BorderLayout.NORTH);
+                saveFrame.add(warning2, BorderLayout.SOUTH);
+
+                JButton yesButton = new JButton("save");
+                warning2.add(yesButton);
+                yesButton.addActionListener(new ActionListener(){
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        System.exit(0);
+                    }
+                });
+
+                JButton noButton = new JButton("back");
+                warning2.add(noButton);
+                noButton.addActionListener(new ActionListener(){
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        saveFrame.dispose();
+                    }
+                });
+
+                saveFrame.addWindowFocusListener(new WindowFocusListener() {
+                    @Override
+                    public void windowGainedFocus(WindowEvent e) {
+
+                    }
+
+                    @Override
+                    public void windowLostFocus(WindowEvent e) {
+                        saveFrame.dispose();
+                    }
+                });
+
+                saveFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                saveFrame.setSize(150, 100);
+                saveFrame.setLocation(600, 350);
+                saveFrame.setVisible(true);
+            }
+        });
         add(actionButton, BorderLayout.NORTH);
 
         // Create load button
@@ -66,6 +114,61 @@ public class SidePanel extends JPanel {
         //actionButton.addActionListener(new ActionListener() {
         //});
         add(actionButton, BorderLayout.NORTH);
+
+        JButton exitButton = new JButton("Exit");
+        exitButton.setBounds(10, 550, 180, 25);
+        exitButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame exitWarning = new JFrame("WARNING!");
+                exitWarning.setLayout(new BorderLayout());
+                exitWarning.setUndecorated(true);
+                JPanel warning1 = new JPanel();
+                JPanel warning2 = new JPanel();
+                JLabel label = new JLabel("Are you sure?");
+                exitWarning.setLayout(new GridLayout(0, 1));
+
+                warning1.add(label);
+                exitWarning.add(warning1, BorderLayout.NORTH);
+                exitWarning.add(warning2, BorderLayout.SOUTH);
+
+                JButton yesButton = new JButton("yes");
+                warning2.add(yesButton);
+                yesButton.addActionListener(new ActionListener(){
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                            System.exit(0);
+                    }
+                });
+
+                JButton noButton = new JButton("no");
+                warning2.add(noButton);
+               noButton.addActionListener(new ActionListener(){
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        exitWarning.dispose();
+                    }
+                });
+
+               exitWarning.addWindowFocusListener(new WindowFocusListener() {
+                   @Override
+                   public void windowGainedFocus(WindowEvent e) {
+
+                   }
+
+                   @Override
+                   public void windowLostFocus(WindowEvent e) {
+                       exitWarning.dispose();
+                   }
+               });
+
+                exitWarning.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                exitWarning.setSize(150, 100);
+                exitWarning.setLocation(600, 350);
+                exitWarning.setVisible(true);
+            }
+        });
+        add(exitButton, BorderLayout.NORTH);
 
         // // Create captured pieces label
         capturedPiecesPanel = new JPanel();
