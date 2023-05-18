@@ -29,7 +29,7 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
         board = new Board();
         player1 = new Player("Player 1", Piece.Color.YELLOW);
         if(isAI){
-            aiPlayer = new AIPlayer("AI Player", Piece.Color.RED, 5);
+            aiPlayer = new AIPlayer("AI Player", Piece.Color.RED, 10000);
             System.out.println(aiPlayer.getName());
         } else{
             player2 = new Player("Player 2", Piece.Color.RED);
@@ -38,6 +38,7 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
         gameOver = false;
         turn = 1;
         moves = new ArrayList<Move>();
+        
         if(!isFirstPlayer){
             currentPlayer = aiPlayer;
             aiTurn();

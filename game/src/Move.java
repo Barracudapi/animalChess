@@ -3,10 +3,12 @@
 public class Move {
     private Spot start;
     private Spot end;
+    public double value;
 
     public Move(Spot start, Spot end){
         this.start = start;
         this.end = end;
+        value = 0;
     }
     public Move(Move other){
         this.start = new Spot(other.start);
@@ -70,5 +72,11 @@ public class Move {
         
         // return new Move(new Spot(pngFrag.charAt(2)+0, pngFrag.charAt(3)+0, piece, ))
         return null;
+    }
+    public double getValue() {
+        return value;
+    }
+    public void setValue(double value) {
+        this.value = value;
     }
 }

@@ -9,6 +9,7 @@ public class AIPlayer extends Player {
         this.aiAlgorithm = new AIAlgorithm(maxDepth);
     }
     public Move getMove(Board board) {
+        System.out.println("THE GAME EVALUATION IS " + aiAlgorithm.evaluateBoard(board));
         return aiAlgorithm.getBestMove(board);
     }
     
