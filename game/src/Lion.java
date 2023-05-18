@@ -38,7 +38,7 @@ public class Lion extends Piece{
             }
         }
         if(start.getY() == end.getY() && Math.abs(end.getX() - start.getX()) == 4 && ((start.getX() == 2 || start.getX() == 6) && (start.getY() == 1 || start.getY() == 2 || start.getY() == 4 || start.getY() == 5))){
-            if(end.getPiece() != null && end.getPiece().getAnimalPower() >= start.getPiece().getAnimalPower()){
+            if(end.getPiece() != null && end.getPiece().getAnimalPower() > start.getPiece().getAnimalPower()){
                 return false;
             }
             for(int i = 3; i < 6; i++){
@@ -49,7 +49,7 @@ public class Lion extends Piece{
             return true;
         }
         if(start.getX() == end.getX() && Math.abs(end.getY() - start.getY()) == 3 && ((start.getX() == 3 || start.getX() == 4 || start.getX() == 5) && (start.getY() == 0 || start.getY() == 3 || start.getY() == 6))){
-            if(end.getPiece() != null && end.getPiece().getAnimalPower() >= start.getPiece().getAnimalPower()){
+            if(end.getPiece() != null && end.getPiece().getAnimalPower() > start.getPiece().getAnimalPower()){
                 return false;
             }
             if(start.getY() == 0){

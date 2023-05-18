@@ -50,7 +50,7 @@ public class StartingPage extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == startButton) {
             // Open the chess game window
-            Game game = new Game(false);
+            Game game = new Game(false, true);
             GameFrame gameFrame = new GameFrame(game);
             game.setGameFrame(gameFrame);
             gameFrame.setVisible(true);
@@ -60,7 +60,7 @@ public class StartingPage extends JFrame implements ActionListener {
             dispose();
         } else if (e.getSource() == aiButton){
             // Open the chess game window
-            Game game = new Game(true);
+            Game game = new Game(true, false);
             System.out.println("THIS GAME IS AGAINST AN AI");
             GameFrame gameFrame = new GameFrame(game);
             game.setGameFrame(gameFrame);

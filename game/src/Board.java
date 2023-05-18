@@ -170,8 +170,8 @@ public class Board {
             System.out.print(pgn+'\t');
         }
     }
-    public ArrayList<Move> getAllAvailableMoves(){
-        ArrayList<Move> allAvailableMoves = new ArrayList<Move>();
+    public List<Move> getAllAvailableMoves(){
+        List<Move> allAvailableMoves = new ArrayList<Move>();
         for(Spot[] spots: Spots){
             for(Spot spot: spots){
                 for(Move move: spot.availableMoves(this)){
@@ -179,7 +179,14 @@ public class Board {
                 }
             }
         }
+        Collections.sort(allAvailableMoves, new MoveComparator());
         return allAvailableMoves;
+    }
+    public boolean isCaptureAvailable(){
+        for(Move m: getAllAvailableMoves()){
+            if(m.getEnd().getPiece()!=null) return true;
+        }
+        return false;
     }
     public Board clone(){
         return new Board(this);
