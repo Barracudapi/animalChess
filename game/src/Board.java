@@ -111,7 +111,6 @@ public class Board {
             }
         }
         capturedPieces = new ArrayList<Piece>();
-        System.out.println(capturedPieces.size());
     }
     public ArrayList<Move> pgnToMoves(ArrayList<String> pgn){
         ArrayList<Move> moves = new ArrayList<Move>();

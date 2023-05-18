@@ -1,10 +1,8 @@
 import java.util.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.RandomAccessFile;
 
 import javax.swing.*;
 
@@ -19,11 +17,8 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
     private boolean isAI;
     private boolean gameOver;
     private int turn;
-    private int row;
-    private int col;
     private Spot selectedSpot = null;
     private ArrayList<Move> moves;
-    private String pgn;
 
 
     public Game(boolean isAI) {
@@ -47,32 +42,33 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
         this.gameFrame = gameFrame;
     }
     public void aiTurn() {
-        // Display the current board state
-        if(currentPlayer == aiPlayer){
-    
-            // Get the next move from the current player
-            System.out.println("AI'S TURN IS LOADING");
-            board.printBoard();
-            Move moveTemp = aiPlayer.getMove(board);
-            Move move = board.convertMove(moveTemp);
-            // Perform the move on the board
-            if(board.movePiece(move)){
-                System.out.println("AI HAS MADE A MOVE");
-                System.out.println("THE AI HAS DECIDED TO MOVE THE " + board.getSpot(move.getEnd()).getPiece() + " : --- " + move.toString());
-            } else{
-                System.out.println("THE AI IS UNABLE TO MOVE");
-                gameOver = true;
-                printMoves();
-                saveGame("default", moves);
-                gameFrame.gameover();
-                gameFrame.getSidePanel().setGameOver(true);
+        Thread aiThread = new Thread(() -> {
+            if(currentPlayer == aiPlayer){
+        
+                System.out.println("AI'S TURN IS LOADING");
+                board.printBoard();
+                Move moveTemp = aiPlayer.getMove(board);
+                Move move = board.convertMove(moveTemp);
+                if(board.movePiece(move)){
+                    System.out.println("AI HAS MADE A MOVE");
+                    System.out.println("THE AI HAS DECIDED TO MOVE THE " + board.getSpot(move.getEnd()).getPiece() + " : --- " + move.toString());
+                } else{
+                    System.out.println("THE AI IS UNABLE TO MOVE");
+                    gameOver = true;
+                    printMoves();
+                    saveGame("default", moves);
+                    gameFrame.gameover();
+                    gameFrame.getSidePanel().setGameOver(true);
+                }
+                board.printPgn();
+                SwingUtilities.invokeLater(() -> {
+                    switchPlayer();
+                    updateGame();
+                });
             }
-            // Check for game-over conditions
-            board.printPgn();
-            switchPlayer();
-            updateGame();
 
-        }
+        });
+        aiThread.start();
     }
 
     public void setVisible(boolean b) {
@@ -146,7 +142,16 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
                                 updateGame();
                             }
                         } else{
-                            selectedSpot = e;
+                            if(e.getPiece() != null){
+                                if(e.getPiece().getColor() == currentPlayer.getPieceColor()){
+                                    selectedSpot = e;
+                                } else{
+                                    selectedSpot = null;
+                                }
+                            } else{
+                                selectedSpot = null;
+                            }
+                            
                         }
                     }
                 }
