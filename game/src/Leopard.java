@@ -1,10 +1,11 @@
 public class Leopard extends Piece{
-    private static final String imagePath = "game/resources/leopard.jfif";
+    private static final String imagePathRed = "game/resources/dogred.jpg";
+    private static final String imagePathBlue = "game/resources/dogblue.jpg";
     private static final int value = 5;
     private static final int animalPower = 5;
     private static final String name = "LEOPARD";
     public Leopard(Color color){
-        super(color, name, animalPower, value, imagePath);
+        super(color, name, animalPower, value, imagePathRed, imagePathBlue);
     }
     @Override
     public boolean canMove(Board board, Spot start, Spot end) {

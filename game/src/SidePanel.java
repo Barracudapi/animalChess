@@ -104,15 +104,17 @@ public class SidePanel extends JPanel {
         redCapturedPiecesPanel.removeAll();
         yellowCapturedPiecesPanel.removeAll();
         for (Piece piece : pieces) {
-            ImageIcon imageIcon = new ImageIcon(new ImageIcon(piece.getImagePath()).getImage().getScaledInstance(37, 37, Image.SCALE_DEFAULT));
-            JLabel label = new JLabel(imageIcon);
-            label.setFont(new Font("Arial", Font.PLAIN, 3));
             if (piece.getColor() == Piece.Color.RED) {
+                ImageIcon imageIcon = new ImageIcon(new ImageIcon(piece.getImagePathRed()).getImage().getScaledInstance(37, 37, Image.SCALE_DEFAULT));
+                JLabel label = new JLabel(imageIcon);
+                label.setFont(new Font("Arial", Font.PLAIN, 3));
                 label.setBorder(BorderFactory.createLineBorder(Color.RED));
                 redCapturedPiecesPanel.add(label);
             } else if (piece.getColor() == Piece.Color.YELLOW) {
-                label.setBorder(BorderFactory.createLineBorder(Color.CYAN));
-                yellowCapturedPiecesPanel.add(label);
+                ImageIcon imageIcon = new ImageIcon(new ImageIcon(piece.getImagePathBlue()).getImage().getScaledInstance(37, 37, Image.SCALE_DEFAULT));
+                JLabel label = new JLabel(imageIcon);
+                label.setFont(new Font("Arial", Font.PLAIN, 3));
+                yellowCapturedPiecesPanel.add((label));
             }
         }
         redCapturedPiecesPanel.revalidate();

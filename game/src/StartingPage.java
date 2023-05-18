@@ -21,12 +21,6 @@ public class StartingPage extends JFrame implements ActionListener {
         setLocationRelativeTo(null);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        JPanel panel = new JPanel();
-
-        JLabel label = new JLabel("Jungle!");
-        label.setFont(new Font("Serif", Font.PLAIN, 30));
-        label.setHorizontalAlignment(SwingConstants.CENTER);
-        panel.add(label);
         
         startButton = new JButton("Start Game");
         startButton.addActionListener(this);
@@ -46,17 +40,10 @@ public class StartingPage extends JFrame implements ActionListener {
         exitButton.setLocation(480, 530);
         add(exitButton);
 
-        ImageIcon background = new ImageIcon("game/resources/startingpage.jpg");
-        JLabel backgroundLabel = new JLabel(background);
-        ImageIcon imageIcon = new ImageIcon(new ImageIcon(background.getImage()).getImage().getScaledInstance(1920, 1080, Image.SCALE_REPLICATE));
-        backgroundLabel.setIcon(imageIcon);
-        backgroundLabel.setHorizontalAlignment(JLabel.CENTER);
-        backgroundLabel.setVerticalAlignment(JLabel.CENTER);
-        add(backgroundLabel, BorderLayout.CENTER);
-        setVisible(true);
-
-
-        add(panel);
+        Image image = Toolkit.getDefaultToolkit().getImage("game/resources/backgroundpixeledited.jpg");
+        ImagePanel imagePanel = new ImagePanel(image);
+        add(imagePanel);
+        pack();
         setVisible(true);
     }
 
@@ -83,6 +70,6 @@ public class StartingPage extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        StartingPage page = new StartingPage();
+        new StartingPage();
     }
 }

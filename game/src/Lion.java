@@ -1,10 +1,11 @@
 public class Lion extends Piece{
-    private static final String imagePath = "game/resources/lion.jfif";
+    private static final String imagePathRed = "game/resources/lionred.jpg";
+    private static final String imagePathBlue = "game/resources/lionblue.jpg";
     private static final int value = 11;
     private static final int animalPower = 7;
     private static final String name = "LION";
     public Lion(Color color){
-        super(color, name, animalPower, value, imagePath);
+        super(color, name, animalPower, value, imagePathRed, imagePathBlue);
     }
     @Override
     public boolean canMove(Board board, Spot start, Spot end) {

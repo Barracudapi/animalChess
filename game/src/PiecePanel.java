@@ -17,20 +17,25 @@ public class PiecePanel extends JPanel {
         setLayout(new BorderLayout());
         
         // create a new JLabel with the ImageIcon and add it to the center of the panel
-        ImageIcon Lion = new ImageIcon(piece.getImagePath());
-        JLabel lionLabel = new JLabel(Lion);
-        ImageIcon imageIcon = new ImageIcon(new ImageIcon(piece.getImagePath()).getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
-        lionLabel.setIcon(imageIcon);
         if(piece.getColor()==Piece.Color.RED){
-            lionLabel.setForeground(Color.RED);
-            setBorder(BorderFactory.createLineBorder(Color.RED, 5));
+            ImageIcon Lion = new ImageIcon(piece.getImagePathRed());
+            JLabel lionLabel = new JLabel(Lion);
+            ImageIcon imageIcon = new ImageIcon(new ImageIcon(piece.getImagePathRed()).getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
+            lionLabel.setIcon(imageIcon);
+            lionLabel.setHorizontalAlignment(JLabel.CENTER);
+            lionLabel.setVerticalAlignment(JLabel.TOP);
+            lionLabel.setBorder(BorderFactory.createLineBorder(new Color(100 ,0, 0), 3, false));
+            add(lionLabel, BorderLayout.CENTER);
         } else{
-            lionLabel.setForeground(Color.YELLOW);
-            setBorder(BorderFactory.createLineBorder(Color.cyan, 5));
+            ImageIcon Lion = new ImageIcon(piece.getImagePathBlue());
+            JLabel lionLabel = new JLabel(Lion);
+            ImageIcon imageIcon = new ImageIcon(new ImageIcon(piece.getImagePathBlue()).getImage().getScaledInstance(60, 60, Image.SCALE_DEFAULT));
+            lionLabel.setIcon(imageIcon);
+            lionLabel.setHorizontalAlignment(JLabel.CENTER);
+            lionLabel.setVerticalAlignment(JLabel.TOP);
+            lionLabel.setBorder(BorderFactory.createLineBorder(new Color(0, 0, 100), 3, false));
+            add(lionLabel, BorderLayout.CENTER);
         }
-        lionLabel.setHorizontalAlignment(JLabel.CENTER);
-        lionLabel.setVerticalAlignment(JLabel.CENTER);
-        add(lionLabel, BorderLayout.CENTER);
     }
 
     // public String getImagePath() {

@@ -7,14 +7,16 @@ public abstract class Piece {
     private String name;
     private int animalPower;
     private int value;
-    private String imagePath;
+    private String imagePathRed;
+    private String imagePathBlue;
     
 
-    public Piece(Color color, String name, int animalPower, int value, String imagePath){
+    public Piece(Color color, String name, int animalPower, int value, String imagePathRed, String imagePathBlue){
         this.color = color;
         this.name = name;
         this.animalPower = animalPower;
-        this.imagePath = imagePath;
+        this.imagePathRed = imagePathRed;
+        this.imagePathBlue = imagePathBlue;
         this.value = value;
     }
 
@@ -44,8 +46,11 @@ public abstract class Piece {
 
     public void move(Move move) {};
 
-    public String getImagePath(){
-        return imagePath;
+    public String getImagePathRed(){
+        return imagePathRed;
+    }
+    public String getImagePathBlue(){
+        return imagePathBlue;
     }
 
     public int getValue() {

@@ -1,10 +1,11 @@
 public class Rat extends Piece {
-    private static final String imagePath = "game/resources/rat.jpg";
+    private static final String imagePathRed = "game/resources/ratred.jpg";
+    private static final String imagePathBlue = "game/resources/ratblue.jfif";
     private static final int value = 5;
     private static final int animalPower = 1;
     private static final String name = "RAT";
     public Rat(Color color){
-        super(color, name, animalPower, value, imagePath);
+        super(color, name, animalPower, value, imagePathRed, imagePathBlue);
     }
 
     @Override

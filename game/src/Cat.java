@@ -1,10 +1,11 @@
 public class Cat extends Piece {
-    private static final String imagePath = "game/resources/cat.png";
+    private static final String imagePathRed = "game/resources/catred.jpg";
+    private static final String imagePathBlue = "game/resources/catblue.jpg";
     private static final int value = 2;
     private static final int animalPower = 2;
     private static final String name = "CAT";
     public Cat(Color color){
-        super(color, name, animalPower, value, imagePath);
+        super(color, name, animalPower, value, imagePathRed, imagePathBlue);
     }
     @Override
     public boolean canMove(Board board, Spot start, Spot end) {

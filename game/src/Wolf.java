@@ -1,10 +1,11 @@
 public class Wolf extends Piece{
-    private static final String imagePath = "game/resources/wolf.png";
+    private static final String imagePathRed = "game/resources/wolfred.jpg";
+    private static final String imagePathBlue = "game/resources/wolfblue.jpg";
     private static final int value = 4;
     private static final int animalPower = 4;
     private static final String name = "WOLF";
     public Wolf(Color color){
-        super(color, name, animalPower, value, imagePath);
+        super(color, name, animalPower, value, imagePathRed, imagePathBlue);
     }
     @Override
     public boolean canMove(Board board, Spot start, Spot end) {
