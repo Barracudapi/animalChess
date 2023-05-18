@@ -6,10 +6,9 @@ public class MoveComparator implements Comparator<Move> {
         if(move1.getEnd().getPiece()!=null || move2.getEnd().getPiece()!=null){
             if(move1.getEnd().getPiece()==null) return 1;
             if(move2.getEnd().getPiece()==null) return -1;
-            Integer.compare(move2.getEnd().getPiece().getValue(), move1.getEnd().getPiece().getValue());
+            return Integer.compare(move2.getEnd().getPiece().getValue(), move1.getEnd().getPiece().getValue());
         }else {
             return Integer.compare(move2.getStart().getPiece().getValue(), move1.getStart().getPiece().getValue()); 
         }
-        return -1;
     }
 }
