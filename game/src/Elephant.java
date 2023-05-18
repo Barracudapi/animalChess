@@ -2,7 +2,7 @@ import java.util.Objects;
 
 public class Elephant extends Piece{
         private static final String imagePath = "game/resources/elephant.jfif";
-        private static final int value = 9;
+        private static final int value = 11;
         private static final int animalPower = 8;
         private static final String name = "ELEPHANT";
         public Elephant(Color color){

@@ -1,3 +1,6 @@
+import java.util.Collections;
+import java.util.List;
+
 public class AIAlgorithm {
     private int maxDepth;
 
@@ -35,11 +38,11 @@ public class AIAlgorithm {
 
         if (isMaximizingPlayer) {
             float maxScore = Integer.MIN_VALUE;
-
             for (Move move : board.getAllAvailableMoves()) {
                 if (move.getStart().getPiece().getColor() == Piece.Color.RED) {
                     Board newBoard = new Board(board);
                     newBoard.movePiece(move);
+                    if(newBoard.isCaptureAvailable()) depth++;
                     float score = minimax(newBoard, depth - 1, alpha, beta, false);
                     maxScore = Math.max(maxScore, score);
                     alpha = Math.max(alpha, score);
@@ -52,11 +55,13 @@ public class AIAlgorithm {
             return maxScore;
         } else {
             float minScore = Integer.MAX_VALUE;
-
-            for (Move move : board.getAllAvailableMoves()) {
+            List<Move> allAvailableMoves= board.getAllAvailableMoves();
+            Collections.sort(allAvailableMoves, new MoveComparator());
+            for (Move move : allAvailableMoves) {
                 if (move.getStart().getPiece().getColor() == Piece.Color.YELLOW) {
                     Board newBoard = new Board(board);
                     newBoard.movePiece(move);
+                    if(newBoard.isCaptureAvailable()) depth++;
                     float score = minimax(newBoard, depth - 1, alpha, beta, true);
                     minScore = Math.min(minScore, score);
                     beta = Math.min(beta, score);
@@ -78,11 +83,11 @@ public class AIAlgorithm {
                     if (spot.getPiece().getColor() == Piece.Color.RED) {
                         score += spot.getPiece().getValue();
                         score += spot.availableMoves(board).size()*spot.getPiece().getValue()*0.05;
-                        score += spot.getX()*(spot.getPiece().getValue()*3)*0.1;
+                        score += spot.getX()*(spot.getPiece().getValue())*0.1;
                     } else {
                         score -= spot.getPiece().getValue();
                         score -= spot.availableMoves(board).size()*spot.getPiece().getValue()*0.05;
-                        score -= (9-spot.getX())*(spot.getPiece().getValue()*3)*0.1;
+                        score -= (9-spot.getX())*(spot.getPiece().getValue())*0.1;
 
                     }
                 }

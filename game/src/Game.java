@@ -15,14 +15,16 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
     private AIPlayer aiPlayer;
     private Player currentPlayer;
     private boolean isAI;
+    private boolean isFirstPlayer;
     private boolean gameOver;
     private int turn;
     private Spot selectedSpot = null;
     private ArrayList<Move> moves;
 
 
-    public Game(boolean isAI) {
+    public Game(boolean isAI, boolean isFirstPlayer) {
         this.isAI = isAI;
+        this.isFirstPlayer = isFirstPlayer;
         System.out.println(isAI);
         board = new Board();
         player1 = new Player("Player 1", Piece.Color.YELLOW);
@@ -36,7 +38,10 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
         gameOver = false;
         turn = 1;
         moves = new ArrayList<Move>();
-
+        if(!isFirstPlayer){
+            currentPlayer = aiPlayer;
+            aiTurn();
+        }
     }
     public void setGameFrame(GameFrame gameFrame){
         this.gameFrame = gameFrame;
