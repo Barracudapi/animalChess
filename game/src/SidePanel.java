@@ -60,26 +60,35 @@ public class SidePanel extends JPanel {
             public void actionPerformed(ActionEvent e) {
                 JFrame saveFrame = new JFrame("Save");
                 saveFrame.setLayout(new BorderLayout());
-                JPanel warning1 = new JPanel();
-                JPanel warning2 = new JPanel();
+
+                JPanel panel1 = new JPanel();
+                JPanel panel2 = new JPanel();
+                JPanel panel3 = new JPanel();
+
                 JLabel label = new JLabel("Save game?");
                 saveFrame.setLayout(new GridLayout(0, 1));
 
-                warning1.add(label);
-                saveFrame.add(warning1, BorderLayout.NORTH);
-                saveFrame.add(warning2, BorderLayout.SOUTH);
+                JTextField textField = new JTextField(20);
+                textField.setText("savedGame_?");
+                panel3.add(textField, BorderLayout.CENTER);
 
-                JButton yesButton = new JButton("save");
-                warning2.add(yesButton);
-                yesButton.addActionListener(new ActionListener(){
+                panel1.add(label);
+                saveFrame.add(panel1, BorderLayout.NORTH);
+                saveFrame.add(panel3, BorderLayout.CENTER);
+                saveFrame.add(panel2, BorderLayout.SOUTH);
+
+                JButton saveButton = new JButton("save");
+                panel2.add(saveButton);
+                saveButton.addActionListener(new ActionListener(){
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        System.exit(0);
+                        String saveFileName = textField.getText();
+                        saveFrame.dispose();
                     }
                 });
 
                 JButton noButton = new JButton("back");
-                warning2.add(noButton);
+                panel2.add(noButton);
                 noButton.addActionListener(new ActionListener(){
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -100,7 +109,7 @@ public class SidePanel extends JPanel {
                 });
 
                 saveFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-                saveFrame.setSize(150, 100);
+                saveFrame.setSize(400, 200);
                 saveFrame.setLocation(600, 350);
                 saveFrame.setVisible(true);
             }
