@@ -1,4 +1,4 @@
-import java.awt.BorderLayout;
+import java.awt.*;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -16,6 +16,7 @@ public class GameFrame extends JFrame implements BoardPanel.BoardChangeListener 
         setTitle("Jungle Chess Game");
         setSize(800, 600);
         setLocationRelativeTo(null);
+        setUndecorated(true);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         boardPanel = new BoardPanel(this.game);
         sidePanel = new SidePanel(this.game);

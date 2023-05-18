@@ -1,12 +1,7 @@
 
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class StartingPage extends JFrame implements ActionListener {
 
@@ -14,37 +9,53 @@ public class StartingPage extends JFrame implements ActionListener {
     private JButton exitButton;
     private JButton aiButton;
     private JFrame frame;
+    private JPanel panel;
+    private static boolean isFrameCreated = false;
 
     public StartingPage() {
-        setTitle("Jungle Chess Game");
-        setSize(1920, 1080);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        if(!isFrameCreated){
+            frame = new JFrame();
+            setTitle("Jungle Chess Game");
+            setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            frame.setSize(1920, 1080);
 
-        
-        startButton = new JButton("Start Game");
-        startButton.addActionListener(this);
-        startButton.setSize(550, 50);
-        startButton.setLocation(480, 330);
-        add(startButton);
+            JPanel panel = new JPanel();
 
-        aiButton = new JButton("Play Against AI");
-        aiButton.addActionListener(this);
-        aiButton.setSize(550, 50);
-        aiButton.setLocation(480, 430);
-        add(aiButton);
-        
-        exitButton = new JButton("Exit");
-        exitButton.addActionListener(this);
-        exitButton.setSize(550, 50);
-        exitButton.setLocation(480, 530);
-        add(exitButton);
+            JLabel label = new JLabel("Jungle!");
+            label.setFont(new Font("Serif", Font.PLAIN, 30));
+            label.setHorizontalAlignment(SwingConstants.CENTER);
+            panel.add(label);
 
-        Image image = Toolkit.getDefaultToolkit().getImage("game/resources/backgroundpixeledited.jpg");
-        ImagePanel imagePanel = new ImagePanel(image);
-        add(imagePanel);
-        pack();
-        setVisible(true);
+
+            startButton = new JButton("Start Game");
+            startButton.addActionListener(this);
+            startButton.setSize(550, 50);
+            startButton.setLocation(480, 330);
+            add(startButton);
+
+            aiButton = new JButton("Play Against AI");
+            aiButton.addActionListener(this);
+            aiButton.setSize(550, 50);
+            aiButton.setLocation(480, 430);
+            add(aiButton);
+
+            exitButton = new JButton("Exit");
+            exitButton.addActionListener(this);
+            exitButton.setSize(550, 50);
+            exitButton.setLocation(480, 530);
+            add(exitButton);
+
+            Image image = Toolkit.getDefaultToolkit().getImage("game/resources/backgroundpixeledited.jpg");
+            ImagePanel imagePanel = new ImagePanel(image);
+            add(imagePanel);
+            pack();
+
+            GraphicsEnvironment environment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            GraphicsDevice device = environment.getDefaultScreenDevice();
+            device.setFullScreenWindow(this);
+
+            isFrameCreated = true;
+        }
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -65,11 +76,12 @@ public class StartingPage extends JFrame implements ActionListener {
             GameFrame gameFrame = new GameFrame(game);
             game.setGameFrame(gameFrame);
             gameFrame.setVisible(true);
-            dispose(); // close the starting page window
+            dispose();
         }
+        dispose();
     }
 
     public static void main(String[] args) {
-        new StartingPage();
+        StartingPage page = new StartingPage();
     }
 }
