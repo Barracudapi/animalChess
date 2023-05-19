@@ -33,18 +33,15 @@ public class BoardPanel extends JPanel implements MouseListener, MouseMotionList
             for (int col = 0; col < COLS; col++) {
                 squares[row][col] = new JPanel();
                 if(this.spots[row][col].getSpotType()==Spot.Type.LAND) {
-                    JLabel label = new JLabel();
 
                     LineBorder line = new LineBorder(Color.LIGHT_GRAY, 1, true);
 
                     squares[row][col].setBorder(line);
 
-                    squares[row][col].setBackground(new Color(48, 128, 20));
+                    squares[row][col].setBackground(new Color(48, 168, 20));
 
                 }
                 else if(this.spots[row][col].getSpotType()== Spot.Type.TRAPRED){
-                    JLabel label = new JLabel();
-
                     LineBorder line = new LineBorder(Color.LIGHT_GRAY, 1, true);
 
                     squares[row][col].setBorder(line);
@@ -52,7 +49,6 @@ public class BoardPanel extends JPanel implements MouseListener, MouseMotionList
                     squares[row][col].setBackground(new Color(100, 0, 0));
                 }
                 else if(this.spots[row][col].getSpotType() == Spot.Type.TRAPYELLOW){
-                    JLabel label = new JLabel();
 
                     LineBorder line = new LineBorder(Color.LIGHT_GRAY, 1, true);
 
@@ -61,8 +57,6 @@ public class BoardPanel extends JPanel implements MouseListener, MouseMotionList
                     squares[row][col].setBackground(new Color(0, 0, 100));
                 }
                 else if(this.spots[row][col].getSpotType() == Spot.Type.BASERED || this.spots[row][col].getSpotType() == Spot.Type.BASEYELLOW){
-                    JLabel label = new JLabel();
-
                     LineBorder line = new LineBorder(Color.LIGHT_GRAY, 1, true);
 
                     squares[row][col].setBorder(line);
@@ -70,7 +64,6 @@ public class BoardPanel extends JPanel implements MouseListener, MouseMotionList
                     squares[row][col].setBackground(new Color(0, 0, 0));
                 }
                 else {
-                    JLabel label = new JLabel();
 
                     LineBorder line = new LineBorder(Color.LIGHT_GRAY, 1, true);
 

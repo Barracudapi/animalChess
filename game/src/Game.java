@@ -146,7 +146,7 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
                             board.printBoard();
                             if(board.getSpots()[selectedSpot.getX()][selectedSpot.getY()].getPiece()==null) {
                                 SoundPlayer soundPlayer = new SoundPlayer();
-                                soundPlayer.loadSound("game/resources/capture.wav");
+                                soundPlayer.loadSound("game/resources/move-self.wav");
                                 soundPlayer.playSound();
                                 System.out.println("player 1 has moved!");
                                 printMoves();
@@ -232,6 +232,9 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
         }
     }
     public void reverseMove(){
+        SoundPlayer soundPlayer = new SoundPlayer();
+        soundPlayer.loadSound("game/resources/move-self.wav");
+        soundPlayer.playSound();
         moves = board.pgnToMoves(board.getPgn());
         board.reinitialize();
         for(int i = 0; i<moves.size()-1; i++){

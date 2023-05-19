@@ -1,17 +1,16 @@
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
+import javax.sound.sampled.*;
 import java.io.File;
+import java.io.IOException;
 
-public class SoundPlayer {
+public class SoundPlayer{
     private Clip clip;
     void loadSound(String filePath){
         try{
             File soundFile = new File(filePath);
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
-            Clip clip = AudioSystem.getClip();
+            clip = AudioSystem.getClip();
             clip.open(audioInputStream);
-        } catch(Exception e){
+        } catch(UnsupportedAudioFileException | IOException | LineUnavailableException e){
             e.printStackTrace();
         }
     }
@@ -24,6 +23,5 @@ public class SoundPlayer {
     }
 
     public static void main(String[] args) {
-
     }
 }
