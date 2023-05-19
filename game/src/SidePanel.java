@@ -20,6 +20,7 @@ public class SidePanel extends JPanel {
     private JPanel redCapturedPiecesPanel;
     private JPanel yellowCapturedPiecesPanel;
     private Game game;
+    private String saveFileName;
 
     public SidePanel(Game game) {
         this.game = game;
@@ -82,7 +83,8 @@ public class SidePanel extends JPanel {
                 saveButton.addActionListener(new ActionListener(){
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        String saveFileName = textField.getText();
+                        saveFileName = textField.getText();
+                        game.saveGame(saveFileName);
                         saveFrame.dispose();
                     }
                 });
@@ -238,6 +240,9 @@ public class SidePanel extends JPanel {
     public void setGameOver(boolean isOver) {
         System.out.println(isOver);
         gameOverLabel.setVisible(isOver);
+    }
+    public String getSaveFileName() {
+        return saveFileName;
     }
 }
 

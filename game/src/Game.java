@@ -62,7 +62,7 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
                     System.out.println("THE AI IS UNABLE TO MOVE");
                     gameOver = true;
                     printMoves();
-                    saveGame("default", moves);
+                    saveGame(gameFrame.getSidePanel().getSaveFileName()+"-finished");
                     gameFrame.gameover();
                     gameFrame.getSidePanel().setGameOver(true);
                 }
@@ -169,7 +169,7 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
         if(board.getSpots()[0][3].getPiece() != null || board.getSpots()[8][3].getPiece() !=null){
             gameOver = true;
             printMoves();
-            saveGame("default", moves);
+            saveGame(gameFrame.getSidePanel().getSaveFileName()+"-finished");
             gameFrame.gameover();
             gameFrame.getSidePanel().setGameOver(true);
         }
@@ -179,7 +179,7 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
             aiTurn();
         }
     }
-    public void saveGame(String filename, ArrayList<Move> moves){
+    public void saveGame(String filename){
         String s = "game/saved-games/" + filename + ".txt";
         String pgnString = "";
         for(String pgnFrag: board.getPgn()){
