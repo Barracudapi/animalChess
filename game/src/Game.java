@@ -73,8 +73,7 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
                 }
                 board.printPgn();
                 SwingUtilities.invokeLater(() -> {
-                    switchPlayer();
-                    updateGame();
+                    successfulMove();
                 });
             }
 
@@ -145,15 +144,7 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
                         if(board.movePiece(move)){
                             board.printBoard();
                             if(board.getSpots()[selectedSpot.getX()][selectedSpot.getY()].getPiece()==null) {
-                                SoundPlayer soundPlayer = new SoundPlayer();
-                                soundPlayer.loadSound("game/resources/capture.wav");
-                                soundPlayer.playSound();
-                                System.out.println("player 1 has moved!");
-                                printMoves();
-                                incrementTurn();
-                                switchPlayer();
-                                selectedSpot = null;
-                                updateGame();
+                                successfulMove();
                             }
                         } else{
                             if(e.getPiece() != null){
@@ -171,6 +162,17 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
                 }
             }
         }
+    }
+    public void successfulMove(){
+        SoundPlayer soundPlayer = new SoundPlayer();
+        soundPlayer.loadSound("game/resources/capture.wav");
+        soundPlayer.playSound();
+        System.out.println("player 1 has moved!");
+        printMoves();
+        incrementTurn();
+        switchPlayer();
+        selectedSpot = null;
+        updateGame();
     }
     public void updateGame(){
         gameFrame.updateGame();
@@ -241,16 +243,33 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
             setTurn(turn-1);
             switchPlayer();
         }
-        gameFrame.updateGame();
+        updateGame();
     }
     public void loadGame(ArrayList<String> newPgn){
+        System.out.println("is against AI: " + isAI);
+        player1 = new Player("Player 1", Piece.Color.YELLOW);
+        if(isAI){
+            aiPlayer = new AIPlayer("AI Player", Piece.Color.RED, 10000);
+            System.out.println(aiPlayer.getName());
+        } else{
+            player2 = new Player("Player 2", Piece.Color.RED);
+        }
+        currentPlayer = player1;
+        turn = 1;
+        gameOver = false;
+        moves = new ArrayList<Move>();
+        
+        if(!isFirstPlayer){
+            currentPlayer = aiPlayer;
+            aiTurn();
+        }
         board.setPgn(newPgn);
         moves = board.pgnToMoves(board.getPgn());
         board.reinitialize();
         for(int i = 0; i<moves.size(); i++){
             board.movePiece(moves.get(i));
+            successfulMove();
         }
-
-        gameFrame.updateGame();
+        updateGame();
     }
 }
