@@ -235,5 +235,15 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
         }
         gameFrame.updateGame();
     }
+    public void loadGame(ArrayList<String> newPgn){
+        board.setPgn(newPgn);
+        moves = board.pgnToMoves(board.getPgn());
+        board.reinitialize();
+        for(int i = 0; i<moves.size(); i++){
+            board.movePiece(moves.get(i));
+        }
+
+        gameFrame.updateGame();
+    }
 
 }

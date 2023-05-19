@@ -170,6 +170,11 @@ public class Board {
             System.out.print(pgn+'\t');
         }
     }
+
+    public void setPgn(ArrayList<String> pgn) {
+        this.pgn = pgn;
+    }
+
     public List<Move> getAllAvailableMoves(){
         List<Move> allAvailableMoves = new ArrayList<Move>();
         for(Spot[] spots: Spots){

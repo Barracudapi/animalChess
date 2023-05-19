@@ -3,7 +3,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.security.KeyPair;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.awt.event.WindowFocusListener;
 import javax.swing.*;
@@ -22,6 +28,7 @@ public class SidePanel extends JPanel {
     private JPanel yellowCapturedPiecesPanel;
     private Game game;
     private String saveFileName;
+    private File selectedFile;
 
     public SidePanel(Game game) {
         this.game = game;
@@ -130,13 +137,15 @@ public class SidePanel extends JPanel {
                 chooseSaveFile.setCurrentDirectory(new File(System.getProperty("user.dir")));
                 int result = chooseSaveFile.showOpenDialog(SidePanel.this);
                 if(result == JFileChooser.APPROVE_OPTION){
-                    File selectedFile = chooseSaveFile.getSelectedFile();
-                    // LOAD FILE
-
+                    selectedFile = chooseSaveFile.getSelectedFile();
+                    String fileContent = SavedFileReader.readSavedFile(selectedFile.toPath());
+                    ArrayList<String> savedMoves = new ArrayList<>(Arrays.asList(fileContent.split("\\s+")));
+                    game.loadGame(savedMoves);
                 }
             }
         });
         add(actionButton, BorderLayout.NORTH);
+
 
         JButton exitButton = new JButton("Exit");
         exitButton.setBounds(10, 550, 180, 25);
