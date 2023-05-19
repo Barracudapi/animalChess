@@ -61,9 +61,6 @@ public class Board {
             if(piece.isValidMove(newMove, this)){
                 if(newMove.isCapture()){
                     capturedPieces.add(getSpot(move.getEnd()).getPiece());
-                    SoundPlayer soundPlayer = new SoundPlayer();
-                    soundPlayer.loadSound("game/resources/capture.wav");
-                    soundPlayer.playSound();
                 }
                 this.pgn.add(newMove.toString());
                 // System.out.println("NEW PGN ADDED: " + newMove.toString());

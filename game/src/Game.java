@@ -74,7 +74,7 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
                 board.printPgn();
                 SwingUtilities.invokeLater(() -> {
                     switchPlayer();
-                    // playSound();
+                    playSound();
                     updateGame();
                 });
             }
@@ -147,7 +147,7 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
                             board.printBoard();
                             if(board.getSpots()[selectedSpot.getX()][selectedSpot.getY()].getPiece()==null) {
                                 successfulMove();
-                                // playSound();
+                                 playSound();
                             }
                         } else{
                             if(e.getPiece() != null){
@@ -177,6 +177,12 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
     public void playSound(){
         SoundPlayer soundPlayer = new SoundPlayer();
         soundPlayer.loadSound("game/resources/move-self.wav");
+        soundPlayer.playSound();
+    }
+
+    public void captSound(){
+        SoundPlayer soundPlayer = new SoundPlayer();
+        soundPlayer.loadSound("game/resources/capture.wav");
         soundPlayer.playSound();
     }
     public void updateGame(){
@@ -239,7 +245,7 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
         }
     }
     public void reverseMove(){
-        // playSound();
+        playSound();
         moves = board.pgnToMoves(board.getPgn());
         board.reinitialize();
         for(int i = 0; i<moves.size()-1; i++){
