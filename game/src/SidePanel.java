@@ -143,7 +143,7 @@ public class SidePanel extends JPanel {
 
 
         JButton exitButton = new JButton("Exit");
-        exitButton.setBounds(100, 550, 90, 25);
+        exitButton.setBounds(100, 550, 85, 25);
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -198,7 +198,7 @@ public class SidePanel extends JPanel {
         add(exitButton, BorderLayout.NORTH);
 
         JButton restartButton = new JButton("Restart");
-        restartButton.setBounds(10, 550, 90, 25);
+        restartButton.setBounds(10, 550, 85, 25);
         restartButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
