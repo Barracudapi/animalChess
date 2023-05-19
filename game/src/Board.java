@@ -103,6 +103,7 @@ public class Board {
             }
         }
         pgn = new ArrayList<String>();
+        capturedPieces = new ArrayList<Piece>();
     }
     public void reinitialize(Spot[][] Spots){
         for(int i = 0; i < ROW_SIZE; i++){

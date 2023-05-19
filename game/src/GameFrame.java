@@ -51,5 +51,7 @@ public class GameFrame extends JFrame implements BoardPanel.BoardChangeListener 
         gameOverPopup.setVisible(true);
         dispose();
     }
-
+    public void setGame(Game game) {
+        this.game = game;
+    }
 }
