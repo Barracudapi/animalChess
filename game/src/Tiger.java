@@ -1,7 +1,7 @@
 public class Tiger extends Piece {
     private static final String imagePathRed = "game/resources/tigerred.jpg";
     private static final String imagePathBlue = "game/resources/tigerblue.jpg";
-    private static final int value = 7;
+    private static final int value = 14;
     private static final int animalPower = 6;
     private static final String name = "TIGER";
     public Tiger(Piece.Color color){
