@@ -2,6 +2,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.security.KeyPair;
 import java.util.List;
 import java.awt.event.WindowFocusListener;
@@ -122,8 +123,19 @@ public class SidePanel extends JPanel {
         actionButton = new JButton("Load Game");
         actionButton.setBounds(10, 500, 180, 25);
         //load game action
-        //actionButton.addActionListener(new ActionListener() {
-        //});
+        actionButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e){
+                JFileChooser chooseSaveFile = new JFileChooser();
+                chooseSaveFile.setCurrentDirectory(new File(System.getProperty("user.dir")));
+                int result = chooseSaveFile.showOpenDialog(SidePanel.this);
+                if(result == JFileChooser.APPROVE_OPTION){
+                    File selectedFile = chooseSaveFile.getSelectedFile();
+                    // LOAD FILE
+
+                }
+            }
+        });
         add(actionButton, BorderLayout.NORTH);
 
         JButton exitButton = new JButton("Exit");
