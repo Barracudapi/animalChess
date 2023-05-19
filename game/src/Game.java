@@ -1,9 +1,13 @@
+import java.io.File;
 import java.util.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 
 
@@ -20,6 +24,7 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
     private int turn;
     private Spot selectedSpot = null;
     private ArrayList<Move> moves;
+    private Clip clip;
 
 
     public Game(boolean isAI, boolean isFirstPlayer) {
@@ -140,6 +145,9 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
                         if(board.movePiece(move)){
                             board.printBoard();
                             if(board.getSpots()[selectedSpot.getX()][selectedSpot.getY()].getPiece()==null) {
+                                SoundPlayer soundPlayer = new SoundPlayer();
+                                soundPlayer.loadSound("game/resources/capture.wav");
+                                soundPlayer.playSound();
                                 System.out.println("player 1 has moved!");
                                 printMoves();
                                 incrementTurn();
@@ -245,5 +253,4 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
 
         gameFrame.updateGame();
     }
-
 }
