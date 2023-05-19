@@ -143,7 +143,7 @@ public class SidePanel extends JPanel {
 
 
         JButton exitButton = new JButton("Exit");
-        exitButton.setBounds(10, 550, 180, 25);
+        exitButton.setBounds(100, 550, 90, 25);
         exitButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -197,12 +197,59 @@ public class SidePanel extends JPanel {
         });
         add(exitButton, BorderLayout.NORTH);
 
+        JButton restartButton = new JButton("Restart");
+        restartButton.setBounds(10, 550, 90, 25);
+        restartButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFrame restartWarning = new JFrame("Restart");
+                restartWarning.setLayout(new BorderLayout());
+                restartWarning.setUndecorated(true);
+                JPanel warning1 = new JPanel();
+                JPanel warning2 = new JPanel();
+                JLabel label = new JLabel("Restart game?");
+                restartWarning.setLayout(new GridLayout(0, 1));
+
+                warning1.add(label);
+                restartWarning.add(warning1, BorderLayout.NORTH);
+                restartWarning.add(warning2, BorderLayout.SOUTH);
+
+                JButton yesButton = new JButton("restart");
+                warning2.add(yesButton);
+                yesButton.addActionListener(new ActionListener(){
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        game.getBoard().reinitialize();
+                        game.setTurn(1);
+                        game.setCurrentPlayer(game.getFirstPlayer());
+                        game.updateGame();
+                        restartWarning.dispose();
+                    }
+                });
+
+                JButton noButton = new JButton("no");
+                warning2.add(noButton);
+                noButton.addActionListener(new ActionListener(){
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        restartWarning.dispose();
+                    }
+                });
+
+                restartWarning.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+                restartWarning.setSize(150, 100);
+                restartWarning.setLocation(600, 350);
+                restartWarning.setVisible(true);
+            }
+        });
+        add(restartButton, BorderLayout.NORTH);
+
         // // Create captured pieces label
         capturedPiecesPanel = new JPanel();
         capturedPiecesLabel = new JLabel("Captured Pieces:");
         JLabel redCapturedPiecesLabel = new JLabel("RED:");
         JLabel yellowCapturedPiecesLabel = new JLabel("YELLOW:");
-        capturedPiecesLabel.setFont(new Font("Arial", Font.PLAIN, 23));
+        capturedPiecesLabel.setFont(new Font("Arial", Font.PLAIN, 25));
 
 
         // // Create captured pieces panel

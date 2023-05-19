@@ -48,6 +48,9 @@ public class GameFrame extends JFrame implements BoardPanel.BoardChangeListener 
         return sidePanel;
     }
     public void gameover(){
+        SoundPlayer soundPlayer = new SoundPlayer();
+        soundPlayer.loadSound("game/resources/vicroy.wav");
+        soundPlayer.playSound();
         gameOverPopup.setVisible(true);
         dispose();
     }

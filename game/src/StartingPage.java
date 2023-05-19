@@ -45,7 +45,7 @@ public class StartingPage extends JFrame implements ActionListener {
             exitButton.setLocation(480, 530);
             add(exitButton);
 
-            Image image = Toolkit.getDefaultToolkit().getImage("game/resources/backgroundpixeledited.jpg");
+            Image image = Toolkit.getDefaultToolkit().getImage("game/resources/background.jpg");
             ImagePanel imagePanel = new ImagePanel(image);
             add(imagePanel);
             pack();
