@@ -166,7 +166,7 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
     }
     public void updateGame(){
         gameFrame.updateGame();
-        if(board.getSpots()[0][3].getPiece() != null || board.getSpots()[8][3].getPiece() !=null){
+        if(checkGameOver()){
             gameOver = true;
             printMoves();
             saveGame(gameFrame.getSidePanel().getSaveFileName()+"-finished");
@@ -178,6 +178,13 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
             System.out.println("It is the AI's turn");
             aiTurn();
         }
+    }
+    public boolean checkGameOver(){
+        if(board.getSpots()[0][3].getPiece() != null || board.getSpots()[8][3].getPiece() !=null) return true;
+        for(Move m: board.getAllAvailableMoves()){
+            if(m.getStart().getPiece().getColor() == currentPlayer.getPieceColor()) return false;
+        }
+        return true;
     }
     public void saveGame(String filename){
         String s = "game/saved-games/" + filename + ".txt";
