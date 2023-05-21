@@ -286,7 +286,7 @@ public class SidePanel extends JPanel {
                 label.setFont(new Font("Arial", Font.PLAIN, 3));
                 label.setBorder(BorderFactory.createLineBorder(Color.RED));
                 redCapturedPiecesPanel.add(label);
-            } else if (piece.getColor() == Piece.Color.YELLOW) {
+            } else if (piece.getColor() == Piece.Color.BLUE) {
                 ImageIcon imageIcon = new ImageIcon(new ImageIcon(piece.getImagePathBlue()).getImage().getScaledInstance(37, 37, Image.SCALE_DEFAULT));
                 JLabel label = new JLabel(imageIcon);
                 label.setFont(new Font("Arial", Font.PLAIN, 3));

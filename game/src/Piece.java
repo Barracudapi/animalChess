@@ -1,7 +1,7 @@
 public abstract class Piece {
 
     public enum Color{
-        RED, YELLOW;
+        RED, BLUE;
     }
     private Color color;
     private String name;

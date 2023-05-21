@@ -12,7 +12,7 @@ public class Wolf extends Piece{
         if(end.getSpotType() == Spot.Type.BASERED && start.getPiece().getColor() == Color.RED){
             return false;
         }
-        else if(end.getSpotType() == Spot.Type.BASEYELLOW && start.getPiece().getColor() == Color.YELLOW){
+        else if(end.getSpotType() == Spot.Type.BASEYELLOW && start.getPiece().getColor() == Color.BLUE){
             return false;
         }
         else if(end.getSpotType() == Spot.Type.WATER){
@@ -27,7 +27,7 @@ public class Wolf extends Piece{
             if(end.getPiece() == null){
                 return true;
             }
-            if(end.getSpotType() == Spot.Type.TRAPRED && end.getPiece().getColor() == Color.YELLOW){
+            if(end.getSpotType() == Spot.Type.TRAPRED && end.getPiece().getColor() == Color.BLUE){
                 return true;
             }
             if(end.getSpotType() == Spot.Type.TRAPYELLOW && end.getPiece().getColor() == Color.RED) {

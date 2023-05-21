@@ -13,9 +13,9 @@ public class Board {
             {new Spot(4,1, null, Spot.Type.LAND), new Spot(4,2, null, Spot.Type.WATER), new Spot(4,3, null, Spot.Type.WATER), new Spot(4,4, null, Spot.Type.LAND), new Spot(4,5, null, Spot.Type.WATER), new Spot(4,6, null, Spot.Type.WATER), new Spot(4,7, null, Spot.Type.LAND)},
             {new Spot(5,1, null, Spot.Type.LAND), new Spot(5,2, null, Spot.Type.WATER), new Spot(5,3, null, Spot.Type.WATER), new Spot(5,4, null, Spot.Type.LAND), new Spot(5,5, null, Spot.Type.WATER), new Spot(5,6, null, Spot.Type.WATER), new Spot(5,7, null, Spot.Type.LAND)},
             {new Spot(6,1, null, Spot.Type.LAND), new Spot(6,2, null, Spot.Type.WATER), new Spot(6,3, null, Spot.Type.WATER), new Spot(6,4, null, Spot.Type.LAND), new Spot(6,5, null, Spot.Type.WATER), new Spot(6,6, null, Spot.Type.WATER), new Spot(6,7, null, Spot.Type.LAND)},
-            {new Spot(7,1, new Elephant(Piece.Color.YELLOW), Spot.Type.LAND), new Spot(7,2, null, Spot.Type.LAND), new Spot(7,3, new Wolf(Piece.Color.YELLOW), Spot.Type.LAND), new Spot(7,4, null, Spot.Type.LAND), new Spot(7,5, new Leopard(Piece.Color.YELLOW), Spot.Type.LAND), new Spot(7,6, null, Spot.Type.LAND), new Spot(7,7, new Rat(Piece.Color.YELLOW), Spot.Type.LAND)},
-            {new Spot(8,1, null, Spot.Type.LAND), new Spot(8,2, new Cat(Piece.Color.YELLOW), Spot.Type.LAND), new Spot(8,3, null, Spot.Type.LAND), new Spot(8,4, null, Spot.Type.TRAPYELLOW), new Spot(8,5, null, Spot.Type.LAND), new Spot(8,6, new Dog(Piece.Color.YELLOW), Spot.Type.LAND), new Spot(8,7, null, Spot.Type.LAND)},
-            {new Spot(9,1, new Tiger(Piece.Color.YELLOW), Spot.Type.LAND), new Spot(9,2, null, Spot.Type.LAND), new Spot(9,3, null, Spot.Type.TRAPYELLOW), new Spot(9,4, null, Spot.Type.BASEYELLOW), new Spot(9,5, null, Spot.Type.TRAPYELLOW), new Spot(9,6, null, Spot.Type.LAND), new Spot(9,7, new Lion(Piece.Color.YELLOW), Spot.Type.LAND)},
+            {new Spot(7,1, new Elephant(Piece.Color.BLUE), Spot.Type.LAND), new Spot(7,2, null, Spot.Type.LAND), new Spot(7,3, new Wolf(Piece.Color.BLUE), Spot.Type.LAND), new Spot(7,4, null, Spot.Type.LAND), new Spot(7,5, new Leopard(Piece.Color.BLUE), Spot.Type.LAND), new Spot(7,6, null, Spot.Type.LAND), new Spot(7,7, new Rat(Piece.Color.BLUE), Spot.Type.LAND)},
+            {new Spot(8,1, null, Spot.Type.LAND), new Spot(8,2, new Cat(Piece.Color.BLUE), Spot.Type.LAND), new Spot(8,3, null, Spot.Type.LAND), new Spot(8,4, null, Spot.Type.TRAPYELLOW), new Spot(8,5, null, Spot.Type.LAND), new Spot(8,6, new Dog(Piece.Color.BLUE), Spot.Type.LAND), new Spot(8,7, null, Spot.Type.LAND)},
+            {new Spot(9,1, new Tiger(Piece.Color.BLUE), Spot.Type.LAND), new Spot(9,2, null, Spot.Type.LAND), new Spot(9,3, null, Spot.Type.TRAPYELLOW), new Spot(9,4, null, Spot.Type.BASEYELLOW), new Spot(9,5, null, Spot.Type.TRAPYELLOW), new Spot(9,6, null, Spot.Type.LAND), new Spot(9,7, new Lion(Piece.Color.BLUE), Spot.Type.LAND)},
     };
 
     private Spot[][] Spots;
@@ -120,7 +120,7 @@ public class Board {
         for(int i = 0; i<pgn.size(); i++){
             Move move = new Move(new Spot(Spots[Character.getNumericValue(pgn.get(i).charAt(2))][Character.getNumericValue(pgn.get(i).charAt((3)))]),  new Spot(Spots[Character.getNumericValue(pgn.get(i).charAt(5))][Character.getNumericValue(pgn.get(i).charAt((6)))]));
             if(i%2==0){
-                pieceColor = Piece.Color.YELLOW;
+                pieceColor = Piece.Color.BLUE;
             } else{
                 pieceColor = Piece.Color.RED;
             }

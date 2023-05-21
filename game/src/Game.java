@@ -28,7 +28,7 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
         this.isFirstPlayer = isFirstPlayer;
         System.out.println(isAI);
         board = new Board();
-        player1 = new Player("Player 1", Piece.Color.YELLOW);
+        player1 = new Player("Player 1", Piece.Color.BLUE);
         if(isAI){
             aiPlayer = new AIPlayer("AI Player", Piece.Color.RED, 15000);
             System.out.println(aiPlayer.getName());
@@ -267,7 +267,7 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
     }
     public void loadGame(ArrayList<String> newPgn){
         System.out.println("is against AI: " + isAI);
-        player1 = new Player("Player 1", Piece.Color.YELLOW);
+        player1 = new Player("Player 1", Piece.Color.BLUE);
         if(isAI){
             aiPlayer = new AIPlayer("AI Player", Piece.Color.RED, 10000);
             System.out.println(aiPlayer.getName());

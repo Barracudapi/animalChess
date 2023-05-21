@@ -106,7 +106,7 @@ public class AIAlgorithm {
         } else {
             double minScore = Integer.MAX_VALUE;
             for (Move move : board.getAllAvailableMoves()) {
-                if (move.getStart().getPiece().getColor() == Piece.Color.YELLOW) {
+                if (move.getStart().getPiece().getColor() == Piece.Color.BLUE) {
                     Board newBoard = new Board(board);
                     double score;
                     if(move.getEnd().getPiece()!=null){
