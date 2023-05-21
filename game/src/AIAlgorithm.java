@@ -43,7 +43,7 @@ public class AIAlgorithm {
                     double score = minimax(newBoard, currentDepth, transKey, Integer.MIN_VALUE, Integer.MAX_VALUE, false);
                     move.setValue(score);
                     newMoveList.add(move);
-                    if(currentDepth>4){
+                    if(currentDepth>3){
                         if (score > bestScore) {
                             if(!visitStates.contains(transKey)){
                                 System.out.println("The AI IS SEARCHING AT A DEPTH OF " + currentDepth + ", number of available moves: " + allAvailableMoves.size() + ", elapsed time: " + (System.currentTimeMillis()-startTime));
@@ -84,7 +84,7 @@ public class AIAlgorithm {
                 if (move.getStart().getPiece().getColor() == Piece.Color.RED) {
                     Board newBoard = new Board(board);
                     double score;
-                    if(move.getEnd().getPiece()!=null || move.getEnd().getSpotType() == Spot.Type.BASEYELLOW){
+                    if(move.getEnd().getPiece()!=null || move.getEnd().getSpotType() == Spot.Type.BASEYELLOW || move.getEnd().getSpotType() == Spot.Type.TRAPYELLOW){
                         transKey = trans.incrementKey(transKey, move, currentDepth);
                         newBoard.movePiece(move);
                         score = minimax(newBoard, depth, transKey, alpha, beta, false);
@@ -101,7 +101,7 @@ public class AIAlgorithm {
                     }
                 }
             }
-            if(currentDepth>5) trans.store(transKey, maxScore);
+            if(currentDepth>3) trans.store(transKey, maxScore);
 
             return maxScore;
         } else {
@@ -110,7 +110,7 @@ public class AIAlgorithm {
                 if (move.getStart().getPiece().getColor() == Piece.Color.BLUE) {
                     Board newBoard = new Board(board);
                     double score;
-                    if(move.getEnd().getPiece()!=null || move.getEnd().getSpotType()==Spot.Type.BASERED){
+                    if(move.getEnd().getPiece()!=null || move.getEnd().getSpotType()==Spot.Type.BASERED || move.getEnd().getSpotType() == Spot.Type.BASERED){
                         newBoard.movePiece(move);
                         transKey = trans.incrementKey(transKey, move, currentDepth);
                         score = minimax(newBoard, depth, transKey, alpha, beta, true);
@@ -127,7 +127,7 @@ public class AIAlgorithm {
                     }
                 }
             }
-            if(currentDepth>5) trans.store(transKey, minScore);
+            if(currentDepth>3) trans.store(transKey, minScore);
 
             return minScore;
         }
