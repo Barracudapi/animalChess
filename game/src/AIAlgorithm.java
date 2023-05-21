@@ -15,6 +15,7 @@ public class AIAlgorithm {
     public AIAlgorithm(long maxRunTime) {
         this.maxRunTime = maxRunTime;
         visitStates = new ArrayList<>();
+        trans = new TranspositionTable(100000);
     }
     
     public Move getBestMove(Board board) {
@@ -26,7 +27,6 @@ public class AIAlgorithm {
         double bestScore = Integer.MIN_VALUE;
         Move bestMove = null;
         numEvaluations = 0;
-        trans = new TranspositionTable(100000);
         List<Move> allAvailableMoves = board.getAllAvailableMoves();
         while((!isTerminate()&&currentDepth<maxDepth)||bestMove==null){
             currentDepth++;
@@ -69,11 +69,11 @@ public class AIAlgorithm {
     private double minimax(Board board, int depth, int[] transKey, double alpha, double beta, boolean isMaximizingPlayer) {
         if (depth == 0 || board.isGameOver() || isTerminate()) {
             // if(board.isCaptureAvailable()) return minimaxCapture(board, 3, alpha, beta, isMaximizingPlayer);
+            if(trans.lookupexists(transKey)){
+                numLookups++;
+                return trans.lookup(transKey);
+            }
             return evaluateBoard(board, isMaximizingPlayer);
-        }
-        if(trans.lookupexists(transKey) && depth<2){
-            numLookups++;
-            return trans.lookup(transKey);
         }
 
         if (isMaximizingPlayer) {
@@ -145,7 +145,7 @@ public class AIAlgorithm {
                                 if(isMaximizingPlayer){
                                     score+=move.getEnd().getPiece().getValue()*0.9;
                                 }else{
-                                    score+=move.getEnd().getPiece().getValue()*0.4;
+                                    score+=move.getEnd().getPiece().getValue()*0.5;
                                 }
                             }
                             if(move.getEnd().getSpotType() == Spot.Type.TRAPRED && spot.getPiece().getValue()<5) score+=0.5;
@@ -154,7 +154,7 @@ public class AIAlgorithm {
                         }
                         if(spot.getX()<8){
                             if(spot.getX()<2 || spot.getPiece().getValue()>4){
-                                score += (spot.getX())*(spot.getPiece().getValue())*0.05;
+                                score += (spot.getX())*(spot.getPiece().getValue())*0.1;
                             }
                         }
                         score += (3 - Math.abs(3-spot.getY()))*spot.getPiece().getValue()*0.02;
@@ -163,9 +163,9 @@ public class AIAlgorithm {
                         for(Move move: spot.availableMoves(board)){
                             if(move.getEnd().getPiece()!=null){
                                 if(!isMaximizingPlayer){
-                                    score-=move.getEnd().getPiece().getValue()*0.9;
+                                    score-=move.getEnd().getPiece().getValue()*2.9;
                                 }else{
-                                    score-=move.getEnd().getPiece().getValue()*0.4;
+                                    score-=move.getEnd().getPiece().getValue()*0.5;
                                 }
                             }
                             if(move.getEnd().getSpotType() == Spot.Type.TRAPYELLOW) score-=0.5;
@@ -175,7 +175,7 @@ public class AIAlgorithm {
                         }
                         if(spot.getX()>0){
                             if(spot.getX()<6 || spot.getPiece().getValue()>4){
-                                score -= (8-spot.getX())*(spot.getPiece().getValue())*0.05;
+                                score -= (8-spot.getX())*(spot.getPiece().getValue())*0.1;
                             }
                         } 
                         score -= (3 - Math.abs(3-spot.getY()))*spot.getPiece().getValue()*0.02;
