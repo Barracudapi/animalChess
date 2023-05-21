@@ -6,53 +6,74 @@ public class AIAlgorithm {
     private int currentDepth;
     private long startTime;
     private long maxRunTime;
+    private TranspositionTable trans;
+    private int numEvaluations;
+    private int numLookups;
+    private ArrayList<int[]> visitStates;
+    private int[] transKey;
 
     public AIAlgorithm(long maxRunTime) {
         this.maxRunTime = maxRunTime;
+        visitStates = new ArrayList<>();
     }
     
     public Move getBestMove(Board board) {
         if(board.isGameOver()) return null;
         currentDepth = 0;
-        int maxDepth = 10;
+        int maxDepth = 8;
+        numLookups = 0;
         startTime = System.currentTimeMillis();
         double bestScore = Integer.MIN_VALUE;
         Move bestMove = null;
+        numEvaluations = 0;
+        trans = new TranspositionTable(100000);
         List<Move> allAvailableMoves = board.getAllAvailableMoves();
-        // System.out.println(allAvailableMoves);
-        while(!isTerminate()&&currentDepth<maxDepth){
+        while((!isTerminate()&&currentDepth<maxDepth)||bestMove==null){
             currentDepth++;
             List<Move> newMoveList = new ArrayList<Move>();
             System.out.println("The AI IS SEARCHING AT A DEPTH OF " + currentDepth + ", number of available moves: " + allAvailableMoves.size() + ", elapsed time: " + (System.currentTimeMillis()-startTime));
             for (Move move : allAvailableMoves) {
                 // System.out.println(move.toString());
                 if(isTerminate())break;
-                
                 if (move.getStart().getPiece().getColor() == Piece.Color.RED) {
                     Board newBoard = new Board(board);
+                    transKey = trans.createKey(board, false);
                     newBoard.movePiece(move);
-                    double score = minimax(newBoard, currentDepth, Integer.MIN_VALUE, Integer.MAX_VALUE, false);
+                    double score = minimax(newBoard, currentDepth, transKey, Integer.MIN_VALUE, Integer.MAX_VALUE, false);
+                    trans.store(transKey, score);
                     move.setValue(score);
                     newMoveList.add(move);
-                    if (score > bestScore || (Math.random()>0.9 && score == bestScore)) {
-                        System.out.println("The AI IS SEARCHING AT A DEPTH OF " + currentDepth + ", number of available moves: " + allAvailableMoves.size() + ", elapsed time: " + (System.currentTimeMillis()-startTime));
-                        System.out.println("THE AI IS HIGHLY CONSIDERING " + move.toString() + "because score = " + score);
-                        bestMove = move;
-                        bestScore = score;
+                    if(currentDepth>5){
+                        if (score > bestScore) {
+                            if(!visitStates.contains(transKey)){
+                                System.out.println("The AI IS SEARCHING AT A DEPTH OF " + currentDepth + ", number of available moves: " + allAvailableMoves.size() + ", elapsed time: " + (System.currentTimeMillis()-startTime));
+                                System.out.println("THE AI IS HIGHLY CONSIDERING " + move.toString() + "because score = " + score);
+                                bestMove = move;
+                                bestScore = score;
+                            }
+                        }
                     }
                 }
             }
             Collections.sort(newMoveList, (a, b)->Double.compare(b.getValue(), a.getValue()));
             allAvailableMoves = newMoveList;
         }
-
+        System.out.println("Number of transpositions: " + trans.getSize());
+        System.out.println("Number of evaluations: " + numEvaluations);
+        System.out.println("Number of lookups: " + numLookups);
+        visitStates.add(transKey);
+        if(visitStates.size()>3) visitStates.remove(0);
         return bestMove;
     }
 
-    private double minimax(Board board, int depth, double alpha, double beta, boolean isMaximizingPlayer) {
+    private double minimax(Board board, int depth, int[] transKey, double alpha, double beta, boolean isMaximizingPlayer) {
         if (depth == 0 || board.isGameOver() || isTerminate()) {
             // if(board.isCaptureAvailable()) return minimaxCapture(board, 3, alpha, beta, isMaximizingPlayer);
-            return evaluateBoard(board);
+            return evaluateBoard(board, isMaximizingPlayer);
+        }
+        if(trans.lookupexists(transKey) && depth<2){
+            numLookups++;
+            return trans.lookup(transKey);
         }
 
         if (isMaximizingPlayer) {
@@ -64,12 +85,15 @@ public class AIAlgorithm {
                     double score;
                     if(move.getEnd().getPiece()!=null){
                         newBoard.movePiece(move);
-                        score = minimax(newBoard, depth, alpha, beta, false);
+                        transKey = trans.incrementKey(transKey, move, currentDepth);
+                        score = minimax(newBoard, depth, transKey, alpha, beta, false);
                     } else{
                         newBoard.movePiece(move);
-                        score = minimax(newBoard, depth-1, alpha, beta, false);
+                        transKey = trans.incrementKey(transKey, move, currentDepth);
+                        score = minimax(newBoard, depth-1, transKey, alpha, beta, false);
 
                     }
+                    if(currentDepth>4) trans.store(transKey, score);
                     maxScore = Math.max(maxScore, score);
                     alpha = Math.max(alpha, score);
                     if (beta <= alpha) {
@@ -87,12 +111,15 @@ public class AIAlgorithm {
                     double score;
                     if(move.getEnd().getPiece()!=null){
                         newBoard.movePiece(move);
-                        score = minimax(newBoard, depth, alpha, beta, true);
+                        transKey = trans.incrementKey(transKey, move, currentDepth);
+                        score = minimax(newBoard, depth, transKey, alpha, beta, true);
                     } else{
                         newBoard.movePiece(move);
-                        score = minimax(newBoard, depth-1, alpha, beta, true);
+                        transKey = trans.incrementKey(transKey, move, currentDepth);
+                        score = minimax(newBoard, depth-1, transKey, alpha, beta, true);
 
                     }
+                    if(currentDepth>4) trans.store(transKey, score);
                     minScore = Math.min(minScore, score);
                     beta = Math.min(beta, score);
                     if (beta <= alpha) {
@@ -105,29 +132,53 @@ public class AIAlgorithm {
         }
     }
 
-    public double evaluateBoard(Board board) {
+    public double evaluateBoard(Board board, boolean isMaximizingPlayer) {
         double score = 0;
+        numEvaluations++;
         for (Spot[] spots: board.getSpots()) {
             for(Spot spot: spots){
                 if(spot.getPiece()!=null){
                     if (spot.getPiece().getColor() == Piece.Color.RED) {
                         score += spot.getPiece().getValue();
-                        score += spot.availableMoves(board).size()*spot.getPiece().getValue()*0.1;
+                        for(Move move: spot.availableMoves(board)){
+                            if(move.getEnd().getPiece()!=null){
+                                if(isMaximizingPlayer){
+                                    score+=move.getEnd().getPiece().getValue()*0.9;
+                                }else{
+                                    score+=move.getEnd().getPiece().getValue()*0.4;
+                                }
+                            }
+                            if(move.getEnd().getSpotType() == Spot.Type.TRAPRED && spot.getPiece().getValue()<5) score+=0.5;
+                            if(move.getEnd().getSpotType() == Spot.Type.TRAPYELLOW) score+=1;
+                            if(move.getEnd().getSpotType() == Spot.Type.BASEYELLOW) score+=2;
+                        }
                         if(spot.getX()<8){
                             if(spot.getX()<2 || spot.getPiece().getValue()>4){
                                 score += (spot.getX())*(spot.getPiece().getValue())*0.05;
                             }
                         }
-                        score += (3 - Math.abs(3-spot.getY()))*spot.getPiece().getValue()*0.05;
+                        score += (3 - Math.abs(3-spot.getY()))*spot.getPiece().getValue()*0.02;
                     } else {
                         score -= spot.getPiece().getValue();
-                        score -= spot.availableMoves(board).size()*spot.getPiece().getValue()*0.1;
+                        for(Move move: spot.availableMoves(board)){
+                            if(move.getEnd().getPiece()!=null){
+                                if(!isMaximizingPlayer){
+                                    score-=move.getEnd().getPiece().getValue()*0.9;
+                                }else{
+                                    score-=move.getEnd().getPiece().getValue()*0.4;
+                                }
+                            }
+                            if(move.getEnd().getSpotType() == Spot.Type.TRAPYELLOW) score-=0.5;
+                            if(move.getEnd().getSpotType() == Spot.Type.TRAPRED) score-=1;
+                            if(move.getEnd().getSpotType() == Spot.Type.BASERED) score-=2;
+                            
+                        }
                         if(spot.getX()>0){
                             if(spot.getX()<6 || spot.getPiece().getValue()>4){
                                 score -= (8-spot.getX())*(spot.getPiece().getValue())*0.05;
                             }
                         } 
-                        score -= (3 - Math.abs(3-spot.getY()))*spot.getPiece().getValue()*0.05;
+                        score -= (3 - Math.abs(3-spot.getY()))*spot.getPiece().getValue()*0.02;
 
                     }
                 }

@@ -30,7 +30,7 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
         board = new Board();
         player1 = new Player("Player 1", Piece.Color.YELLOW);
         if(isAI){
-            aiPlayer = new AIPlayer("AI Player", Piece.Color.RED, 10000);
+            aiPlayer = new AIPlayer("AI Player", Piece.Color.RED, 15000);
             System.out.println(aiPlayer.getName());
         } else{
             player2 = new Player("Player 2", Piece.Color.RED);

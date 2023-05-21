@@ -50,15 +50,13 @@ public class Spot {
     public ArrayList<Move> availableMoves(Board board){
         ArrayList<Move> array = new ArrayList<>();
         Spot start = new Spot(x + 1, y + 1, piece, type);
-        for(int i = x-1; i < x+2; i++){
-            for(int j = y-1; j < y+2; j++){
-                if(i>-1 && i<9 && j>-1 && j<7){
-                    if(start.getPiece() != null){
+        if(start.getPiece() != null){
+            for(int i = 0; i < 9; i++){
+                for(int j = 0; j < 7; j++){
                         Move move = new Move(start, board.getSpots()[i][j]);
                         if(start.getPiece().isValidMove(move, board)){
                             array.add(move);
                         }
-                    }
                 }
             }
         }
