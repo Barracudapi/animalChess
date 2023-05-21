@@ -70,13 +70,89 @@ public class StartingPage extends JFrame implements ActionListener {
             // Exit the game
             dispose();
         } else if (e.getSource() == aiButton){
-            // Open the chess game window
-           Game game = new Game(true, false);
-           System.out.println("THIS GAME IS AGAINST AN AI");
-           GameFrame gameFrame = new GameFrame(game);
-           game.setGameFrame(gameFrame);
-           gameFrame.setVisible(true);
-           dispose();
+            JFrame aiLevelFrame = new JFrame("Choose AI difficulty");
+            aiLevelFrame.setDefaultCloseOperation(EXIT_ON_CLOSE);
+            aiLevelFrame.setSize(1920, 1080);
+
+            JPanel panel1 = new JPanel();
+            panel1.setLayout(new GridLayout(2, 3));
+
+            JButton easy = new JButton();
+            easy.setPreferredSize(new Dimension(300, 600));
+            ImageIcon icon1 = new ImageIcon("game/resources/cute-robot.jpg");
+            easy.setIcon(icon1);
+            easy.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Game game = new Game(true, false);
+                    System.out.println("THIS GAME IS AGAINST AN AI EASY DIFFICULTY");
+                    GameFrame gameFrame = new GameFrame(game);
+                    game.setGameFrame(gameFrame);
+                    gameFrame.setVisible(true);
+                    dispose();
+                }
+            });
+
+            JButton medium = new JButton();
+            medium.setPreferredSize(new Dimension(300, 600));
+            ImageIcon icon2 = new ImageIcon("game/resources/medium.png");
+            medium.setIcon(icon2);
+            medium.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Game game = new Game(true, false);
+                    System.out.println("THIS GAME IS AGAINST AN AI ON NORMAL DIFFICULTY");
+                    GameFrame gameFrame = new GameFrame(game);
+                    game.setGameFrame(gameFrame);
+                    gameFrame.setVisible(true);
+                    dispose();
+                }
+            });
+
+            JButton hard = new JButton();
+            hard.setPreferredSize(new Dimension(300, 600));
+            ImageIcon icon3 = new ImageIcon("game/resources/skyweb.png");
+            hard.setIcon(icon3);
+            hard.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    Game game = new Game(true, false);
+                    System.out.println("THIS GAME IS AGAINST AN AI ON HARD DIFFICULTY");
+                    GameFrame gameFrame = new GameFrame(game);
+                    game.setGameFrame(gameFrame);
+                    gameFrame.setVisible(true);
+                    dispose();
+                }
+            });
+
+            JTextArea text1 = new JTextArea();
+            text1.setBackground(new Color(72, 72, 72));
+            text1.setText("CODE NAME: T.!.N.Y:\n\nDIFFICULTY LEVEL: EASY\n\nT.1.N.Y is a lovable and curious A.I created out of love and joy.\nThough optimistic, T.!.N.Y is inexperienced");
+            text1.setForeground(Color.white);
+
+
+            JTextArea text2 = new JTextArea();
+            text2.setBackground(new Color(72, 72, 72));
+            text2.setText("CODE NAME: CHAD_B0T:\n\nDIFFICULTY LEVEL: MEDIUM\n\nCHAD-B0T is a self-proclaimed genius at jungle chess.\nCHAD-B0T is calculative on the board but loves to give his opponents a chance.");
+            text2.setForeground(Color.white);
+
+
+            JTextArea text3 = new JTextArea();
+            text3.setBackground(new Color(72, 72, 72));
+            text3.setText("CODE NAME: SKYWEB:\n\nDIFFICULTY LEVEL: HARD\n\nSKYWEB'S one and only goal is the extermination of humans and all other living species.\nCan you stop him before it is too late?");
+            text3.setForeground(Color.white);
+
+
+           panel1.add(easy);
+           panel1.add(medium);
+           panel1.add(hard);
+           panel1.add(text1);
+           panel1.add(text2);
+           panel1.add(text3);
+           aiLevelFrame.add(panel1, BorderLayout.NORTH);
+           aiLevelFrame.setVisible(true);
+
+            dispose();
         }
     }
 
