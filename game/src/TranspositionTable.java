@@ -44,8 +44,11 @@ public class TranspositionTable {
         return key; 
     }
     public int[] incrementKey(int[] key, Move move, int depth){
-        if(key[0] == 1) key[0] = 2;
-        key[0] = 1;
+        if(key[0] == 1) {
+            key[0] = 2;
+        } else{
+            key[0] = 1;
+        }
         key[move.getStart().getX()*7+move.getStart().getY()+1] = 0;
         key[move.getEnd().getX()*7+move.getEnd().getY()+1] = move.getStart().getPiece().getAnimalPower();
         return key;
