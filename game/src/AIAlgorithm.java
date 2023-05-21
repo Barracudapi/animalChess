@@ -83,7 +83,7 @@ public class AIAlgorithm {
                 if (move.getStart().getPiece().getColor() == Piece.Color.RED) {
                     Board newBoard = new Board(board);
                     double score;
-                    if(move.getEnd().getPiece()!=null){
+                    if(move.getEnd().getPiece()!=null || move.getEnd().getSpotType() == Spot.Type.BASEYELLOW){
                         newBoard.movePiece(move);
                         transKey = trans.incrementKey(transKey, move, currentDepth);
                         score = minimax(newBoard, depth, transKey, alpha, beta, false);
@@ -93,7 +93,6 @@ public class AIAlgorithm {
                         score = minimax(newBoard, depth-1, transKey, alpha, beta, false);
 
                     }
-                    if(currentDepth>4) trans.store(transKey, score);
                     maxScore = Math.max(maxScore, score);
                     alpha = Math.max(alpha, score);
                     if (beta <= alpha) {
@@ -101,6 +100,7 @@ public class AIAlgorithm {
                     }
                 }
             }
+            if(currentDepth>2) trans.store(transKey, maxScore);
 
             return maxScore;
         } else {
@@ -109,7 +109,7 @@ public class AIAlgorithm {
                 if (move.getStart().getPiece().getColor() == Piece.Color.BLUE) {
                     Board newBoard = new Board(board);
                     double score;
-                    if(move.getEnd().getPiece()!=null){
+                    if(move.getEnd().getPiece()!=null || move.getEnd().getSpotType()==Spot.Type.BASERED){
                         newBoard.movePiece(move);
                         transKey = trans.incrementKey(transKey, move, currentDepth);
                         score = minimax(newBoard, depth, transKey, alpha, beta, true);
@@ -119,7 +119,6 @@ public class AIAlgorithm {
                         score = minimax(newBoard, depth-1, transKey, alpha, beta, true);
 
                     }
-                    if(currentDepth>4) trans.store(transKey, score);
                     minScore = Math.min(minScore, score);
                     beta = Math.min(beta, score);
                     if (beta <= alpha) {
@@ -127,6 +126,7 @@ public class AIAlgorithm {
                     }
                 }
             }
+            if(currentDepth>2) trans.store(transKey, minScore);
 
             return minScore;
         }
@@ -153,7 +153,7 @@ public class AIAlgorithm {
                             if(move.getEnd().getSpotType() == Spot.Type.BASEYELLOW) score+=2;
                         }
                         if(spot.getX()<8){
-                            if(spot.getX()<2 || spot.getPiece().getValue()>4){
+                            if(spot.getX()>2 || spot.getPiece().getValue()>4){
                                 score += (spot.getX())*(spot.getPiece().getValue())*0.1;
                             }
                         }
@@ -163,7 +163,7 @@ public class AIAlgorithm {
                         for(Move move: spot.availableMoves(board)){
                             if(move.getEnd().getPiece()!=null){
                                 if(!isMaximizingPlayer){
-                                    score-=move.getEnd().getPiece().getValue()*2.9;
+                                    score-=move.getEnd().getPiece().getValue()*0.9;
                                 }else{
                                     score-=move.getEnd().getPiece().getValue()*0.5;
                                 }
@@ -199,4 +199,3 @@ public class AIAlgorithm {
         return false;
     }
 }
-
