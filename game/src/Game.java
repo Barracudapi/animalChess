@@ -22,6 +22,7 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
     private Player firstPlayer;
 
 
+
     public Game(boolean isAI, boolean isFirstPlayer) {
         this.isAI = isAI;
         this.isFirstPlayer = isFirstPlayer;

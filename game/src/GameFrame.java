@@ -20,7 +20,7 @@ public class GameFrame extends JFrame implements BoardPanel.BoardChangeListener 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         boardPanel = new BoardPanel(this.game);
         sidePanel = new SidePanel(this.game);
-        gameOverPopup = new GameOverPopup();
+        gameOverPopup = new GameOverPopup(this.game);
         setLayout(new BorderLayout());
         boardPanel.setPreferredSize(boardPanel.getPreferredSize());
         boardPanel.addBoardChangeListener(this);

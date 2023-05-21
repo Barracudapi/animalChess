@@ -2,13 +2,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 public class GameOverPopup extends JDialog {
 
-    public GameOverPopup() {
+    private Game game;
+    private String saveFileName;
+
+    public GameOverPopup(Game game) {
         super(null, Dialog.ModalityType.APPLICATION_MODAL);
         setTitle("Game Over");
         setPreferredSize(new Dimension(300, 150));
+
+        this.game = game;
 
         JPanel messagePanel = new JPanel(new FlowLayout());
         JLabel messageLabel = new JLabel("Game Over!");
@@ -42,12 +48,18 @@ public class GameOverPopup extends JDialog {
                 saveFrame.add(panel2, BorderLayout.SOUTH);
 
                 JButton saveButton2 = new JButton("save");
+                saveButton2.addActionListener(new ActionListener(){
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        saveFileName = textField.getText();
+                        game.saveGame(saveFileName);
+                        saveFrame.dispose();
+                    }
+                });
                 panel2.add(saveButton2);
+                saveFrame.setAlwaysOnTop(true);
                 saveFrame.setVisible(true);
-
-                if(saveFrame.isVisible()){
-                    saveFrame.setAlwaysOnTop(true);
-                }
+                dispose();
             }
         });
         buttonPanel.add(saveButton);
