@@ -60,14 +60,12 @@ public class StartingPage extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == startButton) {
-            // Open the chess game window
             Game game = new Game(false, true, 0);
             GameFrame gameFrame = new GameFrame(game);
             game.setGameFrame(gameFrame);
             gameFrame.setVisible(true);
-            dispose(); // close the starting page window
+            dispose();
         } else if (e.getSource() == exitButton) {
-            // Exit the game
             dispose();
         } else if (e.getSource() == aiButton){
             JFrame aiLevelFrame = new JFrame("Choose AI difficulty");
@@ -85,11 +83,11 @@ public class StartingPage extends JFrame implements ActionListener {
                 @Override
                 public void actionPerformed(ActionEvent e) {
                     Game game = new Game(true, true, 3000);
-                    System.out.println("THIS GAME IS AGAINST AN AI EASY DIFFICULTY");
+                    System.out.println("THIS GAME IS AGAINST AN AI ON EASY DIFFICULTY");
                     GameFrame gameFrame = new GameFrame(game);
                     game.setGameFrame(gameFrame);
                     gameFrame.setVisible(true);
-                    dispose();
+                    aiLevelFrame.dispose();
                 }
             });
 
@@ -105,7 +103,7 @@ public class StartingPage extends JFrame implements ActionListener {
                     GameFrame gameFrame = new GameFrame(game);
                     game.setGameFrame(gameFrame);
                     gameFrame.setVisible(true);
-                    dispose();
+                    aiLevelFrame.dispose();
                 }
             });
 
@@ -121,7 +119,7 @@ public class StartingPage extends JFrame implements ActionListener {
                     GameFrame gameFrame = new GameFrame(game);
                     game.setGameFrame(gameFrame);
                     gameFrame.setVisible(true);
-                    dispose();
+                    aiLevelFrame.dispose();
                 }
             });
 
