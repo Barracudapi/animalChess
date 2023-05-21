@@ -121,10 +121,9 @@ public class SidePanel extends JPanel {
         });
         add(actionButton, BorderLayout.NORTH);
 
-        // Create load button
+
         actionButton = new JButton("Load Game");
         actionButton.setBounds(10, 500, 180, 25);
-        //load game action
         actionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){

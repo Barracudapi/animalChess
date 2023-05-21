@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class SoundPlayer{
     private Clip clip;
-    void loadSound(String filePath){
+    public void loadSound(String filePath){
         try{
             File soundFile = new File(filePath);
             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(soundFile);
@@ -20,8 +20,5 @@ public class SoundPlayer{
             clip.setFramePosition(0);
             clip.start();
         }
-    }
-
-    public static void main(String[] args) {
     }
 }

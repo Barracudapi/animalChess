@@ -71,14 +71,13 @@ public class StartingPage extends JFrame implements ActionListener {
             dispose();
         } else if (e.getSource() == aiButton){
             // Open the chess game window
-            Game game = new Game(true, false);
-            System.out.println("THIS GAME IS AGAINST AN AI");
-            GameFrame gameFrame = new GameFrame(game);
-            game.setGameFrame(gameFrame);
-            gameFrame.setVisible(true);
-            dispose();
+           Game game = new Game(true, false);
+           System.out.println("THIS GAME IS AGAINST AN AI");
+           GameFrame gameFrame = new GameFrame(game);
+           game.setGameFrame(gameFrame);
+           gameFrame.setVisible(true);
+           dispose();
         }
-        dispose();
     }
 
     public static void main(String[] args) {

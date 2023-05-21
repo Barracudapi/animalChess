@@ -1,5 +1,4 @@
 
-
 public class Move {
     private Spot start;
     private Spot end;

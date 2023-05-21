@@ -3,7 +3,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileWriter;
 import java.io.IOException;
-import javax.sound.sampled.Clip;
 import javax.swing.*;
 
 
@@ -144,12 +143,20 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
 
                     Move move = new Move(selectedSpot, board.getSpots()[e.getX()][e.getY()]);
                     if(selectedSpot.getPiece().getColor() == currentPlayer.getPieceColor()){
+                        boolean isCapture = move.getEnd().getPiece()!=null;
                         if(board.movePiece(move)){
                             board.printBoard();
                             if(board.getSpots()[selectedSpot.getX()][selectedSpot.getY()].getPiece()==null) {
                                 successfulMove();
-                                 playSound();
+                                 if(isCapture){
+                                     captSound();
+                                 }
+                                 else{
+                                     playSound();
+                                 }
+
                             }
+
                         } else{
                             if(e.getPiece() != null){
                                 if(e.getPiece().getColor() == currentPlayer.getPieceColor()){

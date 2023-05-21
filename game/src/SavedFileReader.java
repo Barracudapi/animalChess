@@ -12,12 +12,4 @@ public class SavedFileReader {
             return null;
         }
     }
-
-    public static void main(String[] args) {
-        Path filePath = Path.of("C:\\Users\\harro\\OneDrive\\Documents\\GitHub\\animalChess\\game\\saved-games\\Harrold.txt");
-        String fileContent = readSavedFile(filePath);
-        if(fileContent != null){
-            System.out.println(fileContent);
-        }
-    }
 }
