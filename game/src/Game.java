@@ -23,14 +23,14 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
 
 
 
-    public Game(boolean isAI, boolean isFirstPlayer, int maxRunTime) {
+    public Game(boolean isAI, boolean isFirstPlayer, int maxRunTime, int maxDepth) {
         this.isAI = isAI;
         this.isFirstPlayer = isFirstPlayer;
         System.out.println(isAI);
         board = new Board();
         player1 = new Player("Player 1", Piece.Color.BLUE);
         if(isAI){
-            aiPlayer = new AIPlayer("AI Player", Piece.Color.RED, maxRunTime);
+            aiPlayer = new AIPlayer("AI Player", Piece.Color.RED, maxRunTime, maxDepth);
             System.out.println(aiPlayer.getName());
         } else{
             player2 = new Player("Player 2", Piece.Color.RED);
@@ -254,7 +254,7 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
         System.out.println("is against AI: " + isAI);
         player1 = new Player("Player 1", Piece.Color.BLUE);
         if(isAI){
-            aiPlayer = new AIPlayer("AI Player", Piece.Color.RED, 10000);
+            aiPlayer = new AIPlayer("AI Player", Piece.Color.RED, 10000, 10);
             System.out.println(aiPlayer.getName());
         } else{
             player2 = new Player("Player 2", Piece.Color.RED);

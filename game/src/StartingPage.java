@@ -60,7 +60,7 @@ public class StartingPage extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == startButton) {
-            Game game = new Game(false, true, 0);
+            Game game = new Game(false, true, 0, 0);
             GameFrame gameFrame = new GameFrame(game);
             game.setGameFrame(gameFrame);
             gameFrame.setVisible(true);
@@ -82,7 +82,7 @@ public class StartingPage extends JFrame implements ActionListener {
             easy.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Game game = new Game(true, true, 3000);
+                    Game game = new Game(true, true, 3000, 6);
                     System.out.println("THIS GAME IS AGAINST AN AI ON EASY DIFFICULTY");
                     GameFrame gameFrame = new GameFrame(game);
                     game.setGameFrame(gameFrame);
@@ -98,7 +98,7 @@ public class StartingPage extends JFrame implements ActionListener {
             medium.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Game game = new Game(true, true, 7000);
+                    Game game = new Game(true, true, 7000, 8);
                     System.out.println("THIS GAME IS AGAINST AN AI ON NORMAL DIFFICULTY");
                     GameFrame gameFrame = new GameFrame(game);
                     game.setGameFrame(gameFrame);
@@ -114,7 +114,7 @@ public class StartingPage extends JFrame implements ActionListener {
             hard.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Game game = new Game(true, true, 12000);
+                    Game game = new Game(true, true, 12000, 10);
                     System.out.println("THIS GAME IS AGAINST AN AI ON HARD DIFFICULTY");
                     GameFrame gameFrame = new GameFrame(game);
                     game.setGameFrame(gameFrame);
