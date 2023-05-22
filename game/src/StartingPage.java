@@ -125,19 +125,22 @@ public class StartingPage extends JFrame implements ActionListener {
 
             JTextArea text1 = new JTextArea();
             text1.setBackground(new Color(72, 72, 72));
-            text1.setText("CODE NAME: T.!.N.Y:\n\nDIFFICULTY LEVEL: EASY\n\nT.1.N.Y is a lovable and curious A.I created out of love and joy.\nThough optimistic, T.!.N.Y is inexperienced");
+            text1.setBorder(BorderFactory.createLineBorder(Color.black));
+            text1.setText("CODE NAME: T.!.N.Y\n\nDIFFICULTY LEVEL: EASY\n\nT.1.N.Y is a adorable and curious A.I created out of love and joy.\nThough optimistic, T.!.N.Y is inexperienced");
             text1.setForeground(Color.white);
 
 
             JTextArea text2 = new JTextArea();
             text2.setBackground(new Color(72, 72, 72));
-            text2.setText("CODE NAME: CHAD_B0T:\n\nDIFFICULTY LEVEL: MEDIUM\n\nCHAD-B0T is a self-proclaimed genius at jungle chess.\nCHAD-B0T is calculative on the board but loves to give his opponents a chance.");
+            text2.setBorder(BorderFactory.createLineBorder(Color.black));
+            text2.setText("CODE NAME: CHAD_B0T\n\nDIFFICULTY LEVEL: MEDIUM\n\nCHAD-B0T is a self-proclaimed genius at jungle chess.\nCHAD-B0T is calculative on the board but enjoys giving his opponents a chance.");
             text2.setForeground(Color.white);
 
 
             JTextArea text3 = new JTextArea();
             text3.setBackground(new Color(72, 72, 72));
-            text3.setText("CODE NAME: SKYWEB:\n\nDIFFICULTY LEVEL: HARD\n\nSKYWEB'S one and only goal is the extermination of humans and all other living species.\nCan you stop him before it is too late?");
+            text3.setBorder(BorderFactory.createLineBorder(Color.black));
+            text3.setText("CODE NAME: SKYWEB\n\nDIFFICULTY LEVEL: HARD\n\nSKYWEB'S one and only goal is the extermination of the human race along with all other living species.\nCan you stop him before it is too late?");
             text3.setForeground(Color.white);
 
 

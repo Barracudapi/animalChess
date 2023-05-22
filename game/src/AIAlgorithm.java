@@ -69,7 +69,6 @@ public class AIAlgorithm {
 
     private double minimax(Board board, int depth, int[] transKey, double alpha, double beta, boolean isMaximizingPlayer) {
         if (depth == 0 || board.isGameOver() || isTerminate()) {
-            // if(board.isCaptureAvailable()) return minimaxCapture(board, 3, alpha, beta, isMaximizingPlayer);
             return evaluateBoard(board, isMaximizingPlayer);
         }
         if(trans.lookupexists(transKey) && depth<2){
@@ -97,7 +96,7 @@ public class AIAlgorithm {
                     maxScore = Math.max(maxScore, score);
                     alpha = Math.max(alpha, score);
                     if (beta <= alpha) {
-                        break; // Beta cutoff
+                        break;
                     }
                 }
             }
@@ -123,7 +122,7 @@ public class AIAlgorithm {
                     minScore = Math.min(minScore, score);
                     beta = Math.min(beta, score);
                     if (beta <= alpha) {
-                        break; // Alpha cutoff
+                        break;
                     }
                 }
             }
@@ -206,7 +205,6 @@ public class AIAlgorithm {
     public boolean isTerminate(){
 
         if(System.currentTimeMillis()-startTime>maxRunTime){
-            // System.out.println("ELAPSED TIME: " + (System.currentTimeMillis()-startTime));
             return true;
         }
         return false;

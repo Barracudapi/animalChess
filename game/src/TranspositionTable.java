@@ -28,8 +28,8 @@ public class TranspositionTable {
     }
     public int[] createKey(Board board, boolean isPlayer1){
         int[] key = new int[65];
-        key[0] = 1; //1 for first player turn
-        if(!isPlayer1) key[0] = 2; //2 for second player turn
+        key[0] = 1;
+        if(!isPlayer1) key[0] = 2;
         for(int i = 0; i<9; i++){
             for(int j = 0; j<7; j++){
                 if(board.getSpots()[i][j].getPiece()!=null){
@@ -56,12 +56,7 @@ public class TranspositionTable {
     public long getSize(){
         return table.size();
     }
-    public void printTable(int[] key){
-        for(int i: key){
-            System.out.print(i+" ");
-        }
-        System.out.print("\n");
-    }
+
     public void clearTable(){
         table.clear();
     }

@@ -35,8 +35,6 @@ public class Board {
         }
         reinitialize(board.getSpots());
         capturedPieces = new ArrayList<>();
-        // System.out.print("NEW BOARD PGN: ");
-        // printPgn();
     }
 
     public void printBoard() {
@@ -55,7 +53,6 @@ public class Board {
 
     public boolean movePiece(Move move){
         Move newMove = new Move(getSpot(move.getStart()),getSpot(move.getEnd()));
-        // System.out.println(newMove);
         Piece piece = newMove.getStart().getPiece();
         if(piece != null){
             if(piece.isValidMove(newMove, this)){
@@ -63,24 +60,15 @@ public class Board {
                     capturedPieces.add(getSpot(move.getEnd()).getPiece());
                 }
                 this.pgn.add(newMove.toString());
-                // System.out.println("NEW PGN ADDED: " + newMove.toString());
                 setPieceAtSpot(newMove.getEnd(), piece);
                 setPieceAtSpot(newMove.getStart(), null);
                 return true;
             } else{
                 System.out.println("INVALIDT MOVE: " + move.toString() + move.getStart().getPiece());
             }
-        } else{
-            // System.out.println("INVALID MOVE: " + move.toString());
         }
-        return false;
-    }
 
-    public void printCapturedPieces(){
-        for(Piece p: capturedPieces){
-            System.out.print(p);
-        }
-        System.out.print("\n");
+        return false;
     }
 
     public Spot getSpot(Spot spot){
@@ -203,17 +191,7 @@ public class Board {
         }
         return false;
     }
-    public ArrayList<Piece> getAllPieces(){
-        ArrayList<Piece> allPieces = new ArrayList<Piece>();
-        for(Spot[] spots: Spots){
-            for(Spot spot: spots){
-                if(spot.getPiece()!=null){
-                    allPieces.add(spot.getPiece());
-                }
-            }
-        }
-        return allPieces;
-    }
+
     public Move convertMove(Move other){
         return new Move(Spots[other.getStart().getX()][other.getStart().getY()],Spots[other.getEnd().getX()][other.getEnd().getY()]);
     }

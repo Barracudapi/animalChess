@@ -92,23 +92,11 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
     public Board getBoard() {
         return board;
     }
-    public Player getPlayer1() {
-        return player1;
-    }
-    public Player getPlayer2() {
-        return player2;
-    }
     public Player getCurrentPlayer() {
         return currentPlayer;
     }
     public void setCurrentPlayer(Player currentPlayer) {
         this.currentPlayer = currentPlayer;
-    }
-    public boolean getGameOver(){
-        return gameOver;
-    }
-    public void setGameOver(boolean gameOver) {
-        this.gameOver = gameOver;
     }
     public int getTurn() {
         return turn;
@@ -121,9 +109,6 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
     }
     public void incrementTurn(){
         turn = turn + 1;
-    }
-    public void addToMoves(Move move) {
-        moves.add(move);
     }
     public Player getFirstPlayer(){
         return firstPlayer;

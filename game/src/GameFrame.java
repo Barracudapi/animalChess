@@ -28,7 +28,6 @@ public class GameFrame extends JFrame implements BoardPanel.BoardChangeListener 
 
         add(boardPanel, BorderLayout.CENTER);
         add(sidePanel, BorderLayout.LINE_END);
-        // add(gameOverPopup, BorderLayout.CENTER);
     }
     public void updateGame(){
         sidePanel.updateTurn();
@@ -40,9 +39,6 @@ public class GameFrame extends JFrame implements BoardPanel.BoardChangeListener 
     @Override
     public void onBoardChanged(Spot event) {
         updateGame();
-    }
-    public BoardPanel getBoardPanel() {
-        return boardPanel;
     }
     public SidePanel getSidePanel() {
         return sidePanel;

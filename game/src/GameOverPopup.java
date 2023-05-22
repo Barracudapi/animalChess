@@ -2,7 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.io.File;
 
 public class GameOverPopup extends JDialog {
 
@@ -89,7 +88,4 @@ public class GameOverPopup extends JDialog {
         gameFrame.setVisible(true);
 
     }
-
-    StartingPage page = new StartingPage();
-
 }

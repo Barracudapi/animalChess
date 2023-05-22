@@ -67,11 +67,7 @@ public class Move {
     public Spot getEnd() {
         return end;
     }
-    public Move pgnToMove(String pngFrag, Piece.Color pieceColor){
-        
-        // return new Move(new Spot(pngFrag.charAt(2)+0, pngFrag.charAt(3)+0, piece, ))
-        return null;
-    }
+
     public double getValue() {
         return value;
     }

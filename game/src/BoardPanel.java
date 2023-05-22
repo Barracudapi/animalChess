@@ -78,7 +78,7 @@ public class BoardPanel extends JPanel implements MouseListener, MouseMotionList
             }
         }
 
-        revalidate(); // Revalidate the panel to update its components
+        revalidate();
         repaint();
     }
     public JPanel[][] getSquares() {
@@ -100,7 +100,6 @@ public class BoardPanel extends JPanel implements MouseListener, MouseMotionList
         int col = e.getX()/SQUARE_SIZE_COL;
         fireBoardChangeEvent(spots[row][col]);
         updateBoardPanel();
-        Piece tempPiece = spots[row][col].getPiece();
         if(game.getSelectedSpot() != null){
             if(game.getSelectedSpot().getPiece()!= null){
                 highlightAvailableMoves(game.getSelectedSpot());
@@ -125,7 +124,6 @@ public class BoardPanel extends JPanel implements MouseListener, MouseMotionList
     }
     public void addBoardChangeListener(BoardChangeListener listener) {
         boardChangeListeners.add(listener);
-        //System.out.println(listener);
     }
 
     private void fireBoardChangeEvent(Spot event) {

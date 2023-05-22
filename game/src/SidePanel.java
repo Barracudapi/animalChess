@@ -31,20 +31,17 @@ public class SidePanel extends JPanel {
         setLayout(new BorderLayout(10, 10));
         setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
-        // Create turn number label
         turnLabel = new JLabel("1: " + game.getCurrentPlayer().getPieceColor());
         turnLabel.setFont(new Font("Arial", Font.PLAIN, 18));
         turnLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         add(turnLabel, BorderLayout.PAGE_START);
 
-        //Create gameover label
         gameOverLabel = new JLabel("GameOVER");
         gameOverLabel.setFont(new Font("Arial", Font.PLAIN, 18));
         gameOverLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         add(gameOverLabel, BorderLayout.NORTH);
         gameOverLabel.setVisible(false);
 
-        // Create action button
         actionButton = new JButton("Reverse Move");
         actionButton.setBounds(10, 400, 180, 25);
         actionButton.addActionListener(new ActionListener() {
@@ -56,7 +53,6 @@ public class SidePanel extends JPanel {
         });
         add(actionButton, BorderLayout.NORTH);
 
-        // Create save button
         actionButton = new JButton("Save Game");
         actionButton.setBounds(10, 450, 180, 25);
         actionButton.addActionListener(new ActionListener() {
@@ -243,15 +239,12 @@ public class SidePanel extends JPanel {
         });
         add(restartButton, BorderLayout.NORTH);
 
-        // // Create captured pieces label
         capturedPiecesPanel = new JPanel();
         capturedPiecesLabel = new JLabel("Captured Pieces:");
         JLabel redCapturedPiecesLabel = new JLabel("RED:");
         JLabel yellowCapturedPiecesLabel = new JLabel("YELLOW:");
         capturedPiecesLabel.setFont(new Font("Arial", Font.PLAIN, 25));
 
-
-        // // Create captured pieces panel
         redCapturedPiecesPanel = new JPanel();
         yellowCapturedPiecesPanel = new JPanel();
         capturedPiecesPanel.setSize(400, 200);
