@@ -98,7 +98,7 @@ public class StartingPage extends JFrame implements ActionListener {
             medium.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Game game = new Game(true, true, 7000, 8);
+                    Game game = new Game(true, true, 7000, 7);
                     System.out.println("THIS GAME IS AGAINST AN AI ON NORMAL DIFFICULTY");
                     GameFrame gameFrame = new GameFrame(game);
                     game.setGameFrame(gameFrame);
@@ -114,7 +114,7 @@ public class StartingPage extends JFrame implements ActionListener {
             hard.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    Game game = new Game(true, true, 12000, 10);
+                    Game game = new Game(true, true, 15000, 9);
                     System.out.println("THIS GAME IS AGAINST AN AI ON HARD DIFFICULTY");
                     GameFrame gameFrame = new GameFrame(game);
                     game.setGameFrame(gameFrame);

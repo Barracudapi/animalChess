@@ -1,7 +1,7 @@
 public class Lion extends Piece{
     private static final String imagePathRed = "game/resources/lionred.jpg";
     private static final String imagePathBlue = "game/resources/lionblue.jpg";
-    private static final int value = 16;
+    private static final int value = 18;
     private static final int animalPower = 7;
     private static final String name = "LION";
     public Lion(Color color){

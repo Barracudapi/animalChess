@@ -12,6 +12,7 @@ public class AIAlgorithm {
     private int numLookups;
     private ArrayList<int[]> visitStates;
     private int[] transKey;
+    private int numRep =0;
 
     public AIAlgorithm(long maxRunTime, int maxDepth) {
         this.maxRunTime = maxRunTime;
@@ -58,12 +59,17 @@ public class AIAlgorithm {
             Collections.sort(newMoveList, (a, b)->Double.compare(b.getValue(), a.getValue()));
             allAvailableMoves = newMoveList;
         }
-        if(bestMove == null) bestMove = allAvailableMoves.get(0);
+        if(bestMove == null) {
+            numRep++;
+            bestMove = allAvailableMoves.get(numRep/3);
+        } else{
+            numRep = 0;
+        }
         System.out.println("Number of transpositions: " + trans.getSize());
         System.out.println("Number of evaluations: " + numEvaluations);
         System.out.println("Number of lookups: " + numLookups);
         visitStates.add(transKey);
-        if(visitStates.size()>3) visitStates.remove(0);
+        if(visitStates.size()>2) visitStates.remove(0);
         return bestMove;
     }
 
@@ -148,7 +154,7 @@ public class AIAlgorithm {
                                     score+=move.getEnd().getPiece().getValue()*0.5;
                                 }
                             }
-                            if(move.getEnd().getSpotType() == Spot.Type.TRAPRED && spot.getPiece().getValue()<5) score+=1;
+                            if(move.getEnd().getSpotType() == Spot.Type.TRAPRED && spot.getPiece().getValue()<5) score+=1+(0.1*spot.getPiece().getValue());
                             if(move.getEnd().getSpotType() == Spot.Type.TRAPYELLOW) score+=2;
                             if(move.getEnd().getSpotType() == Spot.Type.BASEYELLOW) score+=3;
                         }
@@ -157,8 +163,11 @@ public class AIAlgorithm {
                                 score += (spot.getX())*(spot.getPiece().getValue())*0.1;
                             }
                         }
-                        if(spot.getPiece().getAnimalPower() == 7 || spot.getPiece().getAnimalPower() == 6){
-                            score += spot.getX();
+                        if(spot.getPiece().getAnimalPower() == 7){
+                            score += spot.getX()*0.5;
+                        }
+                        if( spot.getPiece().getAnimalPower() == 6){
+                            score += spot.getX()*0.25;
                         }
                         score += (3 - Math.abs(3-spot.getY()))*spot.getPiece().getValue()*0.08;
                     } else {
@@ -171,7 +180,7 @@ public class AIAlgorithm {
                                     score-=move.getEnd().getPiece().getValue()*0.5;
                                 }
                             }
-                            if(move.getEnd().getSpotType() == Spot.Type.TRAPYELLOW) score-=1;
+                            if(move.getEnd().getSpotType() == Spot.Type.TRAPYELLOW) score-=0.5*spot.getPiece().getValue();
                             if(move.getEnd().getSpotType() == Spot.Type.TRAPRED) score-=2;
                             if(move.getEnd().getSpotType() == Spot.Type.BASERED) score-=3;
                             
@@ -181,8 +190,11 @@ public class AIAlgorithm {
                                 score -= (8-spot.getX())*(spot.getPiece().getValue())*0.1;
                             }
                         } 
-                        if(spot.getPiece().getAnimalPower() == 7 || spot.getPiece().getAnimalPower() == 6){
-                            score -= (8-spot.getX());
+                        if(spot.getPiece().getAnimalPower() == 7){
+                            score -= (8-spot.getX())*0.5;
+                        }
+                        if( spot.getPiece().getAnimalPower() == 6){
+                            score -= (8-spot.getX())*0.25;
                         }
                         score -= (3 - Math.abs(3-spot.getY()))*spot.getPiece().getValue()*0.08;
 
