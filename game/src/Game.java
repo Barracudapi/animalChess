@@ -238,7 +238,6 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
         }
     }
     public void reverseMove(){
-        playSound();
         moves = board.pgnToMoves(board.getPgn());
         board.reinitialize();
         for(int i = 0; i<moves.size()-1; i++){
@@ -277,5 +276,10 @@ public class Game extends JFrame implements ActionListener, BoardPanel.BoardChan
         }
 
         updateGame();
+    }
+
+    public void disposeGame(){
+        gameFrame.dispose();
+        dispose();
     }
 }

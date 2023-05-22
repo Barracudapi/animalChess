@@ -53,12 +53,13 @@ public class SidePanel extends JPanel {
         });
         add(actionButton, BorderLayout.NORTH);
 
-        actionButton = new JButton("Save Game");
-        actionButton.setBounds(10, 450, 180, 25);
+        actionButton = new JButton("Save");
+        actionButton.setBounds(10, 500, 85, 25);
         actionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFrame saveFrame = new JFrame("Save");
+                saveFrame.setUndecorated(true);
                 saveFrame.setLayout(new BorderLayout());
 
                 JPanel panel1 = new JPanel();
@@ -66,6 +67,7 @@ public class SidePanel extends JPanel {
                 JPanel panel3 = new JPanel();
 
                 JLabel label = new JLabel("Save game?");
+                label.setForeground(Color.white);
                 saveFrame.setLayout(new GridLayout(0, 1));
 
                 JTextField textField = new JTextField(20);
@@ -73,6 +75,9 @@ public class SidePanel extends JPanel {
                 panel3.add(textField, BorderLayout.CENTER);
 
                 panel1.add(label);
+                panel1.setBackground(new Color(90, 100, 100));
+                panel2.setBackground(new Color(90, 100, 100));
+                panel3.setBackground(new Color(90, 100, 100));
                 saveFrame.add(panel1, BorderLayout.NORTH);
                 saveFrame.add(panel3, BorderLayout.CENTER);
                 saveFrame.add(panel2, BorderLayout.SOUTH);
@@ -118,8 +123,8 @@ public class SidePanel extends JPanel {
         add(actionButton, BorderLayout.NORTH);
 
 
-        actionButton = new JButton("Load Game");
-        actionButton.setBounds(10, 500, 180, 25);
+        actionButton = new JButton("Load");
+        actionButton.setBounds(100, 500, 85, 25);
         actionButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e){
@@ -238,6 +243,19 @@ public class SidePanel extends JPanel {
             }
         });
         add(restartButton, BorderLayout.NORTH);
+
+        JButton backToMenu = new JButton("Menu");
+        backToMenu.setBounds(10, 450, 180, 25);
+        backToMenu.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                StartingPage page = new StartingPage();
+                page.setVisible(true);
+                game.disposeGame();
+            }
+        });
+        add(backToMenu);
+
 
         capturedPiecesPanel = new JPanel();
         capturedPiecesLabel = new JLabel("Captured Pieces:");
